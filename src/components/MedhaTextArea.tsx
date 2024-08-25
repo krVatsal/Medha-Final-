@@ -1,17 +1,48 @@
 import React from "react";
 
-function MedhaTextArea() {
+function MedhaTextArea({
+  qna,
+}: {
+  qna: { question: string; answer: string }[];
+}) {
   return (
-    <div>
-      <div>
-        <div className="bg-white bg-opacity-60 p-6 rounded-2xl shadow-lg">
-          <p>What does medhastand for</p>
-          <div className="bg-white p-4 rounded-lg shadow-lg w-fit">
-            <div className="grid grid-cols-4 gap-4 justify-items-center">
-              {/* Placeholder for Create Quiz */}
+    <div className="bg-white bg-opacity-60 p-6 rounded-2xl shadow-lg flex flex-col h-[60vh]">
+      <p className="font-bold text-lg mb-4">Medha AI</p>
+      <div className="bg-white pt-4 rounded-lg shadow-lg flex-grow flex flex-col overflow-hidden">
+        <div className="pl-8 pr-8 flex-grow overflow-y-auto">
+          {qna.map((item, index) => (
+            <div key={index} className="mb-4">
+              <div className="flex items-start mb-2">
+                <img
+                  src="/Chat_bubble.svg"
+                  alt="Placeholder"
+                  className="h-4 w-4 rounded-full mr-4"
+                />
+                <p className="text-sm font-semibold">{item.question}</p>
+              </div>
+              <div className="flex items-start mb-2">
+                <img
+                  src="/Chat_bubble.svg"
+                  alt="Placeholder"
+                  className="h-4 w-4 rounded-full mr-4"
+                />
+                <p className="text-sm">{item.answer}</p>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
+        <form className="mt-4 flex justify-center items-center space-x-4">
+          <textarea
+            className="w-[80%] p-4 rounded-full shadow-md border border-gray-300 h-12 mb-4 leading-[1rem]"
+            placeholder="Type your message here..."
+          ></textarea>
+          <button
+            type="submit"
+            className="h-12 w-24 bg-green-500 text-white rounded-full shadow-md mb-4 flex items-center justify-center"
+          >
+            Enter
+          </button>
+        </form>
       </div>
     </div>
   );
