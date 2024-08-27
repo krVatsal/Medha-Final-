@@ -1,5 +1,5 @@
 import React from "react";
-
+import Image from "next/image";
 function EnterClassroomArea() {
   return (
     <div className="bg-white bg-opacity-60 p-6 rounded-2xl shadow-lg">
@@ -31,7 +31,8 @@ function EnterClassroomArea() {
         </div>
         <div className="mt-4 flex space-x-4">
           <div className="flex-1 p-3 text-xs font-semibold bg-gray-100 rounded-lg shadow-sm flex items-center">
-            <img
+            <Image
+            width={32} height={32}
               src="/Remote_controller.svg"
               alt="Remote Controller"
               className="w-8 h-8 mr-2"
@@ -39,7 +40,8 @@ function EnterClassroomArea() {
             <div>Remote Controller</div>
           </div>
           <div className="flex-1 p-3 text-xs font-semibold bg-gray-100 rounded-lg shadow-sm flex items-center">
-            <img
+            <Image
+            width={32} height={32}
               src="/Drop_in_file.svg"
               alt="Drop in file"
               className="w-8 h-8 mr-2"
