@@ -38,7 +38,7 @@ const ExcalidrawWrapper: React.FC = () => {
       {Excalidraw && (
         <Excalidraw
           initialData={{
-            elementsg,
+            // elements,
             appState: {
               viewBackgroundColor: "#ffffff",
             },
