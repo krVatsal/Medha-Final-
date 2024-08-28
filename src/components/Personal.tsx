@@ -9,7 +9,7 @@ function Personal() {
         </div>
 
         <div>
-          <Image width={32} height={32} src="/bell.svg" alt="" />
+          <Image width={32} height={32} src="/Ellipse 21.svg" alt="" />
         </div>
 
         <div className="flex items-center justify-center text-gray-500 text-2xl">

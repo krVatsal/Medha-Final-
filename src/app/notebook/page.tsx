@@ -63,12 +63,14 @@ function Chatbot() {
         </div>
        
         <div className=" relative pt-16 pl-10">
+        <a href="#">
       <Image
-      width={32} height={32} alt=""
+      className="absolute pl-4 pt-5"
+      width={40} height={40} alt=""
       src="/Plus circle.svg"
     />
         {/* <img  className="absolute pl-4 pt-5" src="/Plus circle.svg" width={32} height={32} alt="" /> */}
-        <a href="#">
+       
         <button className="h-[65px] w-[267px] bg-white rounded-2xl font-bold">New Notebook</button>
         </a>
         </div>
@@ -77,22 +79,26 @@ function Chatbot() {
           All Notebooks
           <div className="flex">
           <div className=" relative pt-16 pl-10">
+          <a href="#">
       <Image
-      width={32} height={32} alt=""
+      className="absolute pl-4 pt-5"
+      width={40} height={40} alt=""
       src="/Book.svg"
     />
         {/* <img  className="absolute pl-4 pt-5" src="/Plus circle.svg" width={32} height={32} alt="" /> */}
-        <a href="#">
+        
         <button className="h-[65px] w-[267px] bg-white rounded-2xl font-bold">Notebook 1</button>
         </a>
         </div>
         <div className=" relative pt-16 pl-10">
+        <a href="#">
       <Image
-      width={32} height={32} alt=""
+      className="absolute pl-4 pt-5"
+      width={40} height={40} alt=""
       src="/Book.svg"
     />
         {/* <img  className="absolute pl-4 pt-5" src="/Plus circle.svg" width={32} height={32} alt="" /> */}
-        <a href="#">
+    
         <button className="h-[65px] w-[267px] bg-white rounded-2xl font-bold">Notebook 2</button>
         </a>
         </div>

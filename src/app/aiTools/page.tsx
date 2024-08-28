@@ -12,7 +12,8 @@ const page = () => {
         </div>
         <div className="flex items-center">
         <Image
-        width={32} height={32}
+        className="left-60 relative"
+        width={20} height={20}
       alt=""
       src="/Search.svg"
     />
