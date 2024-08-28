@@ -1,34 +1,50 @@
 "use client";
 import React from "react";
-import Excalidraw, {
-  convertToExcalidrawElements,
-  ExcalidrawProps,
-} from "@excalidraw/excalidraw";
+import dynamic from "next/dynamic";
 
-import "@excalidraw/excalidraw/index.css";
+// Dynamic import of Excalidraw with SSR disabled
+const Excalidraw = dynamic(() => import("@excalidraw/excalidraw").then(mod => mod.Excalidraw), { ssr: false });
 
 const ExcalidrawWrapper: React.FC = () => {
-  const elements = convertToExcalidrawElements([
+  const elements = [
     {
-      type: "rectangle",
       id: "rect-1",
+      type: "rectangle",
+      x: 100,
+      y: 100,
       width: 186.47265625,
       height: 141.9765625,
+      angle: 0,
+      strokeColor: "#000000",
+      backgroundColor: "#ffffff",
+      fillStyle: "hachure",
+      strokeWidth: 1,
+      strokeStyle: "solid",
+      roughness: 1,
+      opacity: 100,
+      groupIds: [],
+      strokeSharpness: "sharp",
+      seed: 1968408242,
+      version: 1,
+      versionNonce: 1234567890,
+      isDeleted: false,
+      boundElements: null,
+      updated: Date.now(),
     },
-  ]);
-
-  console.info(elements);
+  ];
 
   return (
     <div style={{ height: "500px", width: "500px" }}>
-      <Excalidraw
-        initialData={{
-          elements: elements,
-          appState: {
-            viewBackgroundColor: "#ffffff",
-          },
-        }}
-      />
+      {Excalidraw && (
+        <Excalidraw
+          initialData={{
+            elementsg,
+            appState: {
+              viewBackgroundColor: "#ffffff",
+            },
+          }}
+        />
+      )}
     </div>
   );
 };
