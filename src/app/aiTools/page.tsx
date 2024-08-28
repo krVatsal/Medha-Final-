@@ -12,7 +12,7 @@ const page = () => {
         </div>
         <div className="flex">
           <div className="align-middle">
-          <Image className="absolute right-56 top-1/4" width={24} height={24} alt="" src="/Search.svg" />
+          <Image className="absolute right-56 top-1/4" width={20} height={20} alt="" src="/Search.svg" />
           {/* <img className="relative z-10 left-60" src="/Search.svg" alt="" /> */}
           <input
             className="h-[40px] w-[255px] rounded-full placeholder-gray-900 pl-4 "

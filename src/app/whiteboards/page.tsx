@@ -16,7 +16,7 @@ const Page = () => {
             <Image
               className="absolute left-2"
               src="/Search.svg"
-              width={18}
+              width={20}
               height={20}
               alt=""
             />
