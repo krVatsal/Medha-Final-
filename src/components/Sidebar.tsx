@@ -3,7 +3,7 @@ import home from "../../public/home.svg";
 import Image from "next/image";
 function Sidebar() {
   return (
-    <div className="bg-white h-full border-r border-gray-200 flex flex-col">
+    <div className="bg-white h-full flex flex-col">
       <div className="flex-shrink-0 pt-10">
         <h2 className="text-xs font-semibold text-gray-500 mb-2 pl-4 ">
           OVERVIEW
@@ -58,7 +58,7 @@ function Sidebar() {
           </a>
         </nav>
       </div>
-      <div className="flex-shrink-0 p-4 border-t  border-gray-200">
+      <div className="flex-shrink-0 p-4">
         <h2 className="text-xs font-semibold text-gray-500 mb-3">SETTINGS</h2>
         <a
           href="upgrade"

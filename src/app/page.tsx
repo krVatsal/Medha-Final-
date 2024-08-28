@@ -4,11 +4,13 @@ import MyAppsArea from "@/components/MyAppsArea";
 
 export default function Home() {
   return (
-    <div className="p-8 space-y-6">
+    <div className="p-8 ">
       {/* Greeting Section */}
-      <div className="text-2xl font-bold">Good Morning Aditya!</div>
-      <div className="text-lg text-gray-500">
-        Let&apos;s make this day productive
+      <div className="space-y-1 mb-12">
+        <div className="text-[40px] font-bold">Good Morning Aditya!</div>
+        <div className="text-[20px] text-gray-500">
+          Let&apos;s make this day productive
+        </div>
       </div>
 
       {/* Main Content Section */}
