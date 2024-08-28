@@ -33,7 +33,7 @@ function Chatbot() {
     <div>
       <div className="p-8 ">
         {/* Greeting Section */}
-        <div className="flex justify-between gap-x-[620px]">
+        <div className="flex justify-between gap-x-[62px]">
           <div className="space-y-1 mb-12">
             <div className="text-[40px] font-bold">AI Chatbot</div>
             <div className="text-[20px] text-gray-500">
@@ -70,9 +70,10 @@ function Chatbot() {
         </div>
 
         <div className=" relative pt-8">
-          <Image width={32} height={32} alt="" src="/Plus circle.svg" />
+        <a href="#">
+          <Image className="absolute top-1/2 left-6" width={24} height={24} alt="" src="/Plus circle.svg" />
           {/* <img  className="absolute pl-4 pt-5" src="/Plus circle.svg" width={32} height={32} alt="" /> */}
-          <a href="#">
+         
             <button className="h-[65px] w-[267px] bg-white rounded-2xl font-bold">
               New Notebook
             </button>
@@ -83,16 +84,17 @@ function Chatbot() {
           All Notebooks
           <div className="flex gap-8">
             <div className=" relative pt-8">
-              <Image width={32} height={32} alt="" src="/Book.svg" />
+            <a href="#">
+              <Image className="absolute top-[50px] left-6" width={24} height={24} alt="" src="/Book.svg" />
               {/* <img  className="absolute pl-4 pt-5" src="/Plus circle.svg" width={32} height={32} alt="" /> */}
-              <a href="#">
+             
                 <button className="h-[65px] w-[267px] bg-white rounded-2xl font-bold">
                   Notebook 1
                 </button>
               </a>
             </div>
             <div className=" relative pt-8">
-              <Image width={32} height={32} alt="" src="/Book.svg" />
+              <Image className="absolute top-[50px] left-6" width={24} height={24} alt="" src="/Book.svg" />
               {/* <img  className="absolute pl-4 pt-5" src="/Plus circle.svg" width={32} height={32} alt="" /> */}
               <a href="#">
                 <button className="h-[65px] w-[267px] bg-white rounded-2xl font-bold">
