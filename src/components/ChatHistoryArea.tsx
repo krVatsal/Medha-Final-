@@ -1,8 +1,8 @@
 function ChatHistoryArea({ questions }: { questions: string[] }) {
   return (
-    <div className="bg-white bg-opacity-60 p-6 rounded-2xl shadow-lg flex flex-col h-[60vh]">
+    <div className="bg-white bg-opacity-60 p-6 rounded-3xl flex flex-col h-[60vh]">
       <p className="font-bold text-lg mb-4">Chat History</p>
-      <div className="bg-white pt-4 rounded-lg shadow-lg flex-grow flex flex-col overflow-hidden">
+      <div className="bg-white pt-4 rounded-xl flex-grow flex flex-col overflow-hidden">
         <div className="flex flex-col pt-2 pl-8">
           <button className="bg-gray-200 bg-opacity-60 rounded-xl h-8 w-32 mb-4">
             + New Chat

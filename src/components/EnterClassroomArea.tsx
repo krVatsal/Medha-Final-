@@ -2,12 +2,12 @@ import React from "react";
 import Image from "next/image";
 function EnterClassroomArea() {
   return (
-    <div className="bg-white bg-opacity-60 p-6 rounded-2xl shadow-lg">
+    <div className="bg-white bg-opacity-60 p-6 rounded-3xl">
       <div className="flex flex-col mb-4">
         <div className="text-lg font-bold">Classroom</div>
         <div className="text-xs text-gray-500">Connect to a Classroom</div>
       </div>
-      <div className="p-4 bg-white rounded-xl shadow-sm">
+      <div className="p-4 bg-white rounded-xl ">
         <div className="grid grid-cols-1 gap-4">
           <form className="flex flex-col space-y-2">
             <label htmlFor="classroom-id" className="font-medium text-sm">
@@ -30,7 +30,7 @@ function EnterClassroomArea() {
           </form>
         </div>
         <div className="mt-4 flex space-x-4">
-          <div className="flex-1 p-3 text-xs font-semibold bg-gray-100 rounded-lg shadow-sm flex items-center">
+          <div className="flex-1 p-3 text-xs font-semibold bg-gray-100 rounded-lg flex items-center">
             <Image
             width={32} height={32}
               src="/Remote_controller.svg"
@@ -39,7 +39,7 @@ function EnterClassroomArea() {
             />
             <div>Remote Controller</div>
           </div>
-          <div className="flex-1 p-3 text-xs font-semibold bg-gray-100 rounded-lg shadow-sm flex items-center">
+          <div className="flex-1 p-3 text-xs font-semibold bg-gray-100 rounded-lg flex items-center">
             <Image
             width={32} height={32}
               src="/Drop_in_file.svg"

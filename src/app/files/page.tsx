@@ -1,32 +1,40 @@
 import React from "react";
 import Image from "next/image";
-const page = () => {
+
+const Page = () => {
   return (
     <div>
       <div className="flex justify-between p-8">
         <div className="space-y-1 mb-12">
-          <h1 className=" text-black text-[40px] font-bold">Files</h1>
-          <div className=" text-[#696969] text-[20px]">
-            Manage all the files
-          </div>
+          <h1 className="text-black text-[40px] font-bold">Files</h1>
+          <div className="text-[#696969] text-[20px]">Manage all the files</div>
         </div>
-        <div className="flex ">
-          <Image className="absolute pt-3 right-[335px]" width={18} height={20} alt="" src="/Search.svg" />
-          {/* <img className="relative z-10 left-48" src="/Search.svg" width={32} height={32} alt="" /> */}
-          <input
-            className="h-[40px] w-[215px] rounded-full placeholder-gray-900 pl-4 "
-            type="text"
-            placeholder="Search"
-            style={{ textAlign: "left", color: "black" }}
-          />
+        <div className="flex items-center mb-20">
+        <div className="relative flex items-center justify-center">
+            <Image
+              className="absolute left-44"
+              src="/Search.svg"
+              width={20}
+              height={18}
+              alt=""
+            />
+            <input
+              className="h-[40px] w-[215px] rounded-full placeholder-gray-900 pl-4"
+              type="text"
+              placeholder="Search"
+              style={{ textAlign: "left"}}
+            />
+          </div>
 
-          <select className="h-[40px] w-[156px] rounded-full ml-4 pl-4 placeholder-gray-900">
-            <option value="" disabled selected>
-              Last Modified
-            </option>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-          </select>
+          <select className="h-[40px] w-[156px] rounded-full ml-4 pl-4 placeholder-gray-900 cursor-pointer">
+  <option value="" disabled selected>
+    Last Modified
+  </option>
+  <option value="option1">Option 1</option>
+  <option value="option2">Option 2</option>
+</select>
+
+
           <select className="h-[40px] w-[106px] rounded-full ml-4 pl-4 placeholder-gray-900 cursor-pointer">
             <option value="" disabled selected>
               All Files
@@ -36,12 +44,18 @@ const page = () => {
           </select>
         </div>
       </div>
-      <div className=" relative pt-16 pl-10">
-        <Image className="absolute pt-5 left-[65px]" width={24} height={24} alt="" src="/Plus circle.svg" />
-        {/* <img  className="absolute pl-4 pt-5" src="/Plus circle.svg" width={32} height={32} alt="" /> */}
+
+      <div className="relative pt-8 pl-10">
         <a href="#">
-          <button className="h-[65px] w-[267px] bg-white rounded-2xl font-bold">
-            Upload a new file
+          <Image
+            className="absolute left-16 bottom-6"
+            width={22}
+            height={22}
+            src="/Plus circle.svg"
+            alt=""
+          />
+          <button className="h-[65px] w-[240px] bg-white rounded-2xl font-bold">
+            Upload a new File
           </button>
         </a>
       </div>
@@ -49,4 +63,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

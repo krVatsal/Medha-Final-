@@ -5,11 +5,11 @@ function Personal() {
     <div>
       <div className="flex items-center gap-4">
         <div>
-          <Image width={32} height={32} src="/bell.svg" alt="" />
+          <Image width={40} height={40} src="/bell.svg" alt="" />
         </div>
 
         <div>
-          <Image width={32} height={32} src="/Ellipse 21.svg" alt="" />
+          <Image width={40} height={40} src="/Ellipse 21.svg" alt="" />
         </div>
 
         <div className="flex items-center justify-center w-[1px] h-[30px] bg-[#B3B4B9]"></div>
@@ -22,9 +22,9 @@ function Personal() {
             alt=""
           />
           {/* <span className="w-12 h-12 bg-black rounded-full block mr-2"></span> */}
-          <div className="flex flex-col">
+          <div className="flex flex-col pl-2">
             <div className="text-black text-base font-bold">Your Name</div>
-            <div className="text-xs text-gray-800">Your role</div>
+            <div className="text-xs text-gray-800 pl-1/2">Your role</div>
           </div>
         </div>
       </div>
