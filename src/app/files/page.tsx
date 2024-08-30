@@ -4,7 +4,7 @@ import Image from "next/image";
 const Page = () => {
   return (
     <div>
-      <div className="flex justify-between p-8">
+      <div className="flex justify-between p-10">
         <div className="space-y-1 mb-12">
           <h1 className="text-black text-[40px] font-bold">Files</h1>
           <div className="text-[#696969] text-[20px]">Manage all the files</div>

@@ -2,8 +2,10 @@ import React from "react";
 
 function MedhaTextArea({
   qna,
+  onSubmit
 }: {
   qna: { question: string; answer: string }[];
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }) {
   return (
     <div className="bg-white bg-opacity-60 p-6 rounded-2xl flex flex-col h-[60vh]">
@@ -31,7 +33,7 @@ function MedhaTextArea({
             </div>
           ))}
         </div>
-        <form className="mt-4 flex justify-center items-center space-x-4">
+        <form onSubmit={onSubmit} className="mt-4 flex justify-center items-center space-x-4">
           <textarea
             className="w-[80%] p-4 rounded-full border border-gray-300 h-12 mb-4 leading-[1rem]"
             placeholder="Type your message here..."

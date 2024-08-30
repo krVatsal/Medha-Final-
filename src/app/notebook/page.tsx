@@ -31,7 +31,7 @@ function Chatbot() {
 
   return (
     <div>
-      <div className="p-8 ">
+      <div className="p-10 ">
         {/* Greeting Section */}
         <div className="flex justify-between gap-x-[62px]">
           <div className="space-y-1 mb-12 pl-2">

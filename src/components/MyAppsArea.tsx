@@ -2,15 +2,15 @@ import React from "react";
 import Image from "next/image";
 function MyAppsArea() {
   return (
-    <div className="bg-white bg-opacity-60 p-8 rounded-3xl">
+    <div className="bg-white bg-opacity-60 p-8 rounded-3xl h-[100%]">
       <div className="flex flex-col mb-4">
         <div className="text-lg font-bold">My Apps</div>
         <div className="text-xs text-gray-500">
           Explore the variety of useful apps
         </div>
       </div>
-      <div className="bg-white p-4 rounded-2xl  w-fit">
-        <div className="grid grid-cols-4 gap-4 justify-items-center">
+      <div className="bg-white p-4 rounded-2xl pb-16 w-fit">
+        <div className="grid grid-cols-4 gap-4 justify-center items-center">
           {/* Placeholder for Create Quiz */}
           <div className="flex flex-col items-center space-y-1">
             <Image width={32} height={32} alt="" src="/Create_quiz.svg" className="w-16 h-16" />

@@ -4,7 +4,7 @@ import Image from "next/image";
 const Page = () => {
   return (
     <div>
-      <div className="flex justify-between items-center p-8">
+      <div className="flex justify-between items-center p-10">
         {/* Left section with title and description */}
         <div>
           <div className="text-black text-[40px] font-bold">AI Tools</div>
