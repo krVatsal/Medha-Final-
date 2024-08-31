@@ -13,6 +13,7 @@ function Chatbot() {
     { question: "What is Medha?", answer: "Medha is an AI Chatbot" },
   ]);
   const [activeButton, setActiveButton] = useState("chat");
+  const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
 
@@ -33,29 +34,26 @@ function Chatbot() {
     const message = textarea.value.trim();
 
     if (message) {
-      // Add user's question to the chat
       setQna(prevQna => [...prevQna, { question: message, answer: "" }]);
       setQuestionsHistory(prevHistory => [...prevHistory, message]);
-
-      // Clear the textarea
       textarea.value = "";
 
       try {
         const response = await sendTextToVoiceflow(message);
-        // Update the last QnA item with the AI's response
         setQna(prevQna => {
           const newQna = [...prevQna];
           newQna[newQna.length - 1].answer = response;
           return newQna;
         });
+        setError(null);
       } catch (error) {
-        console.error("Error getting response from Voiceflow:", error);
-        // Update the last QnA item with an error message
+        console.error("Error getting response:", error);
         setQna(prevQna => {
           const newQna = [...prevQna];
           newQna[newQna.length - 1].answer = "Sorry, there was an error processing your request.";
           return newQna;
         });
+        setError(`Error: ${error instanceof Error ? error.message : String(error)}`);
       }
     }
   };
@@ -66,23 +64,27 @@ function Chatbot() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // Add this line to include credentials (cookies, HTTP authentication) with the request
-          "credentials": "include",
         },
         body: JSON.stringify({ text }),
       });
-
+  
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
+  
       const responseData = await response.json();
       return responseData[1]?.payload?.message || "Sorry, I didn't understand that.";
     } catch (error) {
-      console.error("Error in sendTextToVoiceflow:", error);
-      throw error; // Re-throw the error to be caught in handleSubmit
+      if (error instanceof TypeError && error.message.includes("NetworkError")) {
+        console.error("Network error occurred:", error);
+        throw new Error("Network error: Please check your internet connection.");
+      } else {
+        console.error("Error in sendTextToVoiceflow:", error);
+        throw error;
+      }
     }
   }
+  
 
   return (
     <div className="p-8">
@@ -119,6 +121,7 @@ function Chatbot() {
         </div>
         <div className="col-span-2">
           <MedhaTextArea qna={qna} onSubmit={handleSubmit} />
+          {error && <div className="text-red-500 mt-2">{error}</div>}
         </div>
       </div>
     </div>

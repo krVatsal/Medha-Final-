@@ -16,7 +16,7 @@ function MedhaTextArea({
             <div key={index} className="mb-4">
               <div className="flex items-start mb-2">
                 <img
-                  src="/Chat_bubble.svg"
+                  src="./Chat_bubble.svg"
                   alt="Placeholder"
                   className="h-4 w-4 rounded-full mr-4"
                 />
@@ -24,7 +24,7 @@ function MedhaTextArea({
               </div>
               <div className="flex items-start mb-2">
                 <img
-                  src="/Chat_bubble.svg"
+                  src="./Chat_bubble.svg"
                   alt="Placeholder"
                   className="h-4 w-4 rounded-full mr-4"
                 />
