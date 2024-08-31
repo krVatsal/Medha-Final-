@@ -1,15 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: "/voiceflow",
-        destination: "http://localhost:3001/voiceflow",
-      },
-    ];
-  },
+  // Remove the rewrites section as it's no longer needed
   experimental: {
-    // serverActions: true,
     serverComponentsExternalPackages: ["mongoose"],
   },
 };
