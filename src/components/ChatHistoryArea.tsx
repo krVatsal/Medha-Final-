@@ -1,4 +1,11 @@
 function ChatHistoryArea({ questions }: { questions: string[] }) {
+  const truncateText = (text: string, maxLength: number) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.substring(0, maxLength) + "...";
+  };
+
   return (
     <div className="bg-white bg-opacity-60 p-6 rounded-3xl flex flex-col h-[60vh]">
       <p className="font-bold text-lg mb-4">Chat History</p>
@@ -11,13 +18,18 @@ function ChatHistoryArea({ questions }: { questions: string[] }) {
         </div>
         <div className="pl-8 flex-grow overflow-y-auto">
           {questions.map((question, index) => (
-            <button key={index} className="flex items-center mb-2">
+            <button
+              key={index}
+              className="flex items-center mb-2 w-full text-left"
+            >
               <img
                 src="/Chat_bubble.svg"
                 alt="Placeholder"
                 className="h-4 w-4 rounded-full mr-4"
               />
-              <p className="text-sm">{question}</p>
+              <p className="text-sm flex-grow truncate">
+                {truncateText(question, 30)}
+              </p>
             </button>
           ))}
         </div>
