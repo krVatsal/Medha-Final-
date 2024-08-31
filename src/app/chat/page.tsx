@@ -22,7 +22,7 @@ function Chatbot() {
 
   const fetchInitialMessage = async () => {
     try {
-      const response = await fetch("http://localhost:3001/voiceflow", {
+      const response = await fetch("/api/voiceflow", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +104,7 @@ function Chatbot() {
 
   async function sendTextToVoiceflow(text: string): Promise<string> {
     try {
-      const response = await fetch("http://localhost:3001/voiceflow", {
+      const response = await fetch("/api/voiceflow", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

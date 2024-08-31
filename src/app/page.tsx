@@ -28,7 +28,9 @@ export default function Home() {
                 alt="Create Assignment"
                 className="mb-2" // Margin bottom to create space between image and text
               />
-              <div className="flex-grow flex items-end text-center">Create Assignment</div>
+              <div className="flex-grow flex items-end text-center">
+                Create Assignment
+              </div>
             </div>
             <div className="bg-white p-4 text-base font-bold rounded-lg -sm text-center flex flex-col items-center">
               <Image
@@ -38,7 +40,9 @@ export default function Home() {
                 alt="Create Lesson"
                 className="mb-2" // Margin bottom to create space between image and text
               />
-              <div className="flex-grow flex items-end text-center">Create lesson</div>
+              <div className="flex-grow flex items-end text-center">
+                Create lesson
+              </div>
             </div>
             <div className="bg-white p-4 text-base font-bold rounded-lg -sm text-center flex flex-col items-center">
               <Image
@@ -48,7 +52,9 @@ export default function Home() {
                 alt="Create Homework"
                 className="mb-2" // Margin bottom to create space between image and text
               />
-              <div className="flex-grow flex items-end text-center">Create homework</div>
+              <div className="flex-grow flex items-end text-center">
+                Create homework
+              </div>
             </div>
           </div>
         </div>
