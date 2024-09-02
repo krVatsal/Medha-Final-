@@ -13,7 +13,39 @@ function MedhaTextArea({
 }) {
   return (
     <div className="bg-white bg-opacity-60 p-6 rounded-2xl flex flex-col h-[60vh]">
+      <div className="flex self-center align-middle">
       <p className="font-bold text-lg mb-4">Medha AI</p>
+      <div className="flex align-middle">
+      <select className="h-[40px] w-[136px] rounded-full ml-4 pl-4">
+            <option value="" disabled selected>
+              Assignments
+            </option>
+            <option value="option1">Topic Wise Assessment</option>
+            <option value="option2">Exam Form</option>
+          </select>
+          <select className="h-[40px] w-[96px] rounded-full ml-4 pl-4">
+            <option value="" disabled selected>
+              Class
+            </option>
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+          </select>
+          <select className="h-[40px] w-[108px] rounded-full ml-4 pl-4">
+            <option value="" disabled selected>
+              Subject
+            </option>
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+          </select>
+          <select className="h-[40px] w-[120px] rounded-full ml-4 pl-4">
+            <option value="" disabled selected>
+              Language
+            </option>
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+          </select>
+      </div>
+      </div>
       <div className="bg-white pt-4 rounded-lg flex-grow flex flex-col overflow-hidden">
         <div className="pl-8 pr-8 flex-grow overflow-y-auto">
           {initialResponse && (
