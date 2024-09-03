@@ -34,11 +34,11 @@ function ChatHistoryArea({ questions }: { questions: string[] }) {
           ))}
         </div>
       </div>
-      <div className="flex pt-4">
-      <button className="bg-gray-200 bg-opacity-60 rounded-full h-[40px] w-32 mb-4">
+      <div className="flex pt-2">
+      <button className="bg-gray-200 bg-opacity-60 rounded-full h-[40px] w-32 ">
             Learn
           </button>
-      <button className="bg-gray-200 bg-opacity-60 rounded-full h-[40px] w-32 mb-4">
+      <button className="bg-gray-200 bg-opacity-60 rounded-full h-[40px] w-32">
             Teach
           </button>
         
