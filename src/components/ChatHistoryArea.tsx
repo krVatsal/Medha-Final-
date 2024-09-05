@@ -1,3 +1,4 @@
+import Image from "next/image";
 function ChatHistoryArea({ questions }: { questions: string[] }) {
   const truncateText = (text: string, maxLength: number) => {
     if (text.length <= maxLength) {
@@ -22,10 +23,12 @@ function ChatHistoryArea({ questions }: { questions: string[] }) {
               key={index}
               className="flex items-center mb-2 w-full text-left"
             >
-              <img
+              <Image
                 src="/Chat_bubble.svg"
                 alt="Placeholder"
                 className="h-4 w-4 rounded-full mr-4"
+                width={20}
+                height={20}
               />
               <p className="text-sm flex-grow truncate">
                 {truncateText(question, 30)}

@@ -70,14 +70,12 @@ const Assessment = () => {
              <span className="mb-4">{q.question}</span>
             <div className="grid grid-cols-2 gap-4 mb-4 mt-4">
               {q.options.map((option, index) => (
-                <div>
-                  
-                <button
-                  key={index}
-                  className=" w-full h-[35px] text-left pl-4 bg-gray-300 rounded-lg"
-                >
-                  {option}
-                </button>
+                <div key={index}> {/* Add the key prop here */}
+                  <button
+                    className=" w-full h-[35px] text-left pl-4 bg-gray-300 rounded-lg"
+                  >
+                    {option}
+                  </button>
                 </div>
               ))}
               <button
