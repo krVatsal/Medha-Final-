@@ -118,7 +118,13 @@ function ChatbotWithMCQ() {
       }
     }
   }
-
+  interface SubjectiveProps {
+    onSubmit: (selectedOption: string) => Promise<void>;
+    initialResponse: string | null;
+    loading: boolean;
+  }
+  
+  const Subjective: React.FC<SubjectiveProps> = ({ onSubmit, initialResponse, loading }) => {
   return (
     <div className="p-8">
       <div className="flex justify-between gap-x-[62px] mb-12">
@@ -166,5 +172,5 @@ function ChatbotWithMCQ() {
     </div>
   );
 }
-
+}
 export default ChatbotWithMCQ;
