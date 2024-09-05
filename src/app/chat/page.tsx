@@ -57,13 +57,10 @@ function Chatbot() {
     }
   };
 
-  const handleSubmit = async (e: {
-    preventDefault: () => void;
-    currentTarget: any;
-  }) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const textarea = form.querySelector("textarea");
+    const textarea:any = form.querySelector("textarea");
     const message = textarea.value.trim();
 
     if (message) {
@@ -81,6 +78,14 @@ function Chatbot() {
           return newQna;
         });
         setError(null);
+
+        // Determine the type of response and route accordingly
+        if (response.toLowerCase().includes("mcq")) {
+          router.push("/chat/mcq");
+        } else {
+          router.push("/chat/subjective");
+        }
+
       } catch (error) {
         console.error("Error getting response:", error);
         setQna((prevQna) => {

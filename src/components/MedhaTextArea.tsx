@@ -102,7 +102,7 @@ function MedhaTextArea({
               <option value="30">30</option>
             </select>
           </div>
-          <button className="h-12 w-24 bg-red-600 text-white rounded-full">
+          <button className="h-12 w-24 bg-[#5D233C] text-white rounded-full">
             Submit
           </button>
         </div>
@@ -180,7 +180,7 @@ function MedhaTextArea({
           <button className="h-12 w-40 bg-blue-600 text-white rounded-full">
             Save Selections
           </button>
-          <button className="h-12 w-24 bg-red-600 text-white rounded-full">
+          <button className="h-12 w-24 bg-[#5D233C] text-white rounded-full">
             Submit
           </button>
         </div>
