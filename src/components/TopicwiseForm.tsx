@@ -1,40 +1,71 @@
-import React, { useState, useEffect } from "react";
+"use client";
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+
+// Define the structure of the class data
+interface ChapterObject {
+  [chapterName: string]: string[]; // chapterName maps to an array of topics
+}
+
+interface SubjectObject {
+  [subjectName: string]: ChapterObject[]; // subjectName maps to an array of chapter objects
+}
+
+interface ClassData {
+  [className: string]: SubjectObject; // className maps to an object of subjects
+}
 
 export default function TopicWiseForm() {
-  const [classData, setClassData] = useState({});
-  const [selectedClass, setSelectedClass] = useState("");
-  const [selectedSubject, setSelectedSubject] = useState("");
-  const [selectedChapter, setSelectedChapter] = useState("");
-  const [selectedTopic, setSelectedTopic] = useState("");
-  const [selectedLevel, setSelectedLevel] = useState("");
-  const [selectedType, setSelectedType] = useState("");
-  const [totalQuestion, setTotalQuestion] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [classData, setClassData] = useState<ClassData>({});
+  const [selectedClass, setSelectedClass] = useState<string>("");
+  const [selectedSubject, setSelectedSubject] = useState<string>("");
+  const [selectedChapter, setSelectedChapter] = useState<string>("");
+  const [selectedTopic, setSelectedTopic] = useState<string>("");
+  const [selectedLevel, setSelectedLevel] = useState<string>("");
+  const [selectedType, setSelectedType] = useState<string>("");
+  const [totalQuestion, setTotalQuestion] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     fetchClassData();
   }, []);
 
-  const fetchClassData = async () => {
+  const fetchClassData = async (): Promise<void> => {
     try {
       const response = await fetch("https://game.simplem.in/api/class-data");
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const data = await response.json();
+      const data: ClassData = await response.json();
       setClassData(data);
     } catch (error) {
       console.error("Error fetching class data:", error);
     }
   };
 
-  const handleChange = (e, setter) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLSelectElement>,
+    setter: React.Dispatch<React.SetStateAction<string>>
+  ): void => {
     setter(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setIsLoading(true);
+
+    if (
+      !selectedClass ||
+      !selectedSubject ||
+      !selectedChapter ||
+      !selectedTopic ||
+      !selectedLevel ||
+      !selectedType ||
+      !totalQuestion
+    ) {
+      alert("Please fill in all fields.");
+      setIsLoading(false);
+      return;
+    }
 
     const payload = {
       class: selectedClass,
@@ -59,60 +90,53 @@ export default function TopicWiseForm() {
       );
 
       const responseData = await response.json();
-      // Placeholder for redirection logic. Use next/router when you're ready.
       console.log("Form submitted successfully:", responseData);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error submitting form:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const renderOptions = (options) => {
-    return Object.keys(options).map((option) => (
+  const renderOptions = (options: Record<string, any>): JSX.Element[] => {
+    return Object.keys(options || {}).map((option) => (
       <option key={option} value={option}>
         {option}
       </option>
     ));
   };
 
-  const renderSubjects = () => {
+  const renderSubjects = (): JSX.Element[] | null => {
     if (!selectedClass) return null;
-    return renderOptions(classData[selectedClass]);
+    return renderOptions(classData?.[selectedClass]);
   };
 
-  const renderChapters = () => {
+  const renderChapters = (): JSX.Element[] | null => {
     if (!selectedClass || !selectedSubject) return null;
-    const subjects = classData[selectedClass];
-    const subjectData = subjects[selectedSubject];
+    const subjects = classData?.[selectedClass];
+    const subjectData = subjects?.[selectedSubject];
     if (!subjectData) return null;
 
     return subjectData.map((chapterObject, index) => {
-      const chapterName = Object.keys(chapterObject)[0];
+      const chapterName = Object.keys(chapterObject)?.[0];
       return (
-        <option key={index} value={chapterName}>
+        <option key={chapterName} value={chapterName}>
           {chapterName}
         </option>
       );
     });
   };
 
-  const renderTopics = () => {
+  const renderTopics = (): JSX.Element[] | null => {
     if (!selectedClass || !selectedSubject || !selectedChapter) return null;
 
-    const subjects = classData[selectedClass];
-    if (!subjects) return null;
-
-    const subjectData = subjects[selectedSubject];
-    if (!subjectData) return null;
-
-    const chapterObject = subjectData.find(
-      (chapterObj) => Object.keys(chapterObj)[0] === selectedChapter
+    const subjects = classData?.[selectedClass];
+    const subjectData = subjects?.[selectedSubject];
+    const chapterObject = subjectData?.find(
+      (chapterObj) => Object.keys(chapterObj)?.[0] === selectedChapter
     );
-    if (!chapterObject) return null;
-
-    const topics = chapterObject[selectedChapter];
-    if (!topics || !Array.isArray(topics)) return null;
+    const topics = chapterObject?.[selectedChapter];
+    if (!Array.isArray(topics)) return null;
 
     return topics.map((topic, index) => (
       <option key={index} value={topic}>
@@ -134,11 +158,7 @@ export default function TopicWiseForm() {
             <option value="" disabled>
               Select Class
             </option>
-            {Object.keys(classData).map((className) => (
-              <option key={className} value={className}>
-                {className}
-              </option>
-            ))}
+            {renderOptions(classData)}
           </select>
           <select
             className="h-[31px] w-full rounded-full pl-4"
@@ -179,7 +199,7 @@ export default function TopicWiseForm() {
             onChange={(e) => handleChange(e, setSelectedLevel)}
           >
             <option value="" disabled>
-              Select Hardness level
+              Select Hardness Level
             </option>
             <option value="Easy">Easy</option>
             <option value="Medium">Medium</option>
