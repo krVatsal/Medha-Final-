@@ -52,7 +52,7 @@ const Assessment = () => {
   const handleShowAnswer = () => {
     setShowAnswer(true);
   };
-  const MCQSection: React.FC<MCQSectionProps> = ({ onSubmit, initialResponse, loading }) => {
+  // const MCQSection: React.FC<MCQSectionProps> = ({ onSubmit, initialResponse, loading }) => {
   return (
     <div className="bg-white bg-opacity-60 p-6 rounded-2xl flex flex-col h-[60vh] overflow-scroll">
       <h2 className="text-lg font-bold mb-4">Assessment</h2>
@@ -102,6 +102,6 @@ const Assessment = () => {
     </div>
   );
 }
-};
+// };
 
 export default Assessment;

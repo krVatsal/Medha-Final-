@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ChatHistoryArea from "@/components/ChatHistoryArea";
-import MCQSection from "@/components/MCQ"; // Import the MCQSection component
+import Assessment from "@/components/MCQ";// Import the MCQSection component
 
 function ChatbotWithMCQ() {
   const [questionsHistory, setQuestionsHistory] = useState([
@@ -118,12 +118,12 @@ function ChatbotWithMCQ() {
       }
     }
   }
-  interface MCQSectionProps {
+  interface AssesmentProps {
     onSubmit: (selectedOption: string) => Promise<void>;
     initialResponse: string | null;
     loading: boolean;
   }
-  const MCQSection: React.FC<MCQSectionProps> = ({ onSubmit, initialResponse, loading }) => {
+  // const AssessmentProp: React.FC<AssesmentProps> = ({ onSubmit, initialResponse, loading }) => {
   return (
     <div className="p-8">
       <div className="flex justify-between gap-x-[62px] mb-12">
@@ -160,7 +160,7 @@ function ChatbotWithMCQ() {
           <ChatHistoryArea questions={questionsHistory} />
         </div>
         <div className="col-span-2">
-          <MCQSection
+          <Assessment
             onSubmit={handleMCQSubmit}
             initialResponse={initialResponse}
             loading={loading}
@@ -170,6 +170,6 @@ function ChatbotWithMCQ() {
       </div>
     </div>
   );
-}}
+}
 
 export default ChatbotWithMCQ;
