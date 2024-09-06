@@ -1,10 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import ChatHistoryArea from "@/components/ChatHistoryArea";
 import MedhaTextArea from "@/components/MedhaTextArea";
 
 function Chatbot() {
+  const searchParams = useSearchParams();
+  const data = searchParams.get("data");
   const [questionsHistory, setQuestionsHistory] = useState([
     "What is Medha?",
     "What is Nostavia?",
@@ -60,7 +62,7 @@ function Chatbot() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const textarea:any = form.querySelector("textarea");
+    const textarea: any = form.querySelector("textarea");
     const message = textarea.value.trim();
 
     if (message) {
@@ -85,7 +87,6 @@ function Chatbot() {
         } else {
           router.push("/chat/subjective");
         }
-
       } catch (error) {
         console.error("Error getting response:", error);
         setQna((prevQna) => {

@@ -1,7 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Remove the rewrites section as it's no longer needed
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "https://game.simplem.in/:path*",
+      },
+    ];
+  },
   experimental: {
+    serverActions: true,
     serverComponentsExternalPackages: ["mongoose"],
   },
 };

@@ -1,10 +1,27 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ChatHistoryArea from "@/components/ChatHistoryArea";
-import Assessment from "@/components/MCQ";// Import the MCQSection component
+import Assessment from "@/components/MCQ"; // Import the MCQSection component
+import { useSearchParams } from "next/navigation";
 
 function ChatbotWithMCQ() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const encodedData = searchParams?.get("data") as string;
+  var decodedData: Object = {};
+
+  try {
+    if (encodedData) {
+      decodedData = JSON.parse(decodeURIComponent(encodedData));
+      console.log("Decoded Data:", decodedData);
+      // Your logic with the decoded data here
+    } else {
+      console.log("No data found in URL parameters");
+    }
+  } catch (error) {
+    console.error("Error decoding or parsing data:", error);
+  }
   const [questionsHistory, setQuestionsHistory] = useState([
     "What is Medha?",
     "What is Nostavia?",
@@ -14,7 +31,6 @@ function ChatbotWithMCQ() {
   const [activeButton, setActiveButton] = useState("chat");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     fetchInitialMessage();
@@ -160,11 +176,7 @@ function ChatbotWithMCQ() {
           <ChatHistoryArea questions={questionsHistory} />
         </div>
         <div className="col-span-2">
-          <Assessment
-            onSubmit={handleMCQSubmit}
-            initialResponse={initialResponse}
-            loading={loading}
-          />
+          <Assessment data={decodedData} />
           {error && <div className="text-red-500 mt-2">{error}</div>}
         </div>
       </div>

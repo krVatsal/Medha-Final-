@@ -70,54 +70,54 @@ function Chatbot() {
         </div>
 
         <div className="relative pt-4 pl-2">
-      <a href="/whiteboard">
-        <Image
-          className="absolute left-8 bottom-6 "
-          width={22}
-          height={22}
-          src="/Plus circle.svg"
-          alt=""
-        />
-        
-          <button className="h-[65px] w-[240px] bg-white rounded-2xl font-bold">
-            New Notebook
-          </button>
-        </a>
-      </div>
+          <a href="/whiteboard">
+            <Image
+              className="absolute left-8 bottom-6 "
+              width={22}
+              height={22}
+              src="/Plus circle.svg"
+              alt=""
+            />
+
+            <button className="h-[65px] w-[240px] bg-white rounded-2xl font-bold">
+              New Notebook
+            </button>
+          </a>
+        </div>
 
         <div className=" pt-8">
           All Notebooks
           <div className="flex gap-6">
-          <div className="relative pt-16 pl-4">
-      <a href="/whiteboard">
-        <Image
-          className="absolute left-8 bottom-6 "
-          width={22}
-          height={22}
-          src="/Book.svg"
-          alt=""
-        />
-        
-          <button className="h-[65px] w-[240px] bg-white rounded-2xl font-bold">
-            Notebook 1
-          </button>
-        </a>
-      </div>
-      <div className="relative pt-16 pl-10">
-      <a href="/whiteboard">
-        <Image
-          className="absolute left-16 bottom-6 "
-          width={22}
-          height={22}
-          src="/Book.svg"
-          alt=""
-        />
-        
-          <button className=" h-[65px] w-[240px] bg-white rounded-2xl font-bold">
-            Notebook 2
-          </button>
-        </a>
-      </div>
+            <div className="relative pt-16 pl-4">
+              <a href="/whiteboard">
+                <Image
+                  className="absolute left-8 bottom-6 "
+                  width={22}
+                  height={22}
+                  src="/Book.svg"
+                  alt=""
+                />
+
+                <button className="h-[65px] w-[240px] bg-white rounded-2xl font-bold">
+                  Notebook 1
+                </button>
+              </a>
+            </div>
+            <div className="relative pt-16 pl-10">
+              <a href="/whiteboard">
+                <Image
+                  className="absolute left-16 bottom-6 "
+                  width={22}
+                  height={22}
+                  src="/Book.svg"
+                  alt=""
+                />
+
+                <button className=" h-[65px] w-[240px] bg-white rounded-2xl font-bold">
+                  Notebook 2
+                </button>
+              </a>
+            </div>
           </div>
         </div>
       </div>

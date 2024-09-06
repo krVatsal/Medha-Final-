@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
-
+import { useRouter } from "next/navigation";
+import { NextResponse } from "next/server";
 // Define the structure of the class data
 interface ChapterObject {
   [chapterName: string]: string[]; // chapterName maps to an array of topics
@@ -15,6 +16,7 @@ interface ClassData {
 }
 
 export default function TopicWiseForm() {
+  const router = useRouter();
   const [classData, setClassData] = useState<ClassData>({});
   const [selectedClass, setSelectedClass] = useState<string>("");
   const [selectedSubject, setSelectedSubject] = useState<string>("");
@@ -78,6 +80,7 @@ export default function TopicWiseForm() {
     };
 
     try {
+      console.log(1);
       const response = await fetch(
         "https://game.simplem.in/api/submit-topic-wise-form",
         {
@@ -88,9 +91,43 @@ export default function TopicWiseForm() {
           body: JSON.stringify(payload),
         }
       );
-
+      console.log(2);
       const responseData = await response.json();
-      console.log("Form submitted successfully:", responseData);
+      console.log("---------------------------------------------");
+      console.log(responseData);
+      console.log("Type :", responseData.content[0].Type);
+      console.log("---------------------------------------------");
+
+      if (responseData.content && responseData.content.length > 0) {
+        const questionType = responseData.content[0].Type;
+        let redirectPath = "";
+
+        switch (questionType) {
+          case "Subjective":
+            redirectPath = "/chat/subjective";
+            break;
+          case "Objective":
+            redirectPath = "/chat/mcq";
+            break;
+          case "Reading":
+            console.log(
+              "Reading type detected, implement appropriate action here"
+            );
+            return; // Exit the function if type is Reading
+          default:
+            console.log("Unknown question type:", questionType);
+            return; // Exit the function if type is unknown
+        }
+
+        const encodedData = encodeURIComponent(JSON.stringify(responseData));
+        try {
+          router.push(`${redirectPath}?data=${encodedData}`);
+        } catch (routerError) {
+          console.error("Navigation failed:", routerError);
+        }
+      } else {
+        console.error("Unexpected response structure:", responseData);
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
