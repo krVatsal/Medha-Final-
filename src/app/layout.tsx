@@ -1,59 +1,113 @@
 "use client";
-import type { Metadata } from "next";
+
+import { useState, useEffect } from "react";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
-import { usePathname } from "next/navigation"; // Correctly import useRouter
-import Image from "next/image";
-const inter = Inter({ subsets: ["latin"] });
+import "./globals.css";
 
-// export const metadata: Metadata = {
-//   title: "Medha",
-//   description: "",
-// };
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  // const router = useRouter(); // Move useRouter inside the component
+}) {
   const pathname = usePathname();
   const showNavbar = pathname !== "/login" && pathname !== "/signup";
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <div className="h-screen">
-          <div className="bg-white grid grid-cols-6 h-full">
-            <div className="col-span-1 flex flex-col h-full">
-              {showNavbar && ( // Conditionally render the logo and text
-                <div className="flex p-4">
-                  <Image
-                    className="pl-6"
-                    src="/Codepen.svg"
-                    width={62}
-                    height={32}
-                    alt="Logo"
+    <html lang="en" className="h-full">
+      <body className={`${inter.className} h-full`}>
+        <div className="flex flex-col h-full">
+          {showNavbar && (
+            <header className="md:hidden bg-gray-200 px-4 py-4 flex justify-between items-center z-20">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-gray-500 focus:outline-none focus:text-gray-800"
+              >
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
                   />
-                  <div className="p-4 text-[24px]">Medha</div>
+                </svg>
+              </button>
+
+              {/* Medha logo and text, larger icon and centered */}
+              <div className="flex justify-center items-center flex-grow">
+                <div className="flex items-center space-x-2">
+                  <Image
+                    src="/Codepen.svg"
+                    width={70} // Larger icon size
+                    height={70}
+                    alt="Medha Icon"
+                    className="object-contain"
+                  />
+                  <span className="text-2xl font-semibold text-gray-800">
+                    Medha
+                  </span>
                 </div>
-              )}
-              <div className="flex-1 flex flex-col overflow-hidden pl-6">
-                {showNavbar && <Sidebar />}
               </div>
-            </div>
+            </header>
+          )}
+
+          <div className="flex flex-1 h-full overflow-hidden">
+            {showNavbar && (
+              <>
+                {isMobileMenuOpen && (
+                  <div
+                    className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  ></div>
+                )}
+
+                {/* Sidebar */}
+                <div
+                  className={`fixed md:static top-0 left-0 h-full w-64 bg-white z-40 transform transition-transform duration-300 ease-in-out ${
+                    isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+                  } md:translate-x-0 md:w-1/4 lg:w-1/6 md:flex-shrink-0 overflow-y-auto`}
+                >
+                  <div className="flex items-center justify-center px-6 py-5 border-b border-gray-200">
+                    <Image
+                      src="/Codepen.svg"
+                      width={70} // Consistent larger icon for sidebar
+                      height={70}
+                      alt="Medha Icon"
+                      className="object-contain"
+                    />
+                    <span className="text-2xl font-semibold text-gray-800">
+                      Medha
+                    </span>
+                  </div>
+                  <Sidebar isMobileMenuOpen={isMobileMenuOpen} />
+                </div>
+              </>
+            )}
 
             {/* Main Content */}
-            <div className="col-span-5 flex flex-col h-full">
+            <main className="flex-1 flex flex-col overflow-hidden bg-gray-200 min-h-0">
               {showNavbar && (
-                <div className="p-8 bg-gray-200">
-                  {showNavbar && <Navbar />}
+                <div className="px-8 py-5 bg-gray-200 border-b border-gray-200">
+                  <Navbar />
                 </div>
               )}
-              <div className="flex-1 overflow-auto bg-gray-200">{children}</div>
-            </div>
+              <div className="flex-1 overflow-auto p-8">{children}</div>
+            </main>
           </div>
         </div>
       </body>

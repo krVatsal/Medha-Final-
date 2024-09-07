@@ -10,7 +10,7 @@ interface AssessmentProps {
   data: Question[];
 }
 
-const Assessment: React.FC<AssessmentProps> = ({ data}) => {
+const Assessment: React.FC<AssessmentProps> = ({ data }) => {
   const [activeQuestionIndex, setActiveQuestionIndex] = useState<number | null>(
     null
   );
