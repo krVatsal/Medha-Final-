@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 interface Question {
   Question: string;
-  options: string[];
+  Options: string[];
   Answer: string;
 }
 
@@ -10,7 +10,7 @@ interface AssessmentProps {
   data: Question[];
 }
 
-const Assessment: React.FC<AssessmentProps> = ({ data }) => {
+const Assessment: React.FC<AssessmentProps> = ({ data}) => {
   const [activeQuestionIndex, setActiveQuestionIndex] = useState<number | null>(
     null
   );
@@ -55,7 +55,7 @@ const Assessment: React.FC<AssessmentProps> = ({ data }) => {
               <span className="font-bold">Question: </span>
               <span className="mb-4">{q.Question}</span>
               <div className="grid grid-cols-2 gap-4 mb-4 mt-4">
-                {q.options.map((option, optionIndex) => (
+                {q.Options.map((option, optionIndex) => (
                   <div key={optionIndex}>
                     <button className="w-full h-[35px] text-left pl-4 bg-gray-300 rounded-lg">
                       {option}

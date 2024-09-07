@@ -1,26 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import ChatHistoryArea from "@/components/ChatHistoryArea";
-import Subjective from "@/components/Subjective"; // Import the MCQSection component
-
-import { useSearchParams } from "next/navigation";
+import Subjective from "@/components/Subjective"; // Import the Subjective component
 
 function ChatbotWithMCQ() {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const encodedData = searchParams.get("data");
-
-  try {
-    if (encodedData) {
-      const decodedData = JSON.parse(decodeURIComponent(encodedData));
-      console.log("Decoded Data:", decodedData);
-      // Your logic with the decoded data here
-    } else {
-      console.log("No data found in URL parameters");
-    }
-  } catch (error) {
-    console.error("Error decoding or parsing data:", error);
-  }
+  const encodedData = searchParams?.get("data") as string;
+  const [decodedData, setDecodedData] = useState<any>([]);
   const [questionsHistory, setQuestionsHistory] = useState([
     "What is Medha?",
     "What is Nostavia?",
@@ -30,7 +18,27 @@ function ChatbotWithMCQ() {
   const [activeButton, setActiveButton] = useState("chat");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+
+  useEffect(() => {
+    try {
+      if (encodedData) {
+        const parsedData = JSON.parse(decodeURIComponent(encodedData));
+        console.log("Decoded Data:", parsedData);
+        if (Array.isArray(parsedData.content)) {
+          setDecodedData(parsedData.content);
+        } else {
+          console.error("Decoded data is not an array");
+          setError("Data format is invalid. Expected an array.");
+        }
+      } else {
+        console.log("No data found in URL parameters");
+        setError("No data found.");
+      }
+    } catch (error) {
+      console.error("Error decoding or parsing data:", error);
+      setError("Error decoding or parsing data.");
+    }
+  }, [encodedData]);
 
   useEffect(() => {
     fetchInitialMessage();
@@ -134,13 +142,7 @@ function ChatbotWithMCQ() {
       }
     }
   }
-  interface SubjectiveProps {
-    onSubmit: (selectedOption: string) => Promise<void>;
-    initialResponse: string | null;
-    loading: boolean;
-  }
 
-  // const Subjective: React.FC<SubjectiveProps> = ({ onSubmit, initialResponse, loading }) => {
   return (
     <div className="p-8">
       <div className="flex justify-between gap-x-[62px] mb-12">
@@ -177,16 +179,16 @@ function ChatbotWithMCQ() {
           <ChatHistoryArea questions={questionsHistory} />
         </div>
         <div className="col-span-2">
-          <Subjective
-            onSubmit={handleMCQSubmit}
-            initialResponse={initialResponse}
-            loading={loading}
-          />
+          {Array.isArray(decodedData) ? (
+            <Subjective data={decodedData} />
+          ) : (
+            <div className="text-red-500">Invalid or no data found.</div>
+          )}
           {error && <div className="text-red-500 mt-2">{error}</div>}
         </div>
       </div>
     </div>
   );
 }
-// }
+
 export default ChatbotWithMCQ;
