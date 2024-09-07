@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, {Suspense, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ChatHistoryArea from "@/components/ChatHistoryArea";
 import MedhaTextArea from "@/components/MedhaTextArea";
@@ -143,6 +143,7 @@ function Chatbot() {
   }
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className="p-8">
       <div className="flex justify-between gap-x-[62px] mb-12">
         <div className="space-y-1">
@@ -188,6 +189,7 @@ function Chatbot() {
         </div>
       </div>
     </div>
+    </Suspense>
   );
 }
 

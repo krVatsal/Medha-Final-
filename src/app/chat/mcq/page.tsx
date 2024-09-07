@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ChatHistoryArea from "@/components/ChatHistoryArea";
 import Assessment from "@/components/MCQ"; // Import the MCQSection component
@@ -144,6 +144,7 @@ function ChatbotWithMCQ() {
   }
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className="p-8">
       <div className="flex justify-between gap-x-[62px] mb-12">
         <div className="space-y-1">
@@ -188,6 +189,7 @@ function ChatbotWithMCQ() {
         </div>
       </div>
     </div>
+    </Suspense>
   );
 }
 
