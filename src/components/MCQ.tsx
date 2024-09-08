@@ -57,7 +57,7 @@ const Assessment: React.FC<AssessmentProps> = ({ data }) => {
               <div className="grid grid-cols-2 gap-4 mb-4 mt-4">
                 {q.Options.map((option, optionIndex) => (
                   <div key={optionIndex}>
-                    <button className="w-full h-[35px] text-left pl-4 bg-gray-300 rounded-lg">
+                    <button className="w-full max-h-fit min-h-[35px] text-left pl-4 bg-gray-300 rounded-lg">
                       {option}
                     </button>
                   </div>

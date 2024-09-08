@@ -144,51 +144,53 @@ function Chatbot() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-    <div className="p-8">
-      <div className="flex justify-between gap-x-[62px] mb-12">
-        <div className="space-y-1">
-          <div className="text-[40px] font-bold">AI Chatbot</div>
-          <div className="text-[20px] text-gray-500">
-            Chat with AI Chatbot for needs
+      <div className="p-4 sm:p-8 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:gap-x-[62px] mb-6 sm:mb-12">
+          <div className="space-y-1 mb-4 sm:mb-0">
+            <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-bold">AI Chatbot</h1>
+            <p className="text-base sm:text-lg lg:text-[20px] text-gray-500">
+              Chat with AI Chatbot for needs
+            </p>
+          </div>
+          <div className="flex justify-start sm:justify-end gap-2">
+            <button
+              className={`rounded-full px-4 py-2 text-sm sm:text-base transition-colors duration-200 ${
+                activeButton === "chat"
+                  ? "bg-[#C00F0C] text-white"
+                  : "bg-white hover:bg-gray-100"
+              }`}
+              onClick={() => handleButtonClick("chat")}
+            >
+              Chat
+            </button>
+            <button
+              className={`rounded-full px-4 py-2 text-sm sm:text-base transition-colors duration-200 ${
+                activeButton === "notebook"
+                  ? "bg-[#C00F0C] text-white"
+                  : "bg-white hover:bg-gray-100"
+              }`}
+              onClick={() => handleButtonClick("notebook")}
+            >
+              Notebook
+            </button>
           </div>
         </div>
-        <div className="flex justify-end gap-2">
-          <button
-            className={`rounded-3xl w-[91px] h-[41px] ${
-              activeButton === "chat" ? "bg-[#C00F0C] text-white" : "bg-white"
-            }`}
-            onClick={() => handleButtonClick("chat")}
-          >
-            Chat
-          </button>
-          <button
-            className={`rounded-3xl w-[138px] h-[41px] ${
-              activeButton === "notebook"
-                ? "bg-[#C00F0C] text-white"
-                : "bg-white"
-            }`}
-            onClick={() => handleButtonClick("notebook")}
-          >
-            Notebook
-          </button>
-        </div>
-      </div>
 
-      <div className="grid grid-cols-3 gap-5 mt-6">
-        <div className="col-span-1 h-full">
-          <ChatHistoryArea questions={questionsHistory} />
-        </div>
-        <div className="col-span-2">
-          <MedhaTextArea
-            qna={qna}
-            onSubmit={handleSubmit}
-            initialResponse={initialResponse} // Pass the initial response to MedhaTextArea
-            loading={loading}
-          />
-          {error && <div className="text-red-500 mt-2">{error}</div>}
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mt-6">
+          <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full mb-4 lg:mb-0">
+            <ChatHistoryArea questions={questionsHistory} />
+          </div>
+          <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
+            <MedhaTextArea
+              qna={qna}
+              onSubmit={handleSubmit}
+              initialResponse={initialResponse}
+              loading={loading}
+            />
+            {error && <div className="text-red-500 mt-2">{error}</div>}
+          </div>
         </div>
       </div>
-    </div>
     </Suspense>
   );
 }

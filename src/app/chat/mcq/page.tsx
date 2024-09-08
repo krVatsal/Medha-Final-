@@ -145,52 +145,54 @@ function ChatbotWithMCQ() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-    <div className="p-8">
-      <div className="flex justify-between gap-x-[62px] mb-12">
-        <div className="space-y-1">
-          <div className="text-[40px] font-bold">AI Chatbot</div>
-          <div className="text-[20px] text-gray-500">
-            Chat with AI Chatbot for needs
+      <div className="p-4 sm:p-8">
+        <div className="flex flex-col md:flex-row justify-between gap-x-[20px] md:gap-x-[62px] mb-12">
+          <div className="space-y-1">
+            <div className="text-[30px] md:text-[40px] font-bold">AI Chatbot</div>
+            <div className="text-[16px] md:text-[20px] text-gray-500">
+              Chat with AI Chatbot for needs
+            </div>
+          </div>
+          <div className="flex justify-center md:justify-end gap-2 mt-4 md:mt-0">
+            <button
+              className={`rounded-3xl w-[91px] h-[41px] ${
+                activeButton === "chat" ? "bg-[#C00F0C] text-white" : "bg-white"
+              }`}
+              onClick={() => handleButtonClick("chat")}
+            >
+              Chat
+            </button>
+            <button
+              className={`rounded-3xl w-[138px] h-[41px] ${
+                activeButton === "notebook"
+                  ? "bg-[#C00F0C] text-white"
+                  : "bg-white"
+              }`}
+              onClick={() => handleButtonClick("notebook")}
+            >
+              Notebook
+            </button>
           </div>
         </div>
-        <div className="flex justify-end gap-2">
-          <button
-            className={`rounded-3xl w-[91px] h-[41px] ${
-              activeButton === "chat" ? "bg-[#C00F0C] text-white" : "bg-white"
-            }`}
-            onClick={() => handleButtonClick("chat")}
-          >
-            Chat
-          </button>
-          <button
-            className={`rounded-3xl w-[138px] h-[41px] ${
-              activeButton === "notebook"
-                ? "bg-[#C00F0C] text-white"
-                : "bg-white"
-            }`}
-            onClick={() => handleButtonClick("notebook")}
-          >
-            Notebook
-          </button>
+  
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
+          <div className="col-span-1 h-full">
+            <ChatHistoryArea questions={questionsHistory} />
+          </div>
+          <div className="col-span-2">
+            {Array.isArray(decodedData) ? (
+              <Assessment data={decodedData} />
+            ) : (
+              <div className="text-red-500">Invalid or no data found.</div>
+            )}
+            {error && <div className="text-red-500 mt-2">{error}</div>}
+          </div>
         </div>
       </div>
-
-      <div className="grid grid-cols-3 gap-5 mt-6">
-        <div className="col-span-1 h-full">
-          <ChatHistoryArea questions={questionsHistory} />
-        </div>
-        <div className="col-span-2">
-          {Array.isArray(decodedData) ? (
-            <Assessment data={decodedData} />
-          ) : (
-            <div className="text-red-500">Invalid or no data found.</div>
-          )}
-          {error && <div className="text-red-500 mt-2">{error}</div>}
-        </div>
-      </div>
-    </div>
     </Suspense>
   );
+  
+  
 }
 
 export default ChatbotWithMCQ;

@@ -1,14 +1,12 @@
 "use client";
-import React, {Suspense, useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ChatHistoryArea from "@/components/ChatHistoryArea";
 import Subjective from "@/components/Subjective"; // Import the Subjective component
 
 function ChatbotWithMCQ() {
   const router = useRouter();
-  
   const searchParams = useSearchParams();
-
   const encodedData = searchParams?.get("data") as string;
   const [decodedData, setDecodedData] = useState<any>([]);
   const [questionsHistory, setQuestionsHistory] = useState([
@@ -147,50 +145,50 @@ function ChatbotWithMCQ() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-    <div className="p-8">
-      <div className="flex justify-between gap-x-[62px] mb-12">
-        <div className="space-y-1">
-          <div className="text-[40px] font-bold">AI Chatbot</div>
-          <div className="text-[20px] text-gray-500">
-            Chat with AI Chatbot for needs
+      <div className="p-4 md:p-8">
+        <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-x-[62px] mb-6 md:mb-12">
+          <div className="space-y-1">
+            <div className="text-[28px] md:text-[40px] font-bold">AI Chatbot</div>
+            <div className="text-[16px] md:text-[20px] text-gray-500">
+              Chat with AI Chatbot for needs
+            </div>
+          </div>
+          <div className="flex justify-end gap-2">
+            <button
+              className={`rounded-3xl w-[91px] h-[41px] ${
+                activeButton === "chat" ? "bg-[#C00F0C] text-white" : "bg-white"
+              }`}
+              onClick={() => handleButtonClick("chat")}
+            >
+              Chat
+            </button>
+            <button
+              className={`rounded-3xl w-[138px] h-[41px] ${
+                activeButton === "notebook"
+                  ? "bg-[#C00F0C] text-white"
+                  : "bg-white"
+              }`}
+              onClick={() => handleButtonClick("notebook")}
+            >
+              Notebook
+            </button>
           </div>
         </div>
-        <div className="flex justify-end gap-2">
-          <button
-            className={`rounded-3xl w-[91px] h-[41px] ${
-              activeButton === "chat" ? "bg-[#C00F0C] text-white" : "bg-white"
-            }`}
-            onClick={() => handleButtonClick("chat")}
-          >
-            Chat
-          </button>
-          <button
-            className={`rounded-3xl w-[138px] h-[41px] ${
-              activeButton === "notebook"
-                ? "bg-[#C00F0C] text-white"
-                : "bg-white"
-            }`}
-            onClick={() => handleButtonClick("notebook")}
-          >
-            Notebook
-          </button>
-        </div>
-      </div>
 
-      <div className="grid grid-cols-3 gap-5 mt-6">
-        <div className="col-span-1 h-full">
-          <ChatHistoryArea questions={questionsHistory} />
-        </div>
-        <div className="col-span-2">
-          {Array.isArray(decodedData) ? (
-            <Subjective data={decodedData} />
-          ) : (
-            <div className="text-red-500">Invalid or no data found.</div>
-          )}
-          {error && <div className="text-red-500 mt-2">{error}</div>}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-6">
+          <div className="col-span-1 h-full">
+            <ChatHistoryArea questions={questionsHistory} />
+          </div>
+          <div className="col-span-2">
+            {Array.isArray(decodedData) ? (
+              <Subjective data={decodedData} />
+            ) : (
+              <div className="text-red-500">Invalid or no data found.</div>
+            )}
+            {error && <div className="text-red-500 mt-2">{error}</div>}
+          </div>
         </div>
       </div>
-    </div>
     </Suspense>
   );
 }
