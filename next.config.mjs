@@ -9,6 +9,7 @@ const nextConfig = {
     ];
   },
   experimental: {
+    missingSuspenseWithCSRBailout: false,
     serverActions: true,
     serverComponentsExternalPackages: ["mongoose"],
   },
