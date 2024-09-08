@@ -80,21 +80,24 @@ export default function RootLayout({
                 <div
                   className={`fixed md:static top-0 left-0 h-full w-64 bg-white z-40 transform transition-transform duration-300 ease-in-out ${
                     isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-                  } md:translate-x-0 md:w-1/4 lg:w-1/6 md:flex-shrink-0 overflow-y-auto`}
+                  } md:translate-x-0 md:w-1/4 lg:w-1/6 md:flex-shrink-0 overflow-y-auto flex flex-col`}
                 >
-                  <div className="flex items-center justify-center px-6 py-5 border-b border-gray-200">
-                    <Image
-                      src="/Codepen.svg"
-                      width={70} // Consistent larger icon for sidebar
-                      height={70}
-                      alt="Medha Icon"
-                      className="object-contain"
-                    />
-                    <span className="text-2xl font-semibold text-gray-800">
+                  <div className="flex items-center px-4 py-5 border-b border-gray-200">
+                    <div className="w-16 h-[58px] relative mr-3 flex-shrink-0">
+                      <Image
+                        src="/Codepen.svg"
+                        layout="fill"
+                        objectFit="contain"
+                        alt="Medha Icon"
+                      />
+                    </div>
+                    <span className="text-xl font-semibold text-gray-800 truncate">
                       Medha
                     </span>
                   </div>
-                  <Sidebar isMobileMenuOpen={isMobileMenuOpen} />
+                  <div className="flex-grow overflow-y-auto">
+                    <Sidebar isMobileMenuOpen={isMobileMenuOpen} />
+                  </div>
                 </div>
               </>
             )}
