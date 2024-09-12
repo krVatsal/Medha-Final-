@@ -15,7 +15,7 @@ interface ClassData {
   [className: string]: SubjectObject; // className maps to an object of subjects
 }
 
-export default function TopicWiseForm() {
+export default function ExamForm() {
   const router = useRouter();
   const [classData, setClassData] = useState<ClassData>({});
   const [selectedClass, setSelectedClass] = useState<string>("");
@@ -183,11 +183,11 @@ export default function TopicWiseForm() {
   };
 
   return (
-    <div className="bg-white bg-opacity-60 p-6 rounded-2xl flex flex-col pt-4 flex-grow ">
-      <p className="mb-4 font-bold">Create Topic Wise Assessment</p>
-      <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-        <select className="h-[31px] w-[96px] rounded-full pl-4 text-xs sm:text-sm">
+    <div className="bg-white bg-opacity-60 p-6 rounded-2xl flex flex-col pt-4 flex-grow overflow-scroll">
+          <p className="mb-4 font-bold">Create Exam Form</p>
+          {/* Grid layout for exam form dropdowns */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <select className="h-[31px] w-[96px] rounded-full pl-4 text-xs sm:text-sm">
             <option value="" disabled selected>
               Class
             </option>
@@ -208,96 +208,77 @@ export default function TopicWiseForm() {
             <option value="option1">Option 1</option>
             <option value="option2">Option 2</option>
           </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4"
-            value={selectedClass}
-            onChange={(e) => handleChange(e, setSelectedClass)}
-          >
-            <option value="" disabled>
-              Select Class
-            </option>
-            {renderOptions(classData)}
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4"
-            value={selectedSubject}
-            onChange={(e) => handleChange(e, setSelectedSubject)}
-            disabled={!selectedClass}
-          >
-            <option value="" disabled>
-              Select Subject
-            </option>
-            {renderSubjects()}
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4"
-            value={selectedChapter}
-            onChange={(e) => handleChange(e, setSelectedChapter)}
-            disabled={!selectedSubject}
-          >
-            <option value="" disabled>
-              Select Chapter
-            </option>
-            {renderChapters()}
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4"
-            value={selectedTopic}
-            onChange={(e) => handleChange(e, setSelectedTopic)}
-            disabled={!selectedChapter}
-          >
-            <option value="" disabled>
-              Select Topic
-            </option>
-            {renderTopics()}
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4"
-            value={selectedLevel}
-            onChange={(e) => handleChange(e, setSelectedLevel)}
-          >
-            <option value="" disabled>
-              Select Hardness Level
-            </option>
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4"
-            value={selectedType}
-            onChange={(e) => handleChange(e, setSelectedType)}
-          >
-            <option value="" disabled>
-              Select Question Type
-            </option>
-            <option value="Subjective">Subjective</option>
-            <option value="Objective">Objective</option>
-            <option value="Reading">Reading</option>
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4 col-span-2"
-            value={totalQuestion}
-            onChange={(e) => handleChange(e, setTotalQuestion)}
-          >
-            <option value="" disabled>
-              Select Total No of Questions
-            </option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-          </select>
+            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+              <option value="" disabled selected>
+                Select Chapter
+              </option>
+              <option value="chapter1">Chapter 1</option>
+              <option value="chapter2">Chapter 2</option>
+            </select>
+            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+              <option value="" disabled selected>
+                Select Topic
+              </option>
+              <option value="topic1">Topic 1</option>
+              <option value="topic2">Topic 2</option>
+            </select>
+            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+              <option value="" disabled selected>
+                Select Hardness level
+              </option>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+              <option value="" disabled selected>
+                No. of True/False Questions
+              </option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+            </select>
+            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+              <option value="" disabled selected>
+                Select Total No of Questions
+              </option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+            </select>
+            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+              <option value="" disabled selected>
+                No. of MCQs
+              </option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </select>
+            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+              <option value="" disabled selected>
+                No. of Fill in Blanks
+              </option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+            </select>
+            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+              <option value="" disabled selected>
+                No. of Short Questions
+              </option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+            </select>
+            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+              <option value="" disabled selected>
+                No. of Long Questions
+              </option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+          <div className="flex space-x-4 justify-center sm:justify-start">
+
+            <button className="h-[40px] sm:h-12 w-[107px] sm:w-24 bg-[#5D233C] text-white rounded-full text-xs sm:text-sm">
+              Submit
+            </button>
+          </div>
         </div>
-        <button
-          type="submit"
-          className="h-12 w-24 bg-[#5D233C] text-white rounded-full"
-          disabled={
-            !selectedTopic || !selectedType || !selectedLevel || isLoading
-          }
-        >
-          {isLoading ? "Loading..." : "Submit"}
-        </button>
-      </form>
-    </div>
   );
 }
