@@ -1,5 +1,5 @@
 "use client";
-import React, {Suspense, useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ChatHistoryArea from "@/components/ChatHistoryArea";
 import MedhaTextArea from "@/components/MedhaTextArea";
@@ -147,7 +147,9 @@ function Chatbot() {
       <div className="p-4 sm:p-8 max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:gap-x-[62px] mb-6 sm:mb-12">
           <div className="space-y-1 mb-4 sm:mb-0">
-            <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-bold">AI Chatbot</h1>
+            <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-bold">
+              AI Chatbot
+            </h1>
             <p className="text-base sm:text-lg lg:text-[20px] text-gray-500">
               Chat with AI Chatbot for needs
             </p>
@@ -177,7 +179,7 @@ function Chatbot() {
         </div>
 
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mt-6">
-          <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full mb-4 lg:mb-0">
+          <div className=" sm:w-1/3 md:w-full lg:h-full mb-4 lg:mb-0">
             <ChatHistoryArea questions={questionsHistory} />
           </div>
           <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
