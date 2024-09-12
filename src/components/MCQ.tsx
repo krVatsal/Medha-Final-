@@ -33,7 +33,7 @@ const Assessment: React.FC<AssessmentProps> = ({ data }) => {
   };
 
   return (
-    <div className="bg-white bg-opacity-60 p-6 rounded-2xl flex flex-col h-[60vh] overflow-scroll">
+    <div className="bg-white bg-opacity-60 p-6 rounded-2xl flex flex-col h-[410px] overflow-scroll">
       <h2 className="text-lg font-bold mb-4">Assessment</h2>
       {data.map((q, index) => (
         <div

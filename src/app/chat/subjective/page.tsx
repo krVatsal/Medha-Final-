@@ -1,8 +1,11 @@
 "use client";
-import React, { Suspense, useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ChatHistoryArea from "@/components/ChatHistoryArea";
-import Subjective from "@/components/Subjective"; // Import the Subjective component
+import TopicWiseForm from "@/components/TopicwiseForm";
+import ExamForm from "@/components/ExamForm";
+import Assessment from "@/components/MCQ";
+import Subjective from "@/components/Subjective";
 
 function ChatbotWithMCQ() {
   const router = useRouter();
@@ -13,6 +16,7 @@ function ChatbotWithMCQ() {
     "What is Medha?",
     "What is Nostavia?",
   ]);
+  const [selectedOption, setSelectedOption] = useState("");
   const [qna, setQna] = useState<{ question: string; answer: string }[]>([]);
   const [initialResponse, setInitialResponse] = useState<string | null>(null);
   const [activeButton, setActiveButton] = useState("chat");
@@ -81,6 +85,10 @@ function ChatbotWithMCQ() {
     }
   };
 
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedOption(e.target.value);
+  };
+
   const handleMCQSubmit = async (selectedOption: string) => {
     setQna((prevQna) => [...prevQna, { question: selectedOption, answer: "" }]);
     setQuestionsHistory((prevHistory) => [...prevHistory, selectedOption]);
@@ -145,43 +153,91 @@ function ChatbotWithMCQ() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className="p-4 md:p-8">
-        <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-x-[62px] mb-6 md:mb-12">
+      <div className="p-4 sm:p-8">
+        <div className="flex flex-col md:flex-row justify-between gap-x-[20px] md:gap-x-[62px] mb-12">
           <div className="space-y-1">
-            <div className="text-[28px] md:text-[40px] font-bold">AI Chatbot</div>
+            <div className="text-[30px] md:text-[40px] font-bold">AI Chatbot</div>
             <div className="text-[16px] md:text-[20px] text-gray-500">
               Chat with AI Chatbot for needs
             </div>
           </div>
-          <div className="flex justify-end gap-2">
-            <button
-              className={`rounded-3xl w-[91px] h-[41px] ${
-                activeButton === "chat" ? "bg-[#C00F0C] text-white" : "bg-white"
+          <div className="flex flex-col gap-3 items-end">
+            <div className="flex justify-start sm:justify-end gap-2">
+              <button
+                className={`bg-white rounded-full w-[91px] h-[40px] ${
+                  activeButton === "learn"
+                    ? "bg-[#5D233C] text-white"
+                    : "bg-white hover:bg-gray-100"
+                }`}
+                onClick={() => handleButtonClick("learn")}
+              >
+                Learn
+              </button>
+              <button
+                className={`bg-white rounded-full w-[91px] h-[40px] ${
+                  activeButton === "teach"
+                    ? "bg-[#5D233C] text-white"
+                    : "bg-white hover:bg-gray-100"
+                }`}
+                onClick={() => handleButtonClick("teach")}
+              >
+                Teach
+              </button>
+              <button
+                className={`rounded-full w-[91px] h-[40px] text-sm sm:text-base transition-colors duration-200 ${
+                  activeButton === "chat"
+                    ? "bg-[#5D233C] text-white"
+                    : "bg-white hover:bg-gray-100"
+                }`}
+                onClick={() => handleButtonClick("chat")}
+              >
+                Chat
+              </button>
+              <button
+                className={`rounded-full w-[138px] h-[40px] text-sm sm:text-base transition-colors duration-200 ${
+                  activeButton === "notebook"
+                    ? "bg-[#5D233C] text-white"
+                    : "bg-white hover:bg-gray-100"
+                }`}
+                onClick={() => handleButtonClick("notebook")}
+              >
+                Notebook
+              </button>
+            </div>
+            <select
+              className={`h-[40px] w-[141px] rounded-full pl-4 ${
+                activeButton === "assignment"
+                  ? "bg-[#5D233C] text-white"
+                  : "bg-white hover:bg-gray-100"
               }`}
-              onClick={() => handleButtonClick("chat")}
+              onClick={() => handleButtonClick("assignment")}
+              onChange={handleSelectChange}
             >
-              Chat
-            </button>
-            <button
-              className={`rounded-3xl w-[138px] h-[41px] ${
-                activeButton === "notebook"
-                  ? "bg-[#C00F0C] text-white"
-                  : "bg-white"
-              }`}
-              onClick={() => handleButtonClick("notebook")}
-            >
-              Notebook
-            </button>
+              <option value="" disabled>
+                Assignments
+              </option>
+              <option value="topic-wise">Topic Wise Assessment</option>
+              <option value="exam-form">Exam Form</option>
+            </select>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
           <div className="col-span-1 h-full">
-            <ChatHistoryArea questions={questionsHistory} />
+            {selectedOption === "topic-wise" ? (
+              <TopicWiseForm />
+            ) : selectedOption === "exam-form" ? (
+              <ExamForm />
+            ) : (
+              <ChatHistoryArea questions={questionsHistory} />
+            )}
           </div>
           <div className="col-span-2">
             {Array.isArray(decodedData) ? (
-              <Subjective data={decodedData} />
+              <>
+                <Subjective data={decodedData} />
+                {/* <Assessment data={decodedData} onSubmit={handleMCQSubmit} /> */}
+              </>
             ) : (
               <div className="text-red-500">Invalid or no data found.</div>
             )}

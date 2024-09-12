@@ -2,6 +2,8 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ChatHistoryArea from "@/components/ChatHistoryArea";
+import TopicWiseForm from "@/components/TopicwiseForm";
+import ExamForm from "@/components/ExamForm";
 import Assessment from "@/components/MCQ"; // Import the MCQSection component
 
 function ChatbotWithMCQ() {
@@ -13,6 +15,7 @@ function ChatbotWithMCQ() {
     "What is Medha?",
     "What is Nostavia?",
   ]);
+  const [selectedOption, setSelectedOption] = useState("");
   const [qna, setQna] = useState<{ question: string; answer: string }[]>([]);
   const [initialResponse, setInitialResponse] = useState<string | null>(null);
   const [activeButton, setActiveButton] = useState("chat");
@@ -79,6 +82,10 @@ function ChatbotWithMCQ() {
     } else if (buttonType === "notebook") {
       router.push("/notebook");
     }
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedOption(e.target.value);
   };
 
   const handleMCQSubmit = async (selectedOption: string) => {
@@ -153,44 +160,90 @@ function ChatbotWithMCQ() {
               Chat with AI Chatbot for needs
             </div>
           </div>
-          <div className="flex justify-center md:justify-end gap-2 mt-4 md:mt-0">
-            <button
-              className={`rounded-3xl w-[91px] h-[41px] ${
-                activeButton === "chat" ? "bg-[#C00F0C] text-white" : "bg-white"
+          <div className="flex flex-col gap-3 items-end">
+            <div className="flex justify-start sm:justify-end gap-2">
+              <button
+                className={`bg-white rounded-full w-[91px] h-[40px] ${
+                  activeButton === "learn"
+                    ? "bg-[#5D233C] text-white"
+                    : "bg-white hover:bg-gray-100"
+                }`}
+                onClick={() => handleButtonClick("learn")}
+              >
+                Learn
+              </button>
+              <button
+                className={`bg-white rounded-full w-[91px] h-[40px] ${
+                  activeButton === "teach"
+                    ? "bg-[#5D233C] text-white"
+                    : "bg-white hover:bg-gray-100"
+                }`}
+                onClick={() => handleButtonClick("teach")}
+              >
+                Teach
+              </button>
+              <button
+                className={`rounded-full w-[91px] h-[40px] text-sm sm:text-base transition-colors duration-200 ${
+                  activeButton === "chat"
+                    ? "bg-[#5D233C] text-white"
+                    : "bg-white hover:bg-gray-100"
+                }`}
+                onClick={() => handleButtonClick("chat")}
+              >
+                Chat
+              </button>
+              <button
+                className={`rounded-full w-[138px] h-[40px] text-sm sm:text-base transition-colors duration-200 ${
+                  activeButton === "notebook"
+                    ? "bg-[#5D233C] text-white"
+                    : "bg-white hover:bg-gray-100"
+                }`}
+                onClick={() => handleButtonClick("notebook")}
+              >
+                Notebook
+              </button>
+            </div>
+            <select
+              className={`h-[40px] w-[141px] rounded-full pl-4 ${
+                activeButton === "assignment"
+                  ? "bg-[#5D233C] text-white"
+                  : "bg-white hover:bg-gray-100"
               }`}
-              onClick={() => handleButtonClick("chat")}
+              onClick={() => handleButtonClick("assignment")}
+              onChange={handleSelectChange}
             >
-              Chat
-            </button>
-            <button
-              className={`rounded-3xl w-[138px] h-[41px] ${
-                activeButton === "notebook"
-                  ? "bg-[#C00F0C] text-white"
-                  : "bg-white"
-              }`}
-              onClick={() => handleButtonClick("notebook")}
-            >
-              Notebook
-            </button>
+              <option value="" disabled>
+                Assignments
+              </option>
+              <option value="topic-wise">Topic Wise Assessment</option>
+              <option value="exam-form">Exam Form</option>
+            </select>
           </div>
-        </div>
-  
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
-          <div className="col-span-1 h-full">
+          </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
+        <div className="col-span-1 h-full">
+          {selectedOption === "topic-wise" ? (
+            <TopicWiseForm />
+          ) : selectedOption === "exam-form" ? (
+            <ExamForm />
+          ) : (
             <ChatHistoryArea questions={questionsHistory} />
-          </div>
-          <div className="col-span-2">
-            {Array.isArray(decodedData) ? (
-              <Assessment data={decodedData} />
-            ) : (
-              <div className="text-red-500">Invalid or no data found.</div>
-            )}
-            {error && <div className="text-red-500 mt-2">{error}</div>}
-          </div>
+          )}
+        </div>
+        <div className="col-span-2">
+          {Array.isArray(decodedData) ? (
+            <Assessment data={decodedData} />
+          ) : (
+            <div className="text-red-500">Invalid or no data found.</div>
+          )}
+          {error && <div className="text-red-500 mt-2">{error}</div>}
         </div>
       </div>
     </Suspense>
   );
+
   
   
 }

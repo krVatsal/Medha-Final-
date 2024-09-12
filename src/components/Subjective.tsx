@@ -33,7 +33,7 @@ const Subjective: React.FC<SubjectiveProps> = ({ data }) => {
   };
 
   return (
-    <div className="bg-white bg-opacity-60 p-4 sm:p-6 rounded-2xl flex flex-col h-[60vh] overflow-auto">
+    <div className="bg-white bg-opacity-60 p-4 sm:p-6 rounded-2xl flex flex-col h-[410px] overflow-auto">
       <h2 className="text-[18px] sm:text-lg font-bold mb-4">Subjective Assessment</h2>
       {data.map((q, index) => (
         <div
