@@ -8,7 +8,7 @@ function ChatHistoryArea({ questions }: { questions: string[] }) {
   };
 
   return (
-    <div className="bg-white bg-opacity-60 p-6 rounded-3xl flex flex-col h-[60vh] w-[345px]">
+    <div className="md:w-full bg-white bg-opacity-60 p-6 rounded-3xl flex flex-col h-[410px] w-[345px]">
       <p className="font-bold text-lg mb-4">Chat History</p>
       <div className="bg-white pt-4 rounded-xl flex-grow flex flex-col overflow-hidden">
         <div className="flex flex-col pt-2 pl-8">
@@ -37,15 +37,7 @@ function ChatHistoryArea({ questions }: { questions: string[] }) {
           ))}
         </div>
       </div>
-      <div className="flex pt-2">
-      <button className="bg-gray-200 bg-opacity-60 rounded-full h-[40px] w-32 ">
-            Learn
-          </button>
-      <button className="bg-gray-200 bg-opacity-60 rounded-full h-[40px] w-32">
-            Teach
-          </button>
-        
-      </div>
+      <div className="flex pt-2"></div>
     </div>
   );
 }
