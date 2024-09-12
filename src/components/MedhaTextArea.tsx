@@ -160,7 +160,9 @@ function MedhaTextArea({
                     alt="Placeholder"
                     className="h-4 w-4 rounded-full mr-4"
                   />
-                  <p className="text-xs sm:text-sm font-semibold">{item.question}</p>
+                  <p className="text-xs sm:text-sm font-semibold">
+                    {item.question}
+                  </p>
                 </div>
                 <div className="flex items-start mb-2">
                   <img
