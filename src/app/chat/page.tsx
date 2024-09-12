@@ -128,7 +128,9 @@ function Chatbot() {
         error.message.includes("NetworkError")
       ) {
         console.error("Network error occurred:", error);
-        throw new Error("Network error: Please check your internet connection.");
+        throw new Error(
+          "Network error: Please check your internet connection."
+        );
       } else {
         console.error("Error in sendTextToVoiceflow:", error);
         throw error;
@@ -145,7 +147,9 @@ function Chatbot() {
       <div className="p-4 sm:p-8 max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:gap-x-[62px] mb-6 sm:mb-12">
           <div className="space-y-1 mb-4 sm:mb-0">
-            <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-bold">AI Chatbot</h1>
+            <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-bold">
+              AI Chatbot
+            </h1>
             <p className="text-base sm:text-lg lg:text-[20px] text-gray-500">
               Chat with AI Chatbot for needs
             </p>
@@ -236,7 +240,5 @@ function Chatbot() {
     </Suspense>
   );
 }
-
-
 
 export default Chatbot;

@@ -37,10 +37,7 @@ function ChatHistoryArea({ questions }: { questions: string[] }) {
           ))}
         </div>
       </div>
-      <div className="flex pt-2">
-      
-        
-      </div>
+      <div className="flex pt-2"></div>
     </div>
   );
 }

@@ -23,17 +23,14 @@ function MedhaTextArea({
       {/* Horizontal alignment of Medha AI and dropdowns */}
       <div className="flex flex-col sm:flex-row mb-4 space-y-4 sm:space-y-0 sm:space-x-4">
         <p className="font-bold text-lg">Medha AI</p>
-        <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-         
-   
-        </div>
+        <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"></div>
       </div>
 
       {/* Topic Wise Form or Exam Form Display */}
       {selectedOption === "topic-wise" ? (
         <TopicWiseForm />
       ) : selectedOption === "exam-form" ? (
-        <ExamForm/>
+        <ExamForm />
       ) : (
         <div className="bg-white pt-4 rounded-lg flex-grow flex flex-col overflow-hidden">
           <div className="pl-4 sm:pl-8 pr-4 sm:pr-8 flex-grow overflow-y-auto">
@@ -57,7 +54,9 @@ function MedhaTextArea({
                     alt="Placeholder"
                     className="h-4 w-4 rounded-full mr-4"
                   />
-                  <p className="text-xs sm:text-sm font-semibold">{item.question}</p>
+                  <p className="text-xs sm:text-sm font-semibold">
+                    {item.question}
+                  </p>
                 </div>
                 <div className="flex items-start mb-2">
                   <img

@@ -187,7 +187,7 @@ export default function TopicWiseForm() {
       <p className="mb-4 font-bold">Create Topic Wise Assessment</p>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4 mb-4">
-        <select className="h-[31px] w-[96px] rounded-full pl-4 text-xs sm:text-sm">
+          <select className="h-[31px] w-[96px] rounded-full pl-4 text-xs sm:text-sm">
             <option value="" disabled selected>
               Class
             </option>

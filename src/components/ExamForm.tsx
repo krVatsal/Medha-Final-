@@ -184,101 +184,100 @@ export default function ExamForm() {
 
   return (
     <div className="bg-white bg-opacity-60 p-6 rounded-2xl flex flex-col pt-4 flex-grow overflow-scroll">
-          <p className="mb-4 font-bold">Create Exam Form</p>
-          {/* Grid layout for exam form dropdowns */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-          <select className="h-[31px] w-[96px] rounded-full pl-4 text-xs sm:text-sm">
-            <option value="" disabled selected>
-              Class
-            </option>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-          </select>
-          <select className="h-[31px] w-[108px] rounded-full pl-4 text-xs sm:text-sm">
-            <option value="" disabled selected>
-              Subject
-            </option>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-          </select>
-          <select className="h-[31px] w-[120px] rounded-full pl-4 text-xs sm:text-sm">
-            <option value="" disabled selected>
-              Language
-            </option>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-          </select>
-            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
-              <option value="" disabled selected>
-                Select Chapter
-              </option>
-              <option value="chapter1">Chapter 1</option>
-              <option value="chapter2">Chapter 2</option>
-            </select>
-            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
-              <option value="" disabled selected>
-                Select Topic
-              </option>
-              <option value="topic1">Topic 1</option>
-              <option value="topic2">Topic 2</option>
-            </select>
-            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
-              <option value="" disabled selected>
-                Select Hardness level
-              </option>
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
-            </select>
-            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
-              <option value="" disabled selected>
-                No. of True/False Questions
-              </option>
-              <option value="5">5</option>
-              <option value="10">10</option>
-            </select>
-            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
-              <option value="" disabled selected>
-                Select Total No of Questions
-              </option>
-              <option value="20">20</option>
-              <option value="30">30</option>
-            </select>
-            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
-              <option value="" disabled selected>
-                No. of MCQs
-              </option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-            </select>
-            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
-              <option value="" disabled selected>
-                No. of Fill in Blanks
-              </option>
-              <option value="5">5</option>
-              <option value="10">10</option>
-            </select>
-            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
-              <option value="" disabled selected>
-                No. of Short Questions
-              </option>
-              <option value="5">5</option>
-              <option value="10">10</option>
-            </select>
-            <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
-              <option value="" disabled selected>
-                No. of Long Questions
-              </option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-          </div>
-          <div className="flex space-x-4 justify-center sm:justify-start">
-
-            <button className="h-[40px] sm:h-12 w-[107px] sm:w-24 bg-[#5D233C] text-white rounded-full text-xs sm:text-sm">
-              Submit
-            </button>
-          </div>
-        </div>
+      <p className="mb-4 font-bold">Create Exam Form</p>
+      {/* Grid layout for exam form dropdowns */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        <select className="h-[31px] w-[96px] rounded-full pl-4 text-xs sm:text-sm">
+          <option value="" disabled selected>
+            Class
+          </option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+        </select>
+        <select className="h-[31px] w-[108px] rounded-full pl-4 text-xs sm:text-sm">
+          <option value="" disabled selected>
+            Subject
+          </option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+        </select>
+        <select className="h-[31px] w-[120px] rounded-full pl-4 text-xs sm:text-sm">
+          <option value="" disabled selected>
+            Language
+          </option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+        </select>
+        <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+          <option value="" disabled selected>
+            Select Chapter
+          </option>
+          <option value="chapter1">Chapter 1</option>
+          <option value="chapter2">Chapter 2</option>
+        </select>
+        <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+          <option value="" disabled selected>
+            Select Topic
+          </option>
+          <option value="topic1">Topic 1</option>
+          <option value="topic2">Topic 2</option>
+        </select>
+        <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+          <option value="" disabled selected>
+            Select Hardness level
+          </option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+          <option value="" disabled selected>
+            No. of True/False Questions
+          </option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+        </select>
+        <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+          <option value="" disabled selected>
+            Select Total No of Questions
+          </option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
+        <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+          <option value="" disabled selected>
+            No. of MCQs
+          </option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+        </select>
+        <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+          <option value="" disabled selected>
+            No. of Fill in Blanks
+          </option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+        </select>
+        <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+          <option value="" disabled selected>
+            No. of Short Questions
+          </option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+        </select>
+        <select className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm">
+          <option value="" disabled selected>
+            No. of Long Questions
+          </option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </div>
+      <div className="flex space-x-4 justify-center sm:justify-start">
+        <button className="h-[40px] sm:h-12 w-[107px] sm:w-24 bg-[#5D233C] text-white rounded-full text-xs sm:text-sm">
+          Submit
+        </button>
+      </div>
+    </div>
   );
 }
