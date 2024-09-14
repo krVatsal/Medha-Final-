@@ -1,7 +1,10 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import DesiredOutcome from "./DesiredOutcome";
-function PPTCreationArea() {
+import { useRouter } from "next/navigation";
+function CreationArea({ page }: { page: string }) {
+  const router = useRouter();
   return (
     <div>
       <div className="bg-white bg-opacity-60 p-8 rounded-3xl h-[100%] flex flex-col gap-6">
@@ -77,12 +80,22 @@ function PPTCreationArea() {
             </div>
           </div>
         </div>
-        <div>
-          <DesiredOutcome />
-        </div>
+        {page !== "Homework" && (
+          <div>
+            <DesiredOutcome />
+          </div>
+        )}
       </div>
+      <button
+        className=" text-white bg-[#5D233C] p-4 mt-6 rounded-full px-6"
+        onClick={() => {
+          router.push("./outline");
+        }}
+      >
+        Generate Outline
+      </button>
     </div>
   );
 }
 
-export default PPTCreationArea;
+export default CreationArea;

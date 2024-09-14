@@ -31,10 +31,10 @@ const DesiredOutcome = () => {
           {outcomes.map((outcome) => (
             <button
               key={outcome}
-              className={`px-4 py-2 rounded-md ${
+              className={`px-4 py-2 rounded-xl ${
                 selectedOutcome === outcome
                   ? "bg-[#1F4467] text-white"
-                  : "bg-gray-100 border border-gray-300"
+                  : "bg-gray-100 border border-[[#1F4467]"
               }`}
               onClick={() => setSelectedOutcome(outcome)}
             >
