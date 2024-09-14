@@ -3,8 +3,15 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
-        destination: "https://game.simplem.in/:path*",
+        source: "/api/medha/:path*",
+        destination: "https://medha-cograd.azurewebsites.net/:path*",
+      },
+      {
+        source: "/api/speech/:path*",
+        destination: "https://voicebot-server.onrender.com/:path*",
+      }, {
+        source: "/api/:path",
+        destination: "https://game.simplem.in/:path*"
       },
     ];
   },

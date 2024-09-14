@@ -1,10 +1,18 @@
-"use client";
-import React, { Suspense, useState, useEffect } from "react";
+"use client"
+import 'core-js/stable';
+import 'babel-polyfill'
+import 'regenerator-runtime/runtime';
+import React, { Suspense, useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import ChatHistoryArea from "@/components/ChatHistoryArea";
 import MedhaTextArea from "@/components/MedhaTextArea";
-import TopicWiseForm from "@/components/TopicwiseForm"; // Import TopicWiseForm
-import ExamForm from "@/components/ExamForm"; // Import ExamForm
+import TopicWiseForm from "@/components/TopicwiseForm";
+import ExamForm from "@/components/ExamForm";
+import AudioPlayer from "@/components/AudioPlayer";
+import axios from "axios";
+
+
 
 function Chatbot() {
   const searchParams = useSearchParams();
@@ -13,44 +21,48 @@ function Chatbot() {
     "What is Medha?",
     "What is Nostavia?",
   ]);
-  const [qna, setQna] = useState<{ question: string; answer: string }[]>([]);
-  const [initialResponse, setInitialResponse] = useState<string | null>(null);
+  const [messages, setMessages] = useState([
+    {
+      message: "Hello, I'm Medha! Ask me anything!",
+      sender: "ai",
+    },
+  ]);
   const [activeButton, setActiveButton] = useState("chat");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
+  const [newText, setNewText] = useState("");
+  const [aiSpeaking, setAiSpeaking] = useState(false);
+  const [src, setSrc] = useState<string | null>(null);
+  const [language, setLanguage] = useState("English");
+  const [classNumber, setClassNumber] = useState("6");
+  const [subject, setSubject] = useState("Science");
+  const [typing, setTyping] = useState(false);
   const router = useRouter();
+  const lastMessageRef = useRef<HTMLDivElement>(null);
+
+  const {
+    transcript,
+    browserSupportsSpeechRecognition,
+    resetTranscript,
+    listening,
+  } = useSpeechRecognition();
 
   useEffect(() => {
-    fetchInitialMessage();
-  }, []);
-
-  const fetchInitialMessage = async () => {
-    try {
-      const response = await fetch("/api/voiceflow", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      const initialMessage =
-        data[1]?.payload?.message || "Hello! How can I assist you today?";
-      setInitialResponse(initialMessage);
-    } catch (error) {
-      console.error("Error fetching initial message:", error);
-      setError(
-        `Error fetching initial message: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
+    if (!listening) {
+      handleSend(transcript);
     }
-  };
+  }, [listening]);
+
+  useEffect(() => {
+    setNewText(transcript);
+  }, [transcript]);
+
+  useEffect(() => {
+    if (lastMessageRef.current) {
+      lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   const handleButtonClick = (buttonType: string): void => {
     setActiveButton(buttonType);
@@ -62,85 +74,101 @@ function Chatbot() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const textarea: any = form.querySelector("textarea");
-    const message = textarea.value.trim();
+  const handleSend = async (message: string) => {
+    setSrc(null);
+    if (!message) return;
 
-    if (message) {
-      setQna((prevQna) => [...prevQna, { question: message, answer: "" }]);
-      setQuestionsHistory((prevHistory) => [...prevHistory, message]);
-      textarea.value = "";
+    setNewText("");
+    resetTranscript();
 
-      try {
-        setLoading(true);
-        const response = await sendTextToVoiceflow(message);
-        setLoading(false);
-        setQna((prevQna) => {
-          const newQna = [...prevQna];
-          newQna[newQna.length - 1].answer = response;
-          return newQna;
-        });
-        setError(null);
+    const newMessage = { message, direction: "outgoing", sender: "user" };
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+    setQuestionsHistory((prevHistory) => [...prevHistory, message]);
+    setTyping(true);
 
-        if (response.toLowerCase().includes("mcq")) {
-          router.push("/chat/mcq");
-        } else {
-          router.push("/chat/subjective");
-        }
-      } catch (error) {
-        console.error("Error getting response:", error);
-        setQna((prevQna) => {
-          const newQna = [...prevQna];
-          newQna[newQna.length - 1].answer =
-            "Sorry, there was an error processing your request.";
-          return newQna;
-        });
-        setError(
-          `Error: ${error instanceof Error ? error.message : String(error)}`
-        );
+    try {
+      setLoading(true);
+      const apiUrl = `/api/medha/text_query/?query=${encodeURIComponent(message)}&language=${encodeURIComponent(language)}&class_num=${encodeURIComponent(classNumber)}&subject=${encodeURIComponent(subject)}`;
+      const response = await axios.post(apiUrl);
+
+      let text: string;
+      if (typeof response.data === 'string') {
+        text = response.data;
+      } else if (typeof response.data.text === 'string') {
+        text = response.data.text;
+      } else {
+        throw new Error('Unexpected response format');
       }
+
+      const isCode = text.includes("```");
+      const aiMessage = {
+        message: text,
+        sender: "ai",
+        direction: "incoming",
+        isCode,
+      };
+
+      setMessages((prevMessages) => [...prevMessages, aiMessage]);
+      setTyping(false);
+      setLoading(false);
+      setError(null);
+
+      await speakTextWithFemaleVoice(text);
+
+      if (text.toLowerCase().includes("mcq")) {
+        setActiveButton("assignment");
+        setSelectedOption("topic-wise");
+      } else {
+        setActiveButton("chat");
+      }
+    } catch (error) {
+      console.error("Error getting response:", error);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          message: "Sorry, there was an error processing your request.",
+          sender: "ai",
+          direction: "incoming",
+        },
+      ]);
+      setError(
+        `Error: ${error instanceof Error ? error.message : String(error)}`
+      );
+    } finally {
+      setLoading(false);
+      setTyping(false);
     }
   };
 
-  async function sendTextToVoiceflow(text: string): Promise<string> {
+  const speakTextWithFemaleVoice = async (text: string) => {
     try {
-      const response = await fetch("/api/voiceflow", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const responseData = await response.json();
-      return (
-        responseData[1]?.payload?.message || "Sorry, I didn't understand that."
-      );
-    } catch (error) {
-      if (
-        error instanceof TypeError &&
-        error.message.includes("NetworkError")
-      ) {
-        console.error("Network error occurred:", error);
-        throw new Error(
-          "Network error: Please check your internet connection."
-        );
+      const response = await axios.post("/api/speech/generate-speech", { text });
+      if (response.data && response.data.audioUrl) {
+        setSrc(response.data.audioUrl);
+        setAiSpeaking(true);
       } else {
-        console.error("Error in sendTextToVoiceflow:", error);
-        throw error;
+        throw new Error('Audio URL not found in response');
       }
+    } catch (error) {
+      console.error("Error generating speech:", error);
+      setError(`Error generating speech: ${error instanceof Error ? error.message : String(error)}`);
     }
-  }
+  };
+
+  const stopSpeaking = () => {
+    setSrc(null);
+    setAiSpeaking(false);
+  };
+
+  const startListening = () => SpeechRecognition.startListening({ continuous: false, language: "en-IN" });
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(e.target.value);
   };
+
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => setLanguage(e.target.value);
+  const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => setClassNumber(e.target.value);
+  const handleSubjectChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSubject(e.target.value);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -214,10 +242,25 @@ function Chatbot() {
             </select>
           </div>
         </div>
-
+        <div className="flex flex-col sm:flex-row gap-4 mb-6">
+          <select value={language} onChange={handleLanguageChange} className="rounded-full h-[40px] pl-4">
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            {/* Add more language options as needed */}
+          </select>
+          <select value={classNumber} onChange={handleClassChange} className="rounded-full h-[40px] pl-4">
+            <option value="6">Class 6</option>
+            <option value="7">Class 7</option>
+            {/* Add more class options as needed */}
+          </select>
+          <select value={subject} onChange={handleSubjectChange} className="rounded-full h-[40px] pl-4">
+            <option value="Science">Science</option>
+            <option value="Math">Math</option>
+            {/* Add more subject options as needed */}
+          </select>
+        </div>
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mt-6 ">
           <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full mb-4 lg:mb-0">
-            {/* Conditional rendering based on selected option */}
             {selectedOption === "topic-wise" ? (
               <TopicWiseForm />
             ) : selectedOption === "exam-form" ? (
@@ -228,12 +271,17 @@ function Chatbot() {
           </div>
           <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
             <MedhaTextArea
-              qna={qna}
-              onSubmit={handleSubmit}
-              initialResponse={initialResponse}
+              messages={messages}
+              onSubmit={handleSend}
               loading={loading}
+              newText={newText}
+              setNewText={setNewText}
+              startListening={startListening}
+              stopSpeaking={stopSpeaking}
+              listening={listening}
             />
             {error && <div className="text-red-500 mt-2">{error}</div>}
+            {src && <AudioPlayer audioUrl={src} />}
           </div>
         </div>
       </div>

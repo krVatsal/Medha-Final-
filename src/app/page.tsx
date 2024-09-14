@@ -1,6 +1,9 @@
+"use client"
 import Image from "next/image";
 import EnterClassroomArea from "@/components/EnterClassroomArea";
 import MyAppsArea from "@/components/MyAppsArea";
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 export default function Home() {
   return (

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TopicWiseForm from "./TopicwiseForm";
 import ExamForm from "./ExamForm";
 function MedhaTextArea({
-  qna,
+  qna=[],
   onSubmit,
   initialResponse,
   loading,
