@@ -1,5 +1,6 @@
 import React from "react";
-
+import Image from "next/image";
+import DesiredOutcome from "./DesiredOutcome";
 function PPTCreationArea() {
   return (
     <div>
@@ -34,8 +35,13 @@ function PPTCreationArea() {
         <div className="bg-white p-6 rounded-2xl w-full h-auto">
           <div className="flex flex-col gap-4 w-full">
             {/* Radio button and label */}
-            <div className="flex items-center gap-2">
-              <input type="radio" id="topic" />
+            <div className="flex items-center gap-4">
+              <Image
+                src="/navigatetograde.svg"
+                alt="Navigate to Grade"
+                width={20}
+                height={20}
+              />
               <label htmlFor="topic" className="text-sm">
                 Navigate to Grade
               </label>
@@ -61,35 +67,18 @@ function PPTCreationArea() {
               </label>
             </div>
 
-            {/* Textarea and Navigate button side by side */}
-            <div className="flex items-center gap-2 w-full">
-              <textarea
-                className="w-full p-2 border border-gray-300 rounded-md h-12"
-                placeholder="Enter your text here"
-              ></textarea>
-              <button className="bg-transparent px-4 py-2">Navigate</button>
+            {/* Language selection with icon */}
+            <div className="flex items-center gap-2 border border-gray-300 rounded-md p-2 w-full">
+              {/* Globe icon (replace with your preferred icon library) */}
+              <select className="w-full border-none outline-none bg-white">
+                <option>English</option>
+                {/* Add more language options here */}
+              </select>
             </div>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl w-full h-auto">
-          <div className="flex flex-col gap-4 w-full">
-            {/* Radio button and label */}
-            <div className="flex items-center gap-2">
-              <input type="radio" id="topic" />
-              <label htmlFor="topic" className="text-sm">
-                Topic
-              </label>
-            </div>
-
-            {/* Textarea and Navigate button side by side */}
-            <div className="flex items-center gap-2 w-full">
-              <textarea
-                className="w-full p-2 border border-gray-300 rounded-md h-12"
-                placeholder="Enter your text here"
-              ></textarea>
-              <button className="bg-transparent px-4 py-2">Navigate</button>
-            </div>
-          </div>
+        <div>
+          <DesiredOutcome />
         </div>
       </div>
     </div>
