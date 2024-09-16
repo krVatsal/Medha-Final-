@@ -1,8 +1,10 @@
-"use client"
+"use client";
 
 import React, { Suspense, useState, useEffect, useRef, FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 import ChatHistoryArea from "@/components/ChatHistoryArea";
 import MedhaTextArea from "@/components/MedhaTextArea";
 import TopicWiseForm from "@/components/TopicwiseForm";
@@ -11,9 +13,9 @@ import AudioPlayer from "@/components/AudioPlayer";
 import axios from "axios";
 
 // Remove duplicate polyfills
-if (typeof window !== 'undefined') {
-  require('core-js/stable');
-  require('regenerator-runtime/runtime');
+if (typeof window !== "undefined") {
+  require("core-js/stable");
+  require("regenerator-runtime/runtime");
 }
 
 function Chatbot() {
@@ -98,15 +100,15 @@ function Chatbot() {
         query: message,
         language: language,
         class_num: classNumber,
-        subject: subject
+        subject: subject,
       });
       let text: string;
-      if (typeof response.data === 'string') {
+      if (typeof response.data === "string") {
         text = response.data;
-      } else if (typeof response.data.text === 'string') {
+      } else if (typeof response.data.text === "string") {
         text = response.data.text;
       } else {
-        throw new Error('Unexpected response format');
+        throw new Error("Unexpected response format");
       }
 
       const isCode = text.includes("```");
@@ -149,19 +151,24 @@ function Chatbot() {
     }
   };
 
-
   const speakTextWithFemaleVoice = async (text: string) => {
     try {
-      const response = await axios.post("/api/speech/generate-speech", { text });
+      const response = await axios.post("/api/speech/generate-speech", {
+        text,
+      });
       if (response.data && response.data.audioUrl) {
         setSrc(response.data.audioUrl);
         setAiSpeaking(true);
       } else {
-        throw new Error('Audio URL not found in response');
+        throw new Error("Audio URL not found in response");
       }
     } catch (error) {
       console.error("Error generating speech:", error);
-      setError(`Error generating speech: ${error instanceof Error ? error.message : String(error)}`);
+      setError(
+        `Error generating speech: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   };
 
@@ -170,19 +177,23 @@ function Chatbot() {
     setAiSpeaking(false);
   };
 
-  const startListening = () => SpeechRecognition.startListening({ continuous: false, language: "en-IN" });
+  const startListening = () =>
+    SpeechRecognition.startListening({ continuous: false, language: "en-IN" });
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(e.target.value);
   };
 
-  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => setLanguage(e.target.value);
-  const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => setClassNumber(e.target.value);
-  const handleSubjectChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSubject(e.target.value);
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    setLanguage(e.target.value);
+  const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    setClassNumber(e.target.value);
+  const handleSubjectChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    setSubject(e.target.value);
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleSend(e,newText);
+    handleSend(e, newText);
   };
 
   return (
@@ -258,17 +269,29 @@ function Chatbot() {
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          <select value={language} onChange={handleLanguageChange} className="rounded-full h-[40px] pl-4">
+          <select
+            value={language}
+            onChange={handleLanguageChange}
+            className="rounded-full h-[40px] pl-4"
+          >
             <option value="English">English</option>
             <option value="Hindi">Hindi</option>
             {/* Add more language options as needed */}
           </select>
-          <select value={classNumber} onChange={handleClassChange} className="rounded-full h-[40px] pl-4">
+          <select
+            value={classNumber}
+            onChange={handleClassChange}
+            className="rounded-full h-[40px] pl-4"
+          >
             <option value="6">Class 6</option>
             <option value="7">Class 7</option>
             {/* Add more class options as needed */}
           </select>
-          <select value={subject} onChange={handleSubjectChange} className="rounded-full h-[40px] pl-4">
+          <select
+            value={subject}
+            onChange={handleSubjectChange}
+            className="rounded-full h-[40px] pl-4"
+          >
             <option value="Science">Science</option>
             <option value="Math">Math</option>
             {/* Add more subject options as needed */}
@@ -285,19 +308,19 @@ function Chatbot() {
             )}
           </div>
           <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
-        <MedhaTextArea
-          messages={messages}
-          onSubmit={handleSend}
-          loading={loading}
-          newText={newText}
-          setNewText={setNewText}
-          startListening={startListening}
-          stopSpeaking={stopSpeaking}
-          listening={listening}
-        />
-        {error && <div className="text-red-500 mt-2">{error}</div>}
-        {src && <AudioPlayer audioUrl={src} />}
-      </div>
+            <MedhaTextArea
+              messages={messages}
+              onSubmit={handleSend}
+              loading={loading}
+              newText={newText}
+              setNewText={setNewText}
+              startListening={startListening}
+              stopSpeaking={stopSpeaking}
+              listening={listening}
+            />
+            {error && <div className="text-red-500 mt-2">{error}</div>}
+            {src && <AudioPlayer audioUrl={src} />}
+          </div>
         </div>
       </div>
     </Suspense>

@@ -1,18 +1,19 @@
+"use client";
 import React from "react";
 import Image from "next/image";
+import AIToolCard from "@/components/AIToolCard";
 
 const Page = () => {
   return (
-    <div>
-      <div className="flex justify-between items-center p-10">
+    <div className="p-10">
+      <div className="flex justify-between items-center mb-8">
         {/* Left section with title and description */}
         <div>
-          <div className="text-black text-[40px] font-bold">AI Tools</div>
-          <div className="text-[20px] text-[#696969]">
+          <h1 className="text-black text-[40px] font-bold">AI Tools</h1>
+          <p className="text-[20px] text-[#696969]">
             A small description of AI Tools
-          </div>
+          </p>
         </div>
-        
         {/* Right section with search bar and dropdown */}
         <div className="flex items-center gap-4">
           {/* Search bar */}
@@ -31,7 +32,6 @@ const Page = () => {
               style={{ textAlign: "left" }}
             />
           </div>
-
           {/* Dropdown */}
           <select className="h-[40px] w-[156px] rounded-full pl-4 cursor-pointer">
             <option value="" disabled selected>
@@ -41,6 +41,12 @@ const Page = () => {
             <option value="option2">Option 2</option>
           </select>
         </div>
+      </div>
+      {/* AIToolCards */}
+      <div className="flex flex-wrap gap-x-6 gap-y-4">
+        {[...Array(1)].map((_, index) => (
+          <AIToolCard key={index} type="homework" />
+        ))}
       </div>
     </div>
   );
