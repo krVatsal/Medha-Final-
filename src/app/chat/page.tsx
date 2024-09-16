@@ -52,7 +52,7 @@ function Chatbot() {
 
   useEffect(() => {
     if (!listening) {
-      handleSend(transcript);
+      handleSend(null,transcript);
     }
   }, [listening]);
 
