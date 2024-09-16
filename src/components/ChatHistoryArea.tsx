@@ -1,6 +1,11 @@
 import Image from "next/image";
+
 function ChatHistoryArea({ questions }: { questions: string[] }) {
-  const truncateText = (text: string, maxLength: number) => {
+  const truncateText = (text: string, maxLength: number): string => {
+    if (typeof text !== 'string') {
+      console.error('Expected string for truncation, got:', typeof text);
+      return '';
+    }
     if (text.length <= maxLength) {
       return text;
     }
@@ -8,7 +13,7 @@ function ChatHistoryArea({ questions }: { questions: string[] }) {
   };
 
   return (
-    <div className=" bg-white bg-opacity-60 p-6 rounded-3xl flex flex-col h-[410px] min-w-[345px]">
+    <div className="bg-white bg-opacity-60 p-6 rounded-3xl flex flex-col h-[410px] min-w-[345px]">
       <p className="font-bold text-lg mb-4">Chat History</p>
       <div className="bg-white pt-4 rounded-xl flex-grow flex flex-col overflow-hidden">
         <div className="flex flex-col pt-2 pl-8">
@@ -25,7 +30,7 @@ function ChatHistoryArea({ questions }: { questions: string[] }) {
             >
               <Image
                 src="/Chat_bubble.svg"
-                alt="Placeholder"
+                alt="Chat bubble"
                 className="h-4 w-4 rounded-full mr-4"
                 width={20}
                 height={20}

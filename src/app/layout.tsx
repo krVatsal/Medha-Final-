@@ -1,14 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Inter } from "next/font/google";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 export default function RootLayout({
   children,
@@ -25,7 +24,10 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="h-full">
-      <body className={`${inter.className} h-full`}>
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+      </head>
+      <body className="font-inter h-full">
         <div className="flex flex-col h-full">
           {showNavbar && (
             <header className="md:hidden bg-gray-200 px-4 py-4 flex justify-between items-center z-20">
@@ -48,12 +50,11 @@ export default function RootLayout({
                 </svg>
               </button>
 
-              {/* Medha logo and text, larger icon and centered */}
               <div className="flex justify-center items-center flex-grow">
                 <div className="flex items-center space-x-2">
                   <Image
                     src="/Codepen.svg"
-                    width={70} // Larger icon size
+                    width={70}
                     height={70}
                     alt="Medha Icon"
                     className="object-contain"
@@ -76,7 +77,6 @@ export default function RootLayout({
                   ></div>
                 )}
 
-                {/* Sidebar */}
                 <div
                   className={`fixed md:static top-0 left-0 h-full w-64 bg-white z-40 transform transition-transform duration-300 ease-in-out ${
                     isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
@@ -102,7 +102,6 @@ export default function RootLayout({
               </>
             )}
 
-            {/* Main Content */}
             <main className="flex-1 flex flex-col overflow-hidden bg-gray-200 min-h-0">
               {showNavbar && (
                 <div className="px-8 py-5 bg-gray-200 border-b border-gray-200">

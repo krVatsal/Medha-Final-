@@ -1,8 +1,6 @@
 "use client"
-import 'core-js/stable';
-import 'babel-polyfill'
-import 'regenerator-runtime/runtime';
-import React, { Suspense, useState, useEffect, useRef } from "react";
+
+import React, { Suspense, useState, useEffect, useRef, FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import ChatHistoryArea from "@/components/ChatHistoryArea";
@@ -12,7 +10,11 @@ import ExamForm from "@/components/ExamForm";
 import AudioPlayer from "@/components/AudioPlayer";
 import axios from "axios";
 
-
+// Remove duplicate polyfills
+if (typeof window !== 'undefined') {
+  require('core-js/stable');
+  require('regenerator-runtime/runtime');
+}
 
 function Chatbot() {
   const searchParams = useSearchParams();
@@ -74,7 +76,10 @@ function Chatbot() {
     }
   };
 
-  const handleSend = async (message: string) => {
+  const handleSend = async (e: any, message: string) => {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
     setSrc(null);
     if (!message) return;
 
@@ -88,9 +93,13 @@ function Chatbot() {
 
     try {
       setLoading(true);
-      const apiUrl = `/api/medha/text_query/?query=${encodeURIComponent(message)}&language=${encodeURIComponent(language)}&class_num=${encodeURIComponent(classNumber)}&subject=${encodeURIComponent(subject)}`;
-      const response = await axios.post(apiUrl);
-
+      const apiUrl = `/api/medha/text_query`;
+      const response = await axios.post(apiUrl, {
+        query: message,
+        language: language,
+        class_num: classNumber,
+        subject: subject
+      });
       let text: string;
       if (typeof response.data === 'string') {
         text = response.data;
@@ -140,6 +149,7 @@ function Chatbot() {
     }
   };
 
+
   const speakTextWithFemaleVoice = async (text: string) => {
     try {
       const response = await axios.post("/api/speech/generate-speech", { text });
@@ -169,6 +179,11 @@ function Chatbot() {
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => setLanguage(e.target.value);
   const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => setClassNumber(e.target.value);
   const handleSubjectChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSubject(e.target.value);
+
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSend(e,newText);
+  };
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -270,19 +285,19 @@ function Chatbot() {
             )}
           </div>
           <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
-            <MedhaTextArea
-              messages={messages}
-              onSubmit={handleSend}
-              loading={loading}
-              newText={newText}
-              setNewText={setNewText}
-              startListening={startListening}
-              stopSpeaking={stopSpeaking}
-              listening={listening}
-            />
-            {error && <div className="text-red-500 mt-2">{error}</div>}
-            {src && <AudioPlayer audioUrl={src} />}
-          </div>
+        <MedhaTextArea
+          messages={messages}
+          onSubmit={handleSend}
+          loading={loading}
+          newText={newText}
+          setNewText={setNewText}
+          startListening={startListening}
+          stopSpeaking={stopSpeaking}
+          listening={listening}
+        />
+        {error && <div className="text-red-500 mt-2">{error}</div>}
+        {src && <AudioPlayer audioUrl={src} />}
+      </div>
         </div>
       </div>
     </Suspense>
