@@ -103,12 +103,12 @@ function MedhaTextArea({
             </div>
           </form>
           <div className="mt-2 flex justify-center">
-            <button
+            {/* <button
               onClick={listening ? stopSpeaking : startListening}
               className="bg-[#5D233C] text-white px-4 py-2 rounded-full text-sm"
             >
               {listening ? "Stop Listening" : "Start Listening"}
-            </button>
+            </button> */}
           </div>
         </div>
       )}
