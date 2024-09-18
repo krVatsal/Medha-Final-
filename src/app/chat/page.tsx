@@ -310,7 +310,7 @@ function Chatbot() {
           <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
             <MedhaTextArea
               messages={messages}
-              onSubmit={handleSend}
+              onSubmit={(e: FormEvent<HTMLFormElement>) => handleSend(e, newText)}
               loading={loading}
               newText={newText}
               setNewText={setNewText}
