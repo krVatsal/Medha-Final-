@@ -7,19 +7,26 @@ const nextConfig = {
         destination: "https://medha-cograd.azurewebsites.net/:path*",
       },
       {
-        source: "/:path*",
+        source: "/voicebot/:path*",
         destination: "https://voicebot-server.onrender.com/:path*",
       },
       {
-        source: "/api/:path",
-        destination: "https://game.simplem.in/:path*"
+        source: "/api/:path*",
+        destination: "https://game.simplem.in/:path*",
       },
-    {  headers: [
-        { key: "Access-Control-Allow-Credentials", value: "true" },
-        { key: "Access-Control-Allow-Origin", value: "*" },
-        { key: "Access-Control-Allow-Methods", value: "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
-        { key: "Access-Control-Allow-Headers", value: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" },
-      ]}
+    ];
+  },
+  async headers() {
+    return [
+      {
+        source: "/(.*)", // Matches all routes
+        headers: [
+          { key: "Access-Control-Allow-Credentials", value: "true" },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+          { key: "Access-Control-Allow-Methods", value: "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
+          { key: "Access-Control-Allow-Headers", value: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" },
+        ],
+      },
     ];
   },
   experimental: {
@@ -30,7 +37,7 @@ const nextConfig = {
   api: {
     responseLimit: false,
     bodyParser: {
-      sizeLimit: '1mb',
+      sizeLimit: "1mb",
     },
   },
 };
