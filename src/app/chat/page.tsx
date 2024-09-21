@@ -54,7 +54,7 @@ function Chatbot() {
 
   useEffect(() => {
     if (!listening) {
-      handleSend(null,transcript);
+      handleSend(null, transcript);
     }
   }, [listening]);
 
@@ -93,67 +93,82 @@ function Chatbot() {
     setQuestionsHistory((prevHistory) => [...prevHistory, message]);
     setTyping(true);
 
-    try {
-      setLoading(true);
-      const apiUrl = `/api/medha/text_query`;
-      const response = await axios.post(apiUrl, {
-        query: message,
-        language: language,
-        class_num: classNumber,
-        subject: subject,
-      });
-      let text: string;
-      if (typeof response.data === "string") {
-        text = response.data;
-      } else if (typeof response.data.text === "string") {
-        text = response.data.text;
-      } else {
-        throw new Error("Unexpected response format");
-      }
+    const maxRetries = 3;
+    let retries = 0;
 
-      const isCode = text.includes("```");
-      const aiMessage = {
-        message: text,
-        sender: "ai",
-        direction: "incoming",
-        isCode,
-      };
+    const makeRequest = async () => {
+      try {
+        setLoading(true);
+        const apiUrl = `https://medha-cograd.azurewebsites.net/text_query/?query=${message}&language=${language}&class_num=${classNumber}&subject=${subject}`;
+        const response = await axios.post(apiUrl)
+          // query: encodeURIComponent(message),
+          // language,
+          // class_num: classNumber,
+          // subject,
+        { timeout: 30000 }; // Set timeout to 30 seconds
+        console.log(response)
 
-      setMessages((prevMessages) => [...prevMessages, aiMessage]);
-      setTyping(false);
-      setLoading(false);
-      setError(null);
+        let text: string;
+        if (typeof response.data === "string") {
+          text = response.data;
+        } else if (typeof response.data.text === "string") {
+          text = response.data.text;
+        } else {
+          throw new Error("Unexpected response format");
+        }
 
-      await speakTextWithFemaleVoice(text);
-
-      if (text.toLowerCase().includes("mcq")) {
-        setActiveButton("assignment");
-        setSelectedOption("topic-wise");
-      } else {
-        setActiveButton("chat");
-      }
-    } catch (error) {
-      console.error("Error getting response:", error);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          message: "Sorry, there was an error processing your request.",
+        const isCode = text.includes("```");
+        const aiMessage = {
+          message: text,
           sender: "ai",
           direction: "incoming",
-        },
-      ]);
-      setError(
-        `Error: ${error instanceof Error ? error.message : String(error)}`
-      );
-    } finally {
-      setLoading(false);
-      setTyping(false);
-    }
+          isCode,
+        };
+
+        setMessages((prevMessages) => [...prevMessages, aiMessage]);
+        setTyping(false);
+        setLoading(false);
+        setError(null);
+
+        await speakTextWithFemaleVoice(text);
+
+        if (text.toLowerCase().includes("mcq")) {
+          setActiveButton("assignment");
+          setSelectedOption("topic-wise");
+        } else {
+          setActiveButton("chat");
+        }
+      } catch (error) {
+        console.error("Error getting response:", error);
+        if (retries < maxRetries) {
+          retries++;
+          console.log(`Retrying... Attempt ${retries} of ${maxRetries}`);
+          await new Promise(resolve => setTimeout(resolve, 1000 * retries)); // Exponential backoff
+          await makeRequest();
+        } else {
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            {
+              message: "Sorry, there was an error processing your request. Please try again later.",
+              sender: "ai",
+              direction: "incoming",
+            },
+          ]);
+          setError(
+            `Error: ${error instanceof Error ? error.message : String(error)}`
+          );
+          setLoading(false);
+          setTyping(false);
+        }
+      }
+    };
+
+    await makeRequest();
   };
 
   const speakTextWithFemaleVoice = async (text: string) => {
     try {
-      const response = await axios.post("/api/speech/generate-speech", {
+      const response = await axios.post("https://voicebot-server.onrender.com/generate-speech", {
         text,
       });
       if (response.data && response.data.audioUrl) {
