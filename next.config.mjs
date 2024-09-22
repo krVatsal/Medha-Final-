@@ -16,6 +16,7 @@ const nextConfig = {
       },
     ];
   },
+  target: 'serverless',
   async headers() {
     return [
       {
