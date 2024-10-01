@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSelection } from "../context/SelectionContext"; // Import the context
 
 interface ChapterObject {
   [chapterName: string]: string[];
@@ -15,9 +16,8 @@ interface ClassData {
 
 export default function ExamForm() {
   const router = useRouter();
+  const { classNumber, subject, language } = useSelection(); // Destructure the class, subject, and language from context
   const [classData, setClassData] = useState<ClassData>({});
-  const [selectedClass, setSelectedClass] = useState<string>("");
-  const [selectedSubject, setSelectedSubject] = useState<string>("");
   const [selectedChapters, setSelectedChapters] = useState<string[]>([]);
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [formData, setFormData] = useState({
@@ -47,13 +47,6 @@ export default function ExamForm() {
     }
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLSelectElement>,
-    setter: React.Dispatch<React.SetStateAction<string>>
-  ) => {
-    setter(e.target.value);
-  };
-
   const handleMultipleChange = (
     e: React.ChangeEvent<HTMLSelectElement>,
     setter: React.Dispatch<React.SetStateAction<string[]>>
@@ -75,11 +68,12 @@ export default function ExamForm() {
     setIsLoading(true);
 
     const payload = {
-      class: selectedClass,
-      subject: selectedSubject,
+      class: classNumber,  // Use the class selected in Personal
+      subject: subject,    // Use the subject selected in Personal
+      language: language,  // Use the language selected in Personal
       chapters: selectedChapters,
       topics: selectedTopics,
-      ...formData,
+      ...formData,         // Include the form data (totalQuestions, mcq, etc.)
     };
 
     try {
@@ -109,23 +103,10 @@ export default function ExamForm() {
     }
   };
 
-  const renderOptions = (options: Record<string, any>): JSX.Element[] => {
-    return Object.keys(options || {}).map((option) => (
-      <option key={option} value={option}>
-        {option}
-      </option>
-    ));
-  };
-
-  const renderSubjects = (): JSX.Element[] | null => {
-    if (!selectedClass) return null;
-    return renderOptions(classData[selectedClass]);
-  };
-
   const renderChapters = (): JSX.Element[] | null => {
-    if (!selectedClass || !selectedSubject) return null;
-    const subjects = classData[selectedClass];
-    const subjectData = subjects[selectedSubject];
+    if (!classNumber || !subject) return null;
+    const subjects = classData[classNumber];
+    const subjectData = subjects?.[subject];
     if (!subjectData) return null;
 
     return subjectData.map((chapterObject, index) => {
@@ -139,14 +120,14 @@ export default function ExamForm() {
   };
 
   const renderTopics = (): JSX.Element[] | null => {
-    if (!selectedClass || !selectedSubject || selectedChapters.length === 0) return null;
+    if (!classNumber || !subject || selectedChapters.length === 0) return null;
 
     const topicsSet = new Set<string>();
 
     selectedChapters.forEach((chapter) => {
-      const subjects = classData[selectedClass];
-      const subjectData = subjects[selectedSubject];
-      const chapterObject = subjectData.find(
+      const subjects = classData[classNumber];
+      const subjectData = subjects?.[subject];
+      const chapterObject = subjectData?.find(
         (chapterObj) => Object.keys(chapterObj)[0] === chapter
       );
       if (chapterObject) {
@@ -162,31 +143,17 @@ export default function ExamForm() {
     ));
   };
 
+
+
   return (
-    <div className="bg-white bg-opacity-60 p-6 rounded-2xl flex flex-col pt-4 flex-grow overflow-scroll">
+    <div className="bg-white bg-opacity-60 p-6 rounded-2xl min-h-[410px] flex flex-col pt-4 flex-grow overflow-scroll">
       <p className="mb-4 font-bold">Create Exam Form</p>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <select
             className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm"
-            value={selectedClass}
-            onChange={(e) => handleChange(e, setSelectedClass)}
-          >
-            <option value="" disabled>Class</option>
-            {renderOptions(classData)}
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm"
-            value={selectedSubject}
-            onChange={(e) => handleChange(e, setSelectedSubject)}
-          >
-            <option value="" disabled>Subject</option>
-            {renderSubjects()}
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm"
-            value={selectedChapters}
-            onChange={(e) => handleMultipleChange(e, setSelectedChapters)}
+            value={selectedChapters[0] || ""} // Use first selected chapter or empty string
+            onChange={(e) => setSelectedChapters([e.target.value])} // Set selected chapter as an array with one value
           >
             <option value="" disabled>Select Chapter</option>
             {renderChapters()}
@@ -269,3 +236,4 @@ export default function ExamForm() {
     </div>
   );
 }
+

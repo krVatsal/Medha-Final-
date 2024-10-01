@@ -2,10 +2,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
+import axios from 'axios'; // Import axios for API calls
+import { useRouter } from 'next/navigation'; 
 
-const LoginPage = () => {
-  const [showPassword, setShowPassword] = useState(false); 
-  const [showRetypePassword, setShowRetypePassword] = useState(false); 
+const SignUpPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRetypePassword, setShowRetypePassword] = useState(false);
 
   const {
     register,
@@ -15,14 +17,35 @@ const LoginPage = () => {
   } = useForm({
     mode: "onBlur",
   });
-
-  const onSubmit = () => {
-    // console.log(data);
-    // Handle login logic here, such as calling an API to authenticate
-  };
-
+  const router = useRouter();
   // Watch the password field for validation
   const password = watch("password");
+
+  // Modify onSubmit to exclude retypePassword field
+  const onSubmit = async (data:any) => {
+    try {
+      // Call your login API
+      const response = await axios.post('http://localhost:5217/api/v1/client/register', {
+        email: data.email,
+        password: data.password,
+        name: data.name
+      });
+
+      // If login is successful, navigate to dashboard or any secure page
+      if (response.status === 200) {
+        // Set token in localStorage or cookies if needed
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
+
+        // Navigate to the dashboard
+        router.push('/');
+      }
+    } catch (error) {
+      console.error("Login failed", error);
+      // Handle login errors like invalid credentials
+      alert(error.response?.data?.message || "Login failed");
+    }
+  };
 
   return (
     <div className="pr-32 flex flex-col justify-center items-center min-h-screen bg-white">
@@ -204,4 +227,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;

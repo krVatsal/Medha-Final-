@@ -199,12 +199,12 @@ function Chatbot() {
     setSelectedOption(e.target.value);
   };
 
-  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    setLanguage(e.target.value);
-  const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    setClassNumber(e.target.value);
-  const handleSubjectChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    setSubject(e.target.value);
+  // const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+  //   setLanguage(e.target.value);
+  // const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+  //   setClassNumber(e.target.value);
+  // const handleSubjectChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+  //   setSubject(e.target.value);
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -283,37 +283,9 @@ function Chatbot() {
             </select>
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          <select
-            value={language}
-            onChange={handleLanguageChange}
-            className="rounded-full h-[40px] pl-4"
-          >
-            <option value="English">English</option>
-            <option value="Hindi">Hindi</option>
-            {/* Add more language options as needed */}
-          </select>
-          <select
-            value={classNumber}
-            onChange={handleClassChange}
-            className="rounded-full h-[40px] pl-4"
-          >
-            <option value="6">Class 6</option>
-            <option value="7">Class 7</option>
-            {/* Add more class options as needed */}
-          </select>
-          <select
-            value={subject}
-            onChange={handleSubjectChange}
-            className="rounded-full h-[40px] pl-4"
-          >
-            <option value="Science">Science</option>
-            <option value="Math">Math</option>
-            {/* Add more subject options as needed */}
-          </select>
-        </div>
+
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mt-6 ">
-          <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full mb-4 lg:mb-0">
+          <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full min-h-[410px] mb-4 lg:mb-0">
             {selectedOption === "topic-wise" ? (
               <TopicWiseForm />
             ) : selectedOption === "exam-form" ? (

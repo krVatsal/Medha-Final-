@@ -14,6 +14,14 @@ const nextConfig = {
         source: "/api/:path*",
         destination: "https://game.simplem.in/:path*",
       },
+      {
+        source: "/api/submit-exam-form/",
+        destination: "https://game.simplem.in/:path*",
+      },
+      {
+        source: "/api/v1/:path*",
+        destination: "http://localhost:5217/:path*",
+      },
     ];
   },
 
@@ -54,7 +62,7 @@ const nextConfig = {
   api: {
     responseLimit: false,
     bodyParser: {
-      sizeLimit: "1mb",
+      sizeLimit: "4mb",
     },
   },
 };

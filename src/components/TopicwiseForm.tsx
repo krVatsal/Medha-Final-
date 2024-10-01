@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { NextResponse } from "next/server";
+import { useSelection } from "../context/SelectionContext"; // Import the context
+
 // Define the structure of the class data
 interface ChapterObject {
   [chapterName: string]: string[]; // chapterName maps to an array of topics
@@ -17,9 +18,8 @@ interface ClassData {
 
 export default function TopicWiseForm() {
   const router = useRouter();
+  const { classNumber, subject } = useSelection(); // Use the context for class and subject
   const [classData, setClassData] = useState<ClassData>({});
-  const [selectedClass, setSelectedClass] = useState<string>("");
-  const [selectedSubject, setSelectedSubject] = useState<string>("");
   const [selectedChapter, setSelectedChapter] = useState<string>("");
   const [selectedTopic, setSelectedTopic] = useState<string>("");
   const [selectedLevel, setSelectedLevel] = useState<string>("");
@@ -56,8 +56,8 @@ export default function TopicWiseForm() {
     setIsLoading(true);
 
     if (
-      !selectedClass ||
-      !selectedSubject ||
+      !classNumber ||
+      !subject ||
       !selectedChapter ||
       !selectedTopic ||
       !selectedLevel ||
@@ -70,8 +70,8 @@ export default function TopicWiseForm() {
     }
 
     const payload = {
-      class: selectedClass,
-      subject: selectedSubject,
+      class: classNumber,
+      subject: subject,
       chapter: selectedChapter,
       topic: selectedTopic,
       type: selectedType,
@@ -80,7 +80,6 @@ export default function TopicWiseForm() {
     };
 
     try {
-      console.log(1);
       const response = await fetch(
         "https://game.simplem.in/api/submit-topic-wise-form",
         {
@@ -91,13 +90,8 @@ export default function TopicWiseForm() {
           body: JSON.stringify(payload),
         }
       );
-      console.log(2);
-      const responseData = await response.json();
-      console.log("---------------------------------------------");
-      console.log(responseData);
-      console.log("Type :", responseData.content[0].Type);
-      console.log("---------------------------------------------");
 
+      const responseData = await response.json();
       if (responseData.content && responseData.content.length > 0) {
         const questionType = responseData.content[0].Type;
         let redirectPath = "";
@@ -110,9 +104,7 @@ export default function TopicWiseForm() {
             redirectPath = "/chat/mcq";
             break;
           case "Reading":
-            console.log(
-              "Reading type detected, implement appropriate action here"
-            );
+            console.log("Reading type detected, implement appropriate action here");
             return; // Exit the function if type is Reading
           default:
             console.log("Unknown question type:", questionType);
@@ -120,11 +112,7 @@ export default function TopicWiseForm() {
         }
 
         const encodedData = encodeURIComponent(JSON.stringify(responseData));
-        try {
-          router.push(`${redirectPath}?data=${encodedData}`);
-        } catch (routerError) {
-          console.error("Navigation failed:", routerError);
-        }
+        router.push(`${redirectPath}?data=${encodedData}`);
       } else {
         console.error("Unexpected response structure:", responseData);
       }
@@ -143,15 +131,10 @@ export default function TopicWiseForm() {
     ));
   };
 
-  const renderSubjects = (): JSX.Element[] | null => {
-    if (!selectedClass) return null;
-    return renderOptions(classData?.[selectedClass]);
-  };
-
   const renderChapters = (): JSX.Element[] | null => {
-    if (!selectedClass || !selectedSubject) return null;
-    const subjects = classData?.[selectedClass];
-    const subjectData = subjects?.[selectedSubject];
+    if (!classNumber || !subject) return null;
+    const subjects = classData[classNumber];
+    const subjectData = subjects?.[subject];
     if (!subjectData) return null;
 
     return subjectData.map((chapterObject, index) => {
@@ -165,10 +148,10 @@ export default function TopicWiseForm() {
   };
 
   const renderTopics = (): JSX.Element[] | null => {
-    if (!selectedClass || !selectedSubject || !selectedChapter) return null;
+    if (!classNumber || !subject || !selectedChapter) return null;
 
-    const subjects = classData?.[selectedClass];
-    const subjectData = subjects?.[selectedSubject];
+    const subjects = classData[classNumber];
+    const subjectData = subjects?.[subject];
     const chapterObject = subjectData?.find(
       (chapterObj) => Object.keys(chapterObj)?.[0] === selectedChapter
     );
@@ -183,57 +166,15 @@ export default function TopicWiseForm() {
   };
 
   return (
-    <div className="bg-white bg-opacity-60 p-6 rounded-2xl flex flex-col pt-4 flex-grow ">
+    <div className="bg-white bg-opacity-60 p-6 min-h-[410px] rounded-2xl flex flex-col pt-4 flex-grow ">
       <p className="mb-4 font-bold">Create Topic Wise Assessment</p>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4 mb-4">
-          <select className="h-[31px] w-[96px] rounded-full pl-4 text-xs sm:text-sm">
-            <option value="" disabled selected>
-              Class
-            </option>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-          </select>
-          <select className="h-[31px] w-[108px] rounded-full pl-4 text-xs sm:text-sm">
-            <option value="" disabled selected>
-              Subject
-            </option>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-          </select>
-          <select className="h-[31px] w-[120px] rounded-full pl-4 text-xs sm:text-sm">
-            <option value="" disabled selected>
-              Language
-            </option>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4"
-            value={selectedClass}
-            onChange={(e) => handleChange(e, setSelectedClass)}
-          >
-            <option value="" disabled>
-              Select Class
-            </option>
-            {renderOptions(classData)}
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4"
-            value={selectedSubject}
-            onChange={(e) => handleChange(e, setSelectedSubject)}
-            disabled={!selectedClass}
-          >
-            <option value="" disabled>
-              Select Subject
-            </option>
-            {renderSubjects()}
-          </select>
           <select
             className="h-[31px] w-full rounded-full pl-4"
             value={selectedChapter}
             onChange={(e) => handleChange(e, setSelectedChapter)}
-            disabled={!selectedSubject}
+            disabled={!subject} // Disable if no subject is selected
           >
             <option value="" disabled>
               Select Chapter
