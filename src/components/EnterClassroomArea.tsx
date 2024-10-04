@@ -2,53 +2,46 @@ import React from "react";
 import Image from "next/image";
 function EnterClassroomArea() {
   return (
-    <div className="bg-white bg-opacity-60 p-6 rounded-3xl">
+    <div className="bg-white bg-opacity-60 p-6 rounded-3xl h-[242px]">
       <div className="flex flex-col mb-4">
-        <div className="text-lg font-bold">Classroom</div>
-        <div className="text-xs text-gray-500">Connect to a Classroom</div>
+        <div className="text-lg font-bold">Personalise Medha</div>
       </div>
-      <div className="p-4 bg-white rounded-xl ">
+      <div className="p-4 mt-8 bg-white rounded-xl h-[121px]">
         <div className="grid grid-cols-1 gap-4">
           <form className="flex flex-col space-y-2">
-            <label htmlFor="classroom-id" className="font-medium text-sm">
-              Enter Classroom ID
+            <label htmlFor="classroom-id" className="font-bold text-sm">
+              Upload a PDF of Book
             </label>
             <div className="flex items-center space-x-2">
-              <input
+              {/* <input
                 id="classroom-id"
-                type="text"
-                className="flex-grow w-2/3 p-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                type="file"
+                className="flex-grow  p-2 rounded text-sm "
                 placeholder="Classroom ID"
-              />
+              /> */}
+              <button
+                type="button"
+                className= "flex gap-1 align-middle justify-center items-center border-gray-200 hover:border-black border-2 w-[130px] p-2 rounded-full"
+              >
+                 <Image width={16} height={16} alt="" src="/Folder.svg" />
+                Select File
+              </button>
+              <select className="border-gray-200 hover:border-black border-2 w-[98px] p-2 rounded-full" name="Subject" id="">
+                <option value="subject" disabled>Subject</option>
+                <option value="english">English</option>
+                <option value="hindi">Hindi</option>
+                <option value="science">Science</option>
+              </select>
               <button
                 type="submit"
-                className="w-1/3 p-2 bg-red-500 text-white rounded text-sm hover:bg-red-600"
+                className="text-white w-[98px] p-2 bg-[#5D233C] rounded-full"
               >
                 Connect
               </button>
             </div>
           </form>
         </div>
-        <div className="mt-4 flex space-x-4">
-          <div className="flex-1 p-3 text-xs font-semibold bg-gray-100 rounded-lg flex items-center">
-            <Image
-            width={32} height={32}
-              src="/Remote_controller.svg"
-              alt="Remote Controller"
-              className="w-8 h-8 mr-2"
-            />
-            <div>Remote Controller</div>
-          </div>
-          <div className="flex-1 p-3 text-xs font-semibold bg-gray-100 rounded-lg flex items-center">
-            <Image
-            width={32} height={32}
-              src="/Drop_in_file.svg"
-              alt="Drop in file"
-              className="w-8 h-8 mr-2"
-            />
-            <div>Drop in file</div>
-          </div>
-        </div>
+
       </div>
     </div>
   );

@@ -139,7 +139,7 @@ function Personal() {
           </div>
           <div className="flex flex-col justify-center pl-1 xs:pl-2 min-w-0 max-w-[100px] xs:max-w-[120px] sm:max-w-none">
             <div className="text-black text-xs xs:text-sm sm:text-base font-bold truncate">{clientName}</div>
-            <div className="text-[10px] xs:text-xs sm:text-sm text-gray-800 truncate">Your role</div>
+            <div className="text-[10px] xs:text-xs sm:text-sm text-gray-800 truncate">Admin/Teacher</div>
           </div>
         </div>
 

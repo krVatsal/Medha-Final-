@@ -1,27 +1,31 @@
-// context/UserContext.tsx
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-interface UserContextType {
-  clientName: string | null;
-  setClientName: (name: string) => void;
-}
+// Create UserContext
+const UserContext = createContext<any>(null);
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+// Create a custom hook for accessing user data
+export const useUser = () => useContext(UserContext);
 
-export const UserProvider = ({ children }: { children: ReactNode }) => {
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [clientName, setClientName] = useState<string | null>(null);
 
+  // On mount, check localStorage for existing clientName
+  useEffect(() => {
+    const storedClientName = localStorage.getItem('clientName');
+    if (storedClientName) {
+      setClientName(storedClientName);
+    }
+  }, []);
+
+  // Function to set clientName in both context and localStorage
+  const updateClientName = (name: string) => {
+    setClientName(name);
+    localStorage.setItem('clientName', name); // Store the name in localStorage
+  };
+
   return (
-    <UserContext.Provider value={{ clientName, setClientName }}>
+    <UserContext.Provider value={{ clientName, setClientName: updateClientName }}>
       {children}
     </UserContext.Provider>
   );
-};
-
-export const useUser = () => {
-  const context = useContext(UserContext);
-  if (!context) {
-    throw new Error('useUser must be used within a UserProvider');
-  }
-  return context;
 };
