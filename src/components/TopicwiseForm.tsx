@@ -1,24 +1,25 @@
 "use client";
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { useSelection } from "../context/SelectionContext"; // Import the context
+import { useSelection } from "../context/SelectionContext";
+import Assessment from "./MCQ";
+import Subjective from "./Subjective";
 
-// Define the structure of the class data
 interface ChapterObject {
-  [chapterName: string]: string[]; // chapterName maps to an array of topics
+  [chapterName: string]: string[];
 }
 
 interface SubjectObject {
-  [subjectName: string]: ChapterObject[]; // subjectName maps to an array of chapter objects
+  [subjectName: string]: ChapterObject[];
 }
 
 interface ClassData {
-  [className: string]: SubjectObject; // className maps to an object of subjects
+  [className: string]: SubjectObject;
 }
 
 export default function TopicWiseForm() {
   const router = useRouter();
-  const { classNumber, subject } = useSelection(); // Use the context for class and subject
+  const { classNumber, subject } = useSelection();
   const [classData, setClassData] = useState<ClassData>({});
   const [selectedChapter, setSelectedChapter] = useState<string>("");
   const [selectedTopic, setSelectedTopic] = useState<string>("");
@@ -26,6 +27,8 @@ export default function TopicWiseForm() {
   const [selectedType, setSelectedType] = useState<string>("");
   const [totalQuestion, setTotalQuestion] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false); // Added state
+  const [data, setData] = useState<any>();
 
   useEffect(() => {
     fetchClassData();
@@ -54,6 +57,7 @@ export default function TopicWiseForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setIsLoading(true);
+    setIsSubmitted(false); // Reset submission status before new submission
 
     if (
       !classNumber ||
@@ -93,26 +97,8 @@ export default function TopicWiseForm() {
 
       const responseData = await response.json();
       if (responseData.content && responseData.content.length > 0) {
-        const questionType = responseData.content[0].Type;
-        let redirectPath = "";
-
-        switch (questionType) {
-          case "Subjective":
-            redirectPath = "/chat/subjective";
-            break;
-          case "Objective":
-            redirectPath = "/chat/mcq";
-            break;
-          case "Reading":
-            console.log("Reading type detected, implement appropriate action here");
-            return; // Exit the function if type is Reading
-          default:
-            console.log("Unknown question type:", questionType);
-            return; // Exit the function if type is unknown
-        }
-
-        const encodedData = encodeURIComponent(JSON.stringify(responseData));
-        router.push(`${redirectPath}?data=${encodedData}`);
+        setData(responseData);
+        setIsSubmitted(true); // Mark form as submitted successfully
       } else {
         console.error("Unexpected response structure:", responseData);
       }
@@ -166,79 +152,91 @@ export default function TopicWiseForm() {
   };
 
   return (
-    <div className="bg-white bg-opacity-60 p-6 min-h-[410px] rounded-2xl flex flex-col pt-4 flex-grow ">
-      <p className="mb-4 font-bold">Create Topic Wise Assessment</p>
-      <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <select
-            className="h-[31px] w-full rounded-full pl-4"
-            value={selectedChapter}
-            onChange={(e) => handleChange(e, setSelectedChapter)}
-            disabled={!subject} // Disable if no subject is selected
-          >
-            <option value="" disabled>
-              Select Chapter
-            </option>
-            {renderChapters()}
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4"
-            value={selectedTopic}
-            onChange={(e) => handleChange(e, setSelectedTopic)}
-            disabled={!selectedChapter}
-          >
-            <option value="" disabled>
-              Select Topic
-            </option>
-            {renderTopics()}
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4"
-            value={selectedLevel}
-            onChange={(e) => handleChange(e, setSelectedLevel)}
-          >
-            <option value="" disabled>
-              Select Hardness Level
-            </option>
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4"
-            value={selectedType}
-            onChange={(e) => handleChange(e, setSelectedType)}
-          >
-            <option value="" disabled>
-              Select Question Type
-            </option>
-            <option value="Subjective">Subjective</option>
-            <option value="Objective">Objective</option>
-            <option value="Reading">Reading</option>
-          </select>
-          <select
-            className="h-[31px] w-full rounded-full pl-4 col-span-2"
-            value={totalQuestion}
-            onChange={(e) => handleChange(e, setTotalQuestion)}
-          >
-            <option value="" disabled>
-              Select Total No of Questions
-            </option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-          </select>
+    <>
+      {isSubmitted ? (
+        selectedType === "Objective" ? (
+          <Assessment data={data} />
+        ) : selectedType === "Subjective" ? (
+          <Subjective data={data} />
+        ) : (
+          <p>Unknown question type</p>
+        )
+      ) : (
+        <div className="bg-white bg-opacity-60 p-6 min-h-[410px] rounded-2xl flex flex-col pt-4 flex-grow">
+          <p className="mb-4 font-bold">Create Topic Wise Assessment</p>
+          <form onSubmit={handleSubmit}>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <select
+                className="h-[31px] w-full rounded-full pl-4"
+                value={selectedChapter}
+                onChange={(e) => handleChange(e, setSelectedChapter)}
+                disabled={!subject}
+              >
+                <option value="" disabled>
+                  Select Chapter
+                </option>
+                {renderChapters()}
+              </select>
+              <select
+                className="h-[31px] w-full rounded-full pl-4"
+                value={selectedTopic}
+                onChange={(e) => handleChange(e, setSelectedTopic)}
+                disabled={!selectedChapter}
+              >
+                <option value="" disabled>
+                  Select Topic
+                </option>
+                {renderTopics()}
+              </select>
+              <select
+                className="h-[31px] w-full rounded-full pl-4"
+                value={selectedLevel}
+                onChange={(e) => handleChange(e, setSelectedLevel)}
+              >
+                <option value="" disabled>
+                  Select Hardness Level
+                </option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+              <select
+                className="h-[31px] w-full rounded-full pl-4"
+                value={selectedType}
+                onChange={(e) => handleChange(e, setSelectedType)}
+              >
+                <option value="" disabled>
+                  Select Question Type
+                </option>
+                <option value="Subjective">Subjective</option>
+                <option value="Objective">Objective</option>
+                <option value="Reading">Reading</option>
+              </select>
+              <select
+                className="h-[31px] w-full rounded-full pl-4 col-span-2"
+                value={totalQuestion}
+                onChange={(e) => handleChange(e, setTotalQuestion)}
+              >
+                <option value="" disabled>
+                  Select Total No of Questions
+                </option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+              </select>
+            </div>
+            <button
+              type="submit"
+              className="h-12 w-24 bg-[#5D233C] text-white rounded-full"
+              disabled={
+                !selectedTopic || !selectedType || !selectedLevel || isLoading
+              }
+            >
+              {isLoading ? "Loading..." : "Submit"}
+            </button>
+          </form>
         </div>
-        <button
-          type="submit"
-          className="h-12 w-24 bg-[#5D233C] text-white rounded-full"
-          disabled={
-            !selectedTopic || !selectedType || !selectedLevel || isLoading
-          }
-        >
-          {isLoading ? "Loading..." : "Submit"}
-        </button>
-      </form>
-    </div>
+      )}
+    </>
   );
 }

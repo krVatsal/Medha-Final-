@@ -2,9 +2,9 @@ import Image from "next/image";
 
 function ChatHistoryArea({ questions }: { questions: string[] }) {
   const truncateText = (text: string, maxLength: number): string => {
-    if (typeof text !== 'string') {
-      console.error('Expected string for truncation, got:', typeof text);
-      return '';
+    if (typeof text !== "string") {
+      console.error("Expected string for truncation, got:", typeof text);
+      return "";
     }
     if (text.length <= maxLength) {
       return text;

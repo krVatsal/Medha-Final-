@@ -61,11 +61,19 @@ function MedhaTextArea({
               <div key={index} className="mb-4">
                 <div className="flex items-start mb-2">
                   <img
-                    src={message.sender === "ai" ? "./Medha.svg" : "/Screenshot_2024-08-17_at_8.13.58_AM-removebg-preview 3.png"}
+                    src={
+                      message.sender === "ai"
+                        ? "./Medha.svg"
+                        : "/Screenshot_2024-08-17_at_8.13.58_AM-removebg-preview 3.png"
+                    }
                     alt="Placeholder"
                     className="h-4 w-4 rounded-full mr-4"
                   />
-                  <p className={`text-xs sm:text-sm ${message.sender === "user" ? "font-semibold" : ""}`}>
+                  <p
+                    className={`text-xs sm:text-sm ${
+                      message.sender === "user" ? "font-semibold" : ""
+                    }`}
+                  >
                     {message.message}
                   </p>
                 </div>
@@ -78,7 +86,9 @@ function MedhaTextArea({
                   alt="Placeholder"
                   className="h-4 w-4 rounded-full mr-4"
                 />
-                <p className="text-xs sm:text-sm italic text-gray-500">Thinking...</p>
+                <p className="text-xs sm:text-sm italic text-gray-500">
+                  Thinking...
+                </p>
               </div>
             )}
           </div>

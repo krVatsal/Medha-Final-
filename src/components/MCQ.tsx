@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface Question {
   Question: string;
@@ -34,8 +34,13 @@ const Assessment: React.FC<AssessmentProps> = ({ data }) => {
 
   return (
     <div className="bg-white bg-opacity-60 p-6 rounded-2xl flex flex-col h-[410px] overflow-scroll">
+      {/* <button className=" bg-red=500" onClick={debug}>
+        {" "}
+        Debug{" "}
+      </button> */}
       <h2 className="text-lg font-bold mb-4">Assessment</h2>
-      {data.map((q, index) => (
+
+      {data.content.map((q, index) => (
         <div
           key={index}
           className={`bg-white p-4 rounded-lg shadow-md mb-4 border-2 ${

@@ -26,7 +26,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/ChatParent.jsx"
+    "src/components/ChatParent.jsx",
+    "Backend/config/passport.js"
   ],
   "exclude": ["node_modules"]
 }

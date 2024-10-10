@@ -1,10 +1,10 @@
 "use client";
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import Image from 'next/image';
-import axios from 'axios'; // For API calls
-import { useRouter } from 'next/navigation'; // For navigation after successful login
-import { useUser } from '@/context/UserContext';
+import React from "react";
+import { useForm } from "react-hook-form";
+import Image from "next/image";
+import axios from "axios"; // For API calls
+import { useRouter } from "next/navigation"; // For navigation after successful login
+import { useUser } from "@/context/UserContext";
 
 const LoginPage = () => {
   const { setClientName } = useUser(); // Retrieve the context function to set clientName
@@ -13,7 +13,7 @@ const LoginPage = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    mode: 'onBlur',
+    mode: "onBlur",
   });
 
   const router = useRouter(); // Initialize the router for redirect
@@ -21,10 +21,13 @@ const LoginPage = () => {
   const onSubmit = async (data: any) => {
     try {
       // Call your login API
-      const response = await axios.post('http://localhost:5217/api/v1/client/login', {
-        email: data.email,
-        password: data.password,
-      });
+      const response = await axios.post(
+        "http://localhost:5217/api/v1/client/login",
+        {
+          email: data.email,
+          password: data.password,
+        }
+      );
 
       // If login is successful, navigate to dashboard or any secure page
       if (response.status === 200) {
@@ -32,11 +35,11 @@ const LoginPage = () => {
 
         setClientName(responseData.data.clientName);
 
-        localStorage.setItem('accessToken', responseData.accessToken);
-        localStorage.setItem('refreshToken', responseData.refreshToken);
+        localStorage.setItem("accessToken", responseData.accessToken);
+        localStorage.setItem("refreshToken", responseData.refreshToken);
 
         // Navigate to the dashboard
-        router.push('/');
+        router.push("/");
       }
     } catch (error: any) {
       console.error("Login failed", error);
@@ -49,16 +52,21 @@ const LoginPage = () => {
     <div className="min-h-screen bg-white flex relative">
       {/* Left Section with SVG */}
       <div className="flex-1 relative">
-        <img className="h-full object-cover" src="/signup_page.svg" alt="Sign Up Illustration" />
+        <img
+          className="h-full object-cover"
+          src="/signup_page.svg"
+          alt="Sign Up Illustration"
+        />
         {/* Medha Logo over the SVG */}
         <div className="absolute top-8 left-8">
           <div className="text-lg flex gap- font-normal items-center">
-          <Image width={62} height={62}
-                          src="/Codepen.svg"
-                        
-                          objectFit="contain"
-                          alt="Medha Icon"
-                        />
+            <Image
+              width={62}
+              height={62}
+              src="/Codepen.svg"
+              objectFit="contain"
+              alt="Medha Icon"
+            />
             {/* <Image width={32} height={32} alt="Medha Logo" src="/Codepen.svg" /> */}
             <span className="text-[26px] text-white">Medha AI</span>
           </div>
@@ -110,7 +118,7 @@ const LoginPage = () => {
                   className="absolute right-2 top-1/2 transform -translate-y-1/2"
                 />
               )}
-              {errors.email && typeof errors.email.message === 'string' && (
+              {errors.email && typeof errors.email.message === "string" && (
                 <p className="text-red-500 text-xs mt-1">
                   {errors.email.message}
                 </p>
@@ -167,6 +175,20 @@ const LoginPage = () => {
               </button>
               <span className="text-[#A1A1A1]">or</span>
               <Image
+                onClick={async () => {
+                  try {
+                    await axios.post(
+                      "http://localhost:5217/api/v1/client/registerClientUsingGoogle",
+                      {},
+                      {
+                        withCredentials: true,
+                        responseType: "document",
+                      }
+                    );
+                  } catch (error) {
+                    console.error("Error:", error);
+                  }
+                }}
                 src="/Screenshot_2024-08-22_at_3.00.58_AM-removebg-preview 4.png"
                 width={32}
                 height={32}

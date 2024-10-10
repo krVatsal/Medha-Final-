@@ -100,13 +100,15 @@ function Chatbot() {
       try {
         setLoading(true);
         const apiUrl = `https://medha-cograd.azurewebsites.net/text_query/?query=${message}&language=${language}&class_num=${classNumber}&subject=${subject}`;
-        const response = await axios.post(apiUrl)
-          // query: encodeURIComponent(message),
-          // language,
-          // class_num: classNumber,
-          // subject,
-        { timeout: 30000 }; // Set timeout to 30 seconds
-        console.log(response)
+        const response = await axios.post(apiUrl);
+        // query: encodeURIComponent(message),
+        // language,
+        // class_num: classNumber,
+        // subject,
+        {
+          timeout: 30000;
+        } // Set timeout to 30 seconds
+        console.log(response);
 
         let text: string;
         if (typeof response.data === "string") {
@@ -143,13 +145,14 @@ function Chatbot() {
         if (retries < maxRetries) {
           retries++;
           console.log(`Retrying... Attempt ${retries} of ${maxRetries}`);
-          await new Promise(resolve => setTimeout(resolve, 1000 * retries)); // Exponential backoff
+          await new Promise((resolve) => setTimeout(resolve, 1000 * retries)); // Exponential backoff
           await makeRequest();
         } else {
           setMessages((prevMessages) => [
             ...prevMessages,
             {
-              message: "Sorry, there was an error processing your request. Please try again later.",
+              message:
+                "Sorry, there was an error processing your request. Please try again later.",
               sender: "ai",
               direction: "incoming",
             },
@@ -168,9 +171,12 @@ function Chatbot() {
 
   const speakTextWithFemaleVoice = async (text: string) => {
     try {
-      const response = await axios.post("https://voicebot-server.onrender.com/generate-speech", {
-        text,
-      });
+      const response = await axios.post(
+        "https://voicebot-server.onrender.com/generate-speech",
+        {
+          text,
+        }
+      );
       if (response.data && response.data.audioUrl) {
         setSrc(response.data.audioUrl);
         setAiSpeaking(true);
@@ -213,7 +219,7 @@ function Chatbot() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className="p-4 sm:p-8 max-w-7xl mx-auto">
+      <div className=" max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:gap-x-[62px] mb-6 sm:mb-12">
           <div className="space-y-1 mb-4 sm:mb-0">
             <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-bold">
@@ -266,21 +272,6 @@ function Chatbot() {
                 Notebook
               </button>
             </div>
-            <select
-              className={`h-[40px] w-[141px] rounded-full pl-4 ${
-                activeButton === "assignment"
-                  ? "bg-[#5D233C] text-white"
-                  : "bg-white hover:bg-gray-100"
-              }`}
-              onClick={() => handleButtonClick("assignment")}
-              onChange={handleSelectChange}
-            >
-              <option value="" disabled>
-                Assignments
-              </option>
-              <option value="topic-wise">Topic Wise Assessment</option>
-              <option value="exam-form">Exam Form</option>
-            </select>
           </div>
         </div>
 
@@ -297,7 +288,9 @@ function Chatbot() {
           <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
             <MedhaTextArea
               messages={messages}
-              onSubmit={(e: FormEvent<HTMLFormElement>) => handleSend(e, newText)}
+              onSubmit={(e: FormEvent<HTMLFormElement>) =>
+                handleSend(e, newText)
+              }
               loading={loading}
               newText={newText}
               setNewText={setNewText}

@@ -58,7 +58,9 @@ export default function ExamForm() {
     setter(selectedOptions);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -68,12 +70,12 @@ export default function ExamForm() {
     setIsLoading(true);
 
     const payload = {
-      class: classNumber,  // Use the class selected in Personal
-      subject: subject,    // Use the subject selected in Personal
-      language: language,  // Use the language selected in Personal
+      class: classNumber, // Use the class selected in Personal
+      subject: subject, // Use the subject selected in Personal
+      language: language, // Use the language selected in Personal
       chapters: selectedChapters,
       topics: selectedTopics,
-      ...formData,         // Include the form data (totalQuestions, mcq, etc.)
+      ...formData, // Include the form data (totalQuestions, mcq, etc.)
     };
 
     try {
@@ -95,7 +97,7 @@ export default function ExamForm() {
       const responseData = await response.json();
       console.log("Form submitted successfully. Response:", responseData);
 
-      router.push("/response-exam");
+      // router.push("/response-exam");
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
@@ -143,10 +145,8 @@ export default function ExamForm() {
     ));
   };
 
-
-
   return (
-    <div className="bg-white bg-opacity-60 p-6 rounded-2xl min-h-[410px] flex flex-col pt-4 flex-grow overflow-scroll">
+    <div className="bg-white bg-opacity-60 p-6 rounded-2xl min-h-[410px] flex flex-col pt-4 flex-grow overflow-scroll ">
       <p className="mb-4 font-bold">Create Exam Form</p>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -155,7 +155,9 @@ export default function ExamForm() {
             value={selectedChapters[0] || ""} // Use first selected chapter or empty string
             onChange={(e) => setSelectedChapters([e.target.value])} // Set selected chapter as an array with one value
           >
-            <option value="" disabled>Select Chapter</option>
+            <option value="" disabled>
+              Select Chapter
+            </option>
             {renderChapters()}
           </select>
           <select
@@ -163,7 +165,9 @@ export default function ExamForm() {
             value={selectedTopics}
             onChange={(e) => handleMultipleChange(e, setSelectedTopics)}
           >
-            <option value="" disabled>Select Topic</option>
+            <option value="" disabled>
+              Select Topic
+            </option>
             {renderTopics()}
           </select>
           <select
@@ -172,9 +176,13 @@ export default function ExamForm() {
             value={formData.totalQuestions}
             onChange={handleInputChange}
           >
-            <option value="" disabled>Total Questions</option>
+            <option value="" disabled>
+              Total Questions
+            </option>
             {Array.from({ length: 30 }, (_, i) => i + 1).map((num) => (
-              <option key={num} value={num.toString()}>{num}</option>
+              <option key={num} value={num.toString()}>
+                {num}
+              </option>
             ))}
           </select>
           <input
@@ -236,4 +244,3 @@ export default function ExamForm() {
     </div>
   );
 }
-

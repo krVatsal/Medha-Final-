@@ -10,7 +10,9 @@ interface SubjectiveProps {
 }
 
 const Subjective: React.FC<SubjectiveProps> = ({ data }) => {
-  const [activeQuestionIndex, setActiveQuestionIndex] = useState<number | null>(null);
+  const [activeQuestionIndex, setActiveQuestionIndex] = useState<number | null>(
+    null
+  );
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
 
@@ -31,15 +33,22 @@ const Subjective: React.FC<SubjectiveProps> = ({ data }) => {
   const handleShowAnswer = () => {
     setShowAnswer(true);
   };
+  const debug = () => {
+    console.log("data", data);
+  };
 
   return (
     <div className="bg-white bg-opacity-60 p-4 sm:p-6 rounded-2xl flex flex-col h-[410px] overflow-auto">
-      <h2 className="text-[18px] sm:text-lg font-bold mb-4">Subjective Assessment</h2>
+      <h2 className="text-[18px] sm:text-lg font-bold mb-4">
+        Subjective Assessment
+      </h2>
       {data.map((q, index) => (
         <div
           key={index}
           className={`bg-white p-3 sm:p-4 rounded-lg shadow-md mb-4 border-2 ${
-            activeQuestionIndex === index ? "border-[#1F4467]" : "border-transparent"
+            activeQuestionIndex === index
+              ? "border-[#1F4467]"
+              : "border-transparent"
           }`}
         >
           <button

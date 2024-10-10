@@ -156,7 +156,9 @@ function ChatbotWithMCQ() {
       <div className="p-4 sm:p-8">
         <div className="flex flex-col md:flex-row justify-between gap-x-[20px] md:gap-x-[62px] mb-12">
           <div className="space-y-1">
-            <div className="text-[30px] md:text-[40px] font-bold">AI Chatbot</div>
+            <div className="text-[30px] md:text-[40px] font-bold">
+              AI Chatbot
+            </div>
             <div className="text-[16px] md:text-[20px] text-gray-500">
               Chat with AI Chatbot for needs
             </div>

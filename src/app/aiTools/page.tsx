@@ -5,7 +5,7 @@ import AIToolCard from "@/components/AIToolCard";
 
 const Page = () => {
   return (
-    <div className="p-10">
+    <div className="p-3">
       <div className="flex justify-between items-center mb-8">
         {/* Left section with title and description */}
         <div>
