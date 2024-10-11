@@ -50,11 +50,11 @@ export default function Home() {
               Let&apos;s make this day productive
             </div>
           </div>
-          <SelectOption
+          {/* <SelectOption
             activeButton={selectedOption}
             handleButtonClick={() => {}}
             handleSelectChange={handleSelectChange}
-          />
+          /> */}
         </div>
 
         {/* Main Content Section */}

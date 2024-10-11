@@ -18,7 +18,6 @@ function CreationArea({ page }: { page: string }) {
           </div>
         </div>
 
-        {/* This section is hidden when page is "lesson" */}
         {page !== "lesson" && (
           <div className="bg-white p-6 rounded-2xl w-full h-auto">
             <div className="flex flex-col gap-4 w-full">
@@ -39,7 +38,6 @@ function CreationArea({ page }: { page: string }) {
           </div>
         )}
 
-        {/* This section will always be visible */}
         <div className="bg-white p-6 rounded-2xl w-full h-auto">
           <div className="flex flex-col gap-4 w-full">
             <div className="flex items-center gap-4">
@@ -63,7 +61,6 @@ function CreationArea({ page }: { page: string }) {
           </div>
         </div>
 
-        {/* Language selection section hidden for "lesson" */}
         {page !== "lesson" && (
           <div className="bg-white p-6 rounded-2xl w-full h-auto">
             <div className="flex flex-col gap-4 w-full">
@@ -83,7 +80,6 @@ function CreationArea({ page }: { page: string }) {
           </div>
         )}
 
-        {/* Lesson-specific section */}
         {page === "lesson" && (
           <div className="flex flex-col gap-6">
             <SelectableOptions
@@ -93,7 +89,6 @@ function CreationArea({ page }: { page: string }) {
           </div>
         )}
 
-        {/* PPT-specific section */}
         {page === "ppt" && (
           <div className="flex flex-col gap-6">
             <div className="flex flex-row gap-6">
@@ -120,8 +115,7 @@ function CreationArea({ page }: { page: string }) {
         )}
       </div>
 
-      {/* The "Generate Outline" button should only appear for lesson creation */}
-      {page === "lesson" && (
+      {page != "Homework" && (
         <button
           className="text-white bg-[#5D233C] p-4 mt-6 rounded-full px-6"
           onClick={() => {

@@ -12,7 +12,7 @@ function LessonOutline() {
         <div className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-bold mb-4 sm:mb-0">
           Create Lesson
         </div>
-        <AIToolsSteps page="outline" />
+        <AIToolsSteps page="outline" type="lesson" />
       </div>
       <div>
         <HomeworkOutline />

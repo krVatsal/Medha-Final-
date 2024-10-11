@@ -36,5 +36,24 @@
         "value": "PPT"
       }
     ]
+  },
+  "lesson": {
+    "steps": [
+      {
+        "id": 1,
+        "label": "Topic",
+        "value": "Topic"
+      },
+      {
+        "id": 2,
+        "label": "Outline",
+        "value": "Outline"
+      },
+      {
+        "id": 3,
+        "label": "Lesson",
+        "value": "Lesson"
+      }
+    ]
   }
 }

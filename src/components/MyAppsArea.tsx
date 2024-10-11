@@ -16,7 +16,7 @@ function MyAppsArea() {
           {/* Placeholder for Create Quiz */}
           <div
             className="flex flex-col items-center space-y-1"
-            onClick={() => router.push("/topicwise-form")}
+            onClick={() => router.push("/topicwiseform")}
           >
             <Image
               width={32}
@@ -51,6 +51,7 @@ function MyAppsArea() {
               alt=""
               src="/Create_ppt.svg"
               className="w-16 h-16"
+              onClick={() => router.push("/pptcreation/topic")}
             />
             <div className="text-xs font-semibold text-center">Create PPT</div>
           </div>
@@ -80,6 +81,19 @@ function MyAppsArea() {
             />
             <div className="text-xs font-semibold text-center">
               Create Exam Form
+            </div>
+          </div>
+          <div className="flex flex-col items-center space-y-1">
+            <Image
+              width={32}
+              height={32}
+              alt=""
+              src="/create_lesson_icon.svg"
+              className="w-16 h-16"
+              onClick={() => router.push("/createlesson/topic")}
+            />
+            <div className="text-xs font-semibold text-center">
+              Lesson Planner
             </div>
           </div>
         </div>

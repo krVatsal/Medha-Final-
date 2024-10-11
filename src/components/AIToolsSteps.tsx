@@ -5,7 +5,7 @@ import stepsConfig from "./tools/stepsData.json";
 
 interface AIToolsStepsProps {
   page: string;
-  type?: "homework" | "ppt"; // keeping "ppt" here as the shorthand for pptcreation
+  type?: "homework" | "ppt" | "lesson"; // keeping "ppt" here as the shorthand for pptcreation
 }
 
 interface Step {
@@ -36,7 +36,7 @@ const Connector: React.FC = () => (
 
 const AIToolsSteps: React.FC<AIToolsStepsProps> = ({
   page,
-  type = "homework", // Default type remains homework
+  type, // Default type remains homework
 }) => {
   const pathname = usePathname();
 
