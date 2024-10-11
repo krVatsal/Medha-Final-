@@ -16,7 +16,7 @@
     "babel-polyfill": "^6.26.0",
     "core-js": "^3.38.1",
     "cors": "^2.8.5",
-    "next": "14.2.5",
+    "next": "^14.2.5",
     "next-on-netlify": "^3.0.1",
     "nextjs-routes": "^2.2.1",
     "node-fetch": "^3.3.2",

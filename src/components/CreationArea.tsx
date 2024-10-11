@@ -1,10 +1,12 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import DesiredOutcome from "./DesiredOutcome";
+import SelectableOptions from "./SelectableOptions";
 import { useRouter } from "next/navigation";
+
 function CreationArea({ page }: { page: string }) {
   const router = useRouter();
+
   return (
     <div>
       <div className="bg-white bg-opacity-60 p-8 rounded-3xl h-[100%] flex flex-col gap-6">
@@ -15,29 +17,31 @@ function CreationArea({ page }: { page: string }) {
             audience and their prior knowledge.
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl w-full h-auto">
-          <div className="flex flex-col gap-4 w-full">
-            {/* Radio button and label */}
-            <div className="flex items-center gap-2">
-              <input type="radio" id="topic" />
-              <label htmlFor="topic" className="text-sm">
-                Topic
-              </label>
-            </div>
 
-            {/* Textarea and Navigate button side by side */}
-            <div className="flex items-center gap-2 w-full">
-              <textarea
-                className="w-full p-2 border border-gray-300 rounded-md h-12"
-                placeholder="Enter your text here"
-              ></textarea>
-              <button className="bg-transparent px-4 py-2">Navigate</button>
+        {/* This section is hidden when page is "lesson" */}
+        {page !== "lesson" && (
+          <div className="bg-white p-6 rounded-2xl w-full h-auto">
+            <div className="flex flex-col gap-4 w-full">
+              <div className="flex items-center gap-2">
+                <input type="radio" id="topic" />
+                <label htmlFor="topic" className="text-sm">
+                  Topic
+                </label>
+              </div>
+              <div className="flex items-center gap-2 w-full">
+                <textarea
+                  className="w-full p-2 border border-gray-300 rounded-md h-12"
+                  placeholder="Enter your text here"
+                ></textarea>
+                <button className="bg-transparent px-4 py-2">Navigate</button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
+
+        {/* This section will always be visible */}
         <div className="bg-white p-6 rounded-2xl w-full h-auto">
           <div className="flex flex-col gap-4 w-full">
-            {/* Radio button and label */}
             <div className="flex items-center gap-4">
               <Image
                 src="/navigatetograde.svg"
@@ -49,8 +53,6 @@ function CreationArea({ page }: { page: string }) {
                 Navigate to Grade
               </label>
             </div>
-
-            {/* Textarea and Navigate button side by side */}
             <div className="flex items-center gap-2 w-full">
               <textarea
                 className="w-full p-2 border border-gray-300 rounded-md h-12"
@@ -60,40 +62,85 @@ function CreationArea({ page }: { page: string }) {
             </div>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl w-full h-auto">
-          <div className="flex flex-col gap-4 w-full">
-            {/* Radio button and label */}
-            <div className="flex items-center gap-2">
-              <input type="radio" id="topic" />
-              <label htmlFor="topic" className="text-sm">
-                Topic
-              </label>
-            </div>
 
-            {/* Language selection with icon */}
-            <div className="flex items-center gap-2 border border-gray-300 rounded-md p-2 w-full">
-              {/* Globe icon (replace with your preferred icon library) */}
-              <select className="w-full border-none outline-none bg-white">
-                <option>English</option>
-                {/* Add more language options here */}
-              </select>
+        {/* Language selection section hidden for "lesson" */}
+        {page !== "lesson" && (
+          <div className="bg-white p-6 rounded-2xl w-full h-auto">
+            <div className="flex flex-col gap-4 w-full">
+              <div className="flex items-center gap-2">
+                <input type="radio" id="langugage" />
+                <label htmlFor="language" className="text-sm">
+                  Language
+                </label>
+              </div>
+              <div className="flex items-center gap-2 border border-gray-300 rounded-md p-2 w-full">
+                <select className="w-full border-none outline-none bg-white">
+                  <option>English</option>
+                  {/* Add more language options */}
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-        {page !== "Homework" && (
-          <div>
-            <DesiredOutcome />
+        )}
+
+        {/* Lesson-specific section */}
+        {page === "lesson" && (
+          <div className="flex flex-col gap-6">
+            <SelectableOptions
+              heading="Desired Outcome"
+              options={["Knowledge", "Skill", "Attitude", "Affective"]}
+            />
+          </div>
+        )}
+
+        {/* PPT-specific section */}
+        {page === "ppt" && (
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-row gap-6">
+              <SelectableOptions
+                heading="Desired Outcome"
+                options={["Knowledge", "Skill", "Attitude", "Affective"]}
+              />
+              <SelectableOptions
+                heading="Format"
+                options={["Format 1", "Format 2", "Format 3"]}
+              />
+            </div>
+            <SelectableOptions
+              heading="Cross Cutting Theme"
+              options={[
+                "Rootedness in India",
+                "Education for values",
+                "Inclusive Education",
+                "Guidance and counselling",
+                "Use of educational Technology",
+              ]}
+            />
           </div>
         )}
       </div>
-      <button
-        className=" text-white bg-[#5D233C] p-4 mt-6 rounded-full px-6"
-        onClick={() => {
-          router.push("./outline");
-        }}
-      >
-        Generate Outline
-      </button>
+
+      {/* The "Generate Outline" button should only appear for lesson creation */}
+      {page === "lesson" && (
+        <button
+          className="text-white bg-[#5D233C] p-4 mt-6 rounded-full px-6"
+          onClick={() => {
+            router.push("./outline");
+          }}
+        >
+          Generate Outline
+        </button>
+      )}
+      {page === "Homework" && (
+        <button
+          className="text-white bg-[#5D233C] p-4 mt-6 rounded-full px-6"
+          onClick={() => {
+            router.push("./blooms");
+          }}
+        >
+          Generate Boom's taxonomy
+        </button>
+      )}
     </div>
   );
 }

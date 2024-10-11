@@ -74,11 +74,11 @@ function CreateLessonArea() {
                 width={32}
                 height={32}
                 alt=""
-                src="/Create_flash_cards.svg"
+                src="/create_exam_form.svg"
                 className="w-16 h-16"
               />
               <div className="text-xs font-semibold text-center">
-                Create Flash Cards
+                Create exam form
               </div>
             </div>
           </div>
