@@ -5,7 +5,7 @@ import stepsConfig from "./tools/stepsData.json";
 
 interface AIToolsStepsProps {
   page: string;
-  type?: "homework" | "ppt" | "lesson"; // keeping "ppt" here as the shorthand for pptcreation
+  type?: "homework" | "ppt" | "lesson" | "yt"; // keeping "ppt" here as the shorthand for pptcreation
 }
 
 interface Step {

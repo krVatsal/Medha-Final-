@@ -55,5 +55,19 @@
         "value": "Lesson"
       }
     ]
+  },
+  "yt": {
+    "steps": [
+      {
+        "id": 1,
+        "label": "Link",
+        "value": "Link"
+      },
+      {
+        "id": 2,
+        "label": "Summary",
+        "value": "Summary"
+      }
+    ]
   }
 }

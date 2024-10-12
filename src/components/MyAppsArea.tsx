@@ -77,6 +77,7 @@ function MyAppsArea() {
               alt=""
               src="/Summarize_yt.svg"
               className="w-16 h-16"
+              onClick={() => router.push("/summarize-yt/enterurl")}
             />
             <div className="text-xs font-semibold text-center">
               Summarise Youtube Video
