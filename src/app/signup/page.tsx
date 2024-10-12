@@ -43,7 +43,7 @@ const SignUpPage = () => {
       }
     } catch (error) {
       console.error("Sign-up failed", error);
-      alert(error.response?.data?.message || "Sign-up failed");
+      alert((error as any)?.response?.data?.message || "Sign-up failed");
     }
   };
 

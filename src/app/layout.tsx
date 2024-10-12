@@ -117,7 +117,9 @@ export default function RootLayout({
                       <Navbar />
                     </div>
                   )}
-                  <div className="flex-1 overflow-auto p-11">{children}</div>
+                  <div className="flex-1 overflow-auto pl-11 pr-11">
+                    {children}
+                  </div>
                 </main>
               </div>
             </div>

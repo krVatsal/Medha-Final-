@@ -42,6 +42,19 @@ function MyAppsArea() {
               Summarise PDF
             </div>
           </div>
+          <div className="flex flex-col items-center space-y-1">
+            <Image
+              width={32}
+              height={32}
+              alt=""
+              src="/create_lesson_icon.svg"
+              className="w-16 h-16"
+              onClick={() => router.push("/homework/topic")}
+            />
+            <div className="text-xs font-semibold text-center">
+              Create Homework
+            </div>
+          </div>
 
           {/* Placeholder for Create PPT */}
           <div className="flex flex-col items-center space-y-1">

@@ -40,7 +40,7 @@ const Assessment: React.FC<AssessmentProps> = ({ data }) => {
       </button> */}
       <h2 className="text-lg font-bold mb-4">Assessment</h2>
 
-      {data.content.map((q, index) => (
+      {data.map((q, index) => (
         <div
           key={index}
           className={`bg-white p-4 rounded-lg shadow-md mb-4 border-2 ${

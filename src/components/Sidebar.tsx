@@ -12,7 +12,6 @@ function Sidebar({ isMobileMenuOpen }: { isMobileMenuOpen: boolean }) {
 
   const navItems = [
     { href: "/", label: "Home", icon: "/home.svg" },
-    { href: "/aiTools", label: "AI Tools", icon: "/add_circle.svg" },
     { href: "/chat", label: "AI Chatbot", icon: "/Message square.svg" },
     { href: "/whiteboards", label: "Whiteboards", icon: "/Edit.svg" },
     { href: "/files", label: "Files", icon: "/Folder.svg" },
