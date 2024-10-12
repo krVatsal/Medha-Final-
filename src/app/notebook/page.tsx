@@ -85,7 +85,7 @@ function Chatbot() {
           </a>
         </div>
 
-        <div className=" pt-8">
+        <div className=" text-[20px] text-gray-500 pt-16">
           All Notebooks
           <div className="flex gap-6">
             <div className="relative pt-16 pl-4">
