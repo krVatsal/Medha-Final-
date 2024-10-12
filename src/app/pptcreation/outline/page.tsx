@@ -10,7 +10,7 @@ function PPTOutline() {
       {/* Greeting Section */}
       <div className="space-y-1 mb-6 sm:mb-8 md:mb-10 lg:mb-12 flex flex-col sm:flex-row justify-between items-start sm:items-center">
         <div className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-bold mb-4 sm:mb-0">
-          PPT
+          PPT Creation
         </div>
         <AIToolsSteps page="outline" type="ppt" />
       </div>

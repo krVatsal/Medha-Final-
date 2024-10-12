@@ -44,7 +44,7 @@ const Page = () => {
           <div className="relative ml-4">
             <Image
               className="absolute left-3 top-1/2 transform -translate-y-1/2"
-              src="/Plus.svg"
+              src="/plus.svg"
               width={20}
               height={20}
               alt=""
