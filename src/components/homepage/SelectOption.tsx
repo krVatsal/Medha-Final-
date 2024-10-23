@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function SelectOption({
   activeButton,
@@ -13,11 +13,9 @@ function SelectOption({
     <div>
       <select
         className={`h-[40px] w-[141px] rounded-full pl-4 ${
-          activeButton === "assignment"
-            ? "bg-[#5D233C] text-white"
-            : "bg-white hover:bg-gray-100"
+          activeButton === 'assignment' ? 'bg-[#5D233C] text-white' : 'bg-white hover:bg-gray-100'
         }`}
-        onClick={() => handleButtonClick("assignment")}
+        onClick={() => handleButtonClick('assignment')}
         onChange={handleSelectChange}
       >
         <option value="" disabled>

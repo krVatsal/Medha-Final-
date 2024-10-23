@@ -1,6 +1,6 @@
-"use client";
-import React, { useState } from "react";
-import Image from "next/image";
+'use client';
+import React, { useState } from 'react';
+import Image from 'next/image';
 
 interface SelectableOptionsProps {
   heading: string;
@@ -13,13 +13,11 @@ interface SelectableOptionsProps {
 const SelectableOptions: React.FC<SelectableOptionsProps> = ({
   heading,
   options,
-  iconSrc = "/outcome.svg",
+  iconSrc = '/outcome.svg',
   initialSelected,
   onSelectionChange,
 }) => {
-  const [selectedOption, setSelectedOption] = useState(
-    initialSelected || options[0]
-  );
+  const [selectedOption, setSelectedOption] = useState(initialSelected || options[0]);
 
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
@@ -34,12 +32,7 @@ const SelectableOptions: React.FC<SelectableOptionsProps> = ({
         <div className="flex flex-row gap-4 mb-4 items-center">
           {iconSrc && (
             <div className="relative w-5 h-5">
-              <Image
-                src={iconSrc}
-                alt={`${heading} icon`}
-                layout="fill"
-                objectFit="contain"
-              />
+              <Image src={iconSrc} alt={`${heading} icon`} layout="fill" objectFit="contain" />
             </div>
           )}
           <div>{heading}</div>
@@ -49,9 +42,7 @@ const SelectableOptions: React.FC<SelectableOptionsProps> = ({
             <button
               key={option}
               className={`px-4 py-2 rounded-xl ${
-                selectedOption === option
-                  ? "bg-[#1F4467] text-white"
-                  : "bg-gray-100 border border-[#1F4467]"
+                selectedOption === option ? 'bg-[#1F4467] text-white' : 'bg-gray-100 border border-[#1F4467]'
               }`}
               onClick={() => handleOptionSelect(option)}
             >

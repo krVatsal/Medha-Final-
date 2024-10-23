@@ -1,8 +1,8 @@
-"use client";
-import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
-import { useSelection } from "@/context/SelectionContext";
-import Assessment from "@/components/MCQ";
-import Subjective from "@/components/Subjective";
+'use client';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useSelection } from '@/context/SelectionContext';
+import Assessment from '@/components/MCQ';
+import Subjective from '@/components/Subjective';
 
 interface ChapterObject {
   [chapterName: string]: string[];
@@ -19,11 +19,11 @@ interface ClassData {
 export default function TopicWiseForm() {
   const { classNumber, subject } = useSelection();
   const [classData, setClassData] = useState<ClassData>({});
-  const [selectedChapter, setSelectedChapter] = useState<string>("");
-  const [selectedTopic, setSelectedTopic] = useState<string>("");
-  const [selectedLevel, setSelectedLevel] = useState<string>("");
-  const [selectedType, setSelectedType] = useState<string>("");
-  const [totalQuestion, setTotalQuestion] = useState<string>("");
+  const [selectedChapter, setSelectedChapter] = useState<string>('');
+  const [selectedTopic, setSelectedTopic] = useState<string>('');
+  const [selectedLevel, setSelectedLevel] = useState<string>('');
+  const [selectedType, setSelectedType] = useState<string>('');
+  const [totalQuestion, setTotalQuestion] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [data, setData] = useState<any[]>([]); // Ensure data is an array
   const [showAssessment, setShowAssessment] = useState<boolean>(false);
@@ -35,20 +35,20 @@ export default function TopicWiseForm() {
 
   const fetchClassData = async (): Promise<void> => {
     try {
-      const response = await fetch("https://game.simplem.in/api/class-data");
+      const response = await fetch('https://game.simplem.in/api/class-data');
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data: ClassData = await response.json();
       setClassData(data);
     } catch (error) {
-      console.error("Error fetching class data:", error);
+      console.error('Error fetching class data:', error);
     }
   };
 
   const handleChange = (
     e: ChangeEvent<HTMLSelectElement>,
-    setter: React.Dispatch<React.SetStateAction<string>>
+    setter: React.Dispatch<React.SetStateAction<string>>,
   ): void => {
     setter(e.target.value);
   };
@@ -66,7 +66,7 @@ export default function TopicWiseForm() {
       !selectedType ||
       !totalQuestion
     ) {
-      alert("Please fill in all fields.");
+      alert('Please fill in all fields.');
       setIsLoading(false);
       return;
     }
@@ -82,31 +82,25 @@ export default function TopicWiseForm() {
     };
 
     try {
-      const response = await fetch(
-        "https://game.simplem.in/api/submit-topic-wise-form",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const response = await fetch('https://game.simplem.in/api/submit-topic-wise-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
 
       const responseData = await response.json();
-      if (
-        Array.isArray(responseData.content) &&
-        responseData.content.length > 0
-      ) {
+      if (Array.isArray(responseData.content) && responseData.content.length > 0) {
         setData(responseData.content); // Ensure we're setting data as an array
         setShowAssessment(true);
         setIsSubmitted(true); // Set submitted state to true
       } else {
-        console.error("Unexpected response structure:", responseData);
+        console.error('Unexpected response structure:', responseData);
         setData([]); // Clear data if the response is not in expected format
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error('Error submitting form:', error);
     } finally {
       setIsLoading(false);
     }
@@ -133,9 +127,7 @@ export default function TopicWiseForm() {
 
     const subjects = classData[classNumber];
     const subjectData = subjects?.[subject];
-    const chapterObject = subjectData?.find(
-      (chapterObj) => Object.keys(chapterObj)?.[0] === selectedChapter
-    );
+    const chapterObject = subjectData?.find((chapterObj) => Object.keys(chapterObj)?.[0] === selectedChapter);
     const topics = chapterObject?.[selectedChapter];
     if (!Array.isArray(topics)) return null;
 
@@ -220,14 +212,10 @@ export default function TopicWiseForm() {
               type="submit"
               className="h-12 w-24 bg-[#5D233C] text-white rounded-full"
               disabled={
-                !selectedTopic ||
-                !selectedType ||
-                !selectedLevel ||
-                isLoading ||
-                isSubmitted // Disable if submitted
+                !selectedTopic || !selectedType || !selectedLevel || isLoading || isSubmitted // Disable if submitted
               }
             >
-              {isLoading ? "Loading..." : "Submit"}
+              {isLoading ? 'Loading...' : 'Submit'}
             </button>
           </form>
         </div>
@@ -238,9 +226,9 @@ export default function TopicWiseForm() {
         <div className="bg-white bg-opacity-60 p-6 rounded-2xl min-h-[410px]">
           {isSubmitted &&
             data.length > 0 && // Ensure data is an array before mapping
-            (selectedType === "Objective" ? (
+            (selectedType === 'Objective' ? (
               <Assessment data={data} />
-            ) : selectedType === "Subjective" ? (
+            ) : selectedType === 'Subjective' ? (
               <Subjective data={data} />
             ) : (
               <p>Unknown question type</p>

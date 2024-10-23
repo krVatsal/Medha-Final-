@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from 'express';
 import {
   loginClient,
   registerClient,
@@ -6,16 +6,16 @@ import {
   registerClientUsingGoogle,
   getName,
   googleCallback,
-} from "../controller/client.controller.js";
-import { verifyJWTclient } from "../middlewares/authClient.middleware.js";
+} from '../controller/client.controller.js';
+import { verifyJWTclient } from '../middlewares/authClient.middleware.js';
 
 const router = Router();
 
-router.route("/register").post(registerClient);
-router.route("/registerClientUsingGoogle").post(registerClientUsingGoogle);
-router.route("/login").post(loginClient);
-router.route("/logout").post(logoutClient);
-router.route("/name").get(getName);
-router.get("/auth/google/callback", googleCallback);
+router.route('/register').post(registerClient);
+router.route('/registerClientUsingGoogle').post(registerClientUsingGoogle);
+router.route('/login').post(loginClient);
+router.route('/logout').post(logoutClient);
+router.route('/name').get(getName);
+router.get('/auth/google/callback', googleCallback);
 
 export default router;

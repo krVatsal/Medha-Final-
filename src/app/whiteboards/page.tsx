@@ -1,5 +1,5 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
 const Page = () => {
   return (
@@ -7,24 +7,16 @@ const Page = () => {
       <div className="flex justify-between items-start">
         <div className="space-y-1">
           <h1 className="text-black text-[40px] font-bold">Whiteboards</h1>
-          <div className="text-[#696969] text-[20px]">
-            Create a whiteboard for you
-          </div>
+          <div className="text-[#696969] text-[20px]">Create a whiteboard for you</div>
         </div>
         <div className="flex items-center">
           <div className="relative flex items-center justify-center">
-            <Image
-              className="absolute right-3"
-              src="/Search.svg"
-              width={20}
-              height={18}
-              alt=""
-            />
+            <Image className="absolute right-3" src="/Search.svg" width={20} height={18} alt="" />
             <input
               className="h-[40px] w-[215px] rounded-full placeholder-gray-900 pl-4"
               type="text"
               placeholder="Search"
-              style={{ textAlign: "left" }}
+              style={{ textAlign: 'left' }}
             />
           </div>
           <select className="h-[40px] w-[156px] rounded-full ml-4 pl-4">
@@ -49,9 +41,7 @@ const Page = () => {
               height={20}
               alt=""
             />
-            <button className="h-[40px] w-[155px] rounded-full bg-white text-gray-900 pl-8">
-              Create Folder
-            </button>
+            <button className="h-[40px] w-[155px] rounded-full bg-white text-gray-900 pl-8">Create Folder</button>
           </div>
         </div>
       </div>
@@ -64,9 +54,7 @@ const Page = () => {
             src="/Plus circle.svg"
             alt=""
           />
-          <button className="h-[65px] w-[240px] bg-white rounded-2xl font-bold pl-4">
-            New Whiteboard
-          </button>
+          <button className="h-[65px] w-[240px] bg-white rounded-2xl font-bold pl-4">New Whiteboard</button>
         </a>
       </div>
     </div>

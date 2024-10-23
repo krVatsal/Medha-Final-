@@ -1,23 +1,19 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import Image from "next/image";
-import Sidebar from "@/components/Sidebar";
-import Navbar from "@/components/Navbar";
-import { SelectionProvider } from "../context/SelectionContext"; // Import the context provider
-import "./globals.css";
-import "core-js/stable";
-import "regenerator-runtime/runtime";
-import { UserProvider } from "@/context/UserContext";
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
+import Sidebar from '@/components/Sidebar';
+import Navbar from '@/components/Navbar';
+import { SelectionProvider } from '../context/SelectionContext'; // Import the context provider
+import './globals.css';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+import { UserProvider } from '@/context/UserContext';
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const showNavbar = pathname !== "/login" && pathname !== "/signup";
+  const showNavbar = pathname !== '/login' && pathname !== '/signup';
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -27,15 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-          rel="stylesheet"
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+        <title>Medha</title>
       </head>
       <body className="font-inter h-full">
         <UserProvider>
           <SelectionProvider>
-            {" "}
+            {' '}
             {/* Wrap your content with SelectionProvider */}
             <div className="flex flex-col h-full">
               {showNavbar && (
@@ -44,33 +38,15 @@ export default function RootLayout({
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     className="text-gray-500 focus:outline-none focus:text-gray-800"
                   >
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 6h16M4 12h16M4 18h16"
-                      />
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                   </button>
 
                   <div className="flex justify-center items-center flex-grow">
                     <div className="flex items-center space-x-1">
-                      <Image
-                        src="/Codepen.svg"
-                        width={70}
-                        height={70}
-                        alt="Medha Icon"
-                        className="object-contain"
-                      />
-                      <span className="text-2xl font-semibold text-gray-800">
-                        Medha
-                      </span>
+                      <Image src="/Codepen.svg" width={70} height={70} alt="Medha Icon" className="object-contain" />
+                      <span className="text-2xl font-semibold text-gray-800">Medha</span>
                     </div>
                   </div>
                 </header>
@@ -88,21 +64,14 @@ export default function RootLayout({
 
                     <div
                       className={`fixed md:static top-0 left-0 h-full w-64 bg-white z-40 transform transition-transform duration-300 ease-in-out ${
-                        isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+                        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
                       } md:translate-x-0 md:w-1/4 lg:w-1/6 md:flex-shrink-0 overflow-y-auto flex flex-col`}
                     >
                       <div className="flex items-center px-4 py-5 space-x-1">
                         <div className="w-16 h-[58px] relative flex-shrink-0">
-                          <Image
-                            src="/Codepen.svg"
-                            layout="fill"
-                            objectFit="contain"
-                            alt="Medha Icon"
-                          />
+                          <Image src="/Codepen.svg" layout="fill" objectFit="contain" alt="Medha Icon" />
                         </div>
-                        <span className="text-xl font-semibold text-gray-800 truncate">
-                          Medha
-                        </span>
+                        <span className="text-xl font-semibold text-gray-800 truncate">Medha</span>
                       </div>
                       <div className="flex-grow overflow-y-auto">
                         <Sidebar isMobileMenuOpen={isMobileMenuOpen} />
@@ -117,13 +86,11 @@ export default function RootLayout({
                       <Navbar />
                     </div>
                   )}
-                  <div className="flex-1 overflow-auto pl-11 pr-11">
-                    {children}
-                  </div>
+                  <div className="flex-1 overflow-auto pl-11 pr-11">{children}</div>
                 </main>
               </div>
             </div>
-          </SelectionProvider>{" "}
+          </SelectionProvider>{' '}
           {/* End wrapping */}
         </UserProvider>
       </body>

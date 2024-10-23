@@ -1,5 +1,5 @@
-import React from "react";
-import { features, plans } from "./PricingData";
+import React from 'react';
+import { features, plans } from './PricingData';
 
 const PricingTable = () => {
   return (
@@ -13,10 +13,7 @@ const PricingTable = () => {
               <th className="w-1/4 bg-[#EBEBED]"></th>
               {/* Plan headers */}
               {plans.map((plan, index) => (
-                <th
-                  key={index}
-                  className="bg-white text-center rounded-t-lg p-4"
-                >
+                <th key={index} className="bg-white text-center rounded-t-lg p-4">
                   <div className="font-bold text-xl">{plan.plan}</div>
                   <div className="text-2xl mt-2">{plan.price}</div>
                   <div className="text-gray-500">{plan.period}</div>
@@ -31,7 +28,7 @@ const PricingTable = () => {
                 {/* Feature label (first column) */}
                 <td
                   className={`bg-[#EBEBED] p-4 text-lg font-semibold text-left
-                    ${index === features.length - 1 ? "rounded-bl-lg" : ""}`}
+                    ${index === features.length - 1 ? 'rounded-bl-lg' : ''}`}
                 >
                   {feature.label}
                 </td>
@@ -43,9 +40,9 @@ const PricingTable = () => {
                       ${
                         index === features.length - 1
                           ? i === feature.values.length - 1
-                            ? "rounded-b-lg"
-                            : "rounded-b-lg"
-                          : ""
+                            ? 'rounded-b-lg'
+                            : 'rounded-b-lg'
+                          : ''
                       }`}
                   >
                     {value}

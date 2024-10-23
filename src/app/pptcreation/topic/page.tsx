@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import CreationArea from "@/components/CreationArea";
-import AIToolsSteps from "@/components/AIToolsSteps";
+import CreationArea from '@/components/CreationArea';
+import AIToolsSteps from '@/components/AIToolsSteps';
 function PPTCreation() {
   return (
     <div className=" max-w-7xl mx-auto container">

@@ -1,5 +1,5 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 function EnterClassroomArea() {
   return (
     <div className="bg-white bg-opacity-60 p-6 rounded-3xl h-[242px]">
@@ -21,27 +21,29 @@ function EnterClassroomArea() {
               /> */}
               <button
                 type="button"
-                className= "flex gap-1 align-middle justify-center items-center border-gray-200 hover:border-black border-2 w-[130px] p-2 rounded-full"
+                className="flex gap-1 align-middle justify-center items-center border-gray-200 hover:border-black border-2 w-[130px] p-2 rounded-full"
               >
-                 <Image width={16} height={16} alt="" src="/Folder.svg" />
+                <Image width={16} height={16} alt="" src="/Folder.svg" />
                 Select File
               </button>
-              <select className="border-gray-200 hover:border-black border-2 w-[98px] p-2 rounded-full" name="Subject" id="">
-                <option value="subject" disabled>Subject</option>
+              <select
+                className="border-gray-200 hover:border-black border-2 w-[98px] p-2 rounded-full"
+                name="Subject"
+                id=""
+              >
+                <option value="subject" disabled>
+                  Subject
+                </option>
                 <option value="english">English</option>
                 <option value="hindi">Hindi</option>
                 <option value="science">Science</option>
               </select>
-              <button
-                type="submit"
-                className="text-white w-[98px] p-2 bg-[#5D233C] rounded-full"
-              >
+              <button type="submit" className="text-white w-[98px] p-2 bg-[#5D233C] rounded-full">
                 Connect
               </button>
             </div>
           </form>
         </div>
-
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
-"use client";
-import { useState, useRef, useEffect } from "react";
+'use client';
+import { useState, useRef, useEffect } from 'react';
 
 interface AudioPlayerProps {
   audioUrl: string;
@@ -56,12 +56,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioUrl, autoPlay = true }) 
     }
 
     if (audioRef.current) {
-      audioRef.current.addEventListener("loadeddata", handleLoaded);
+      audioRef.current.addEventListener('loadeddata', handleLoaded);
     }
 
     return () => {
       if (audioRef.current) {
-        audioRef.current.removeEventListener("loadeddata", handleLoaded);
+        audioRef.current.removeEventListener('loadeddata', handleLoaded);
       }
     };
   }, [autoPlay]);
@@ -78,8 +78,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioUrl, autoPlay = true }) 
         }}
         onEnded={handleEnded}
       />
-      <button className={`player-button ${isPlaying ? "blinking" : ""}`} onClick={togglePlayPause}>
-        <img src={isPlaying ? "/pause.svg" : "/play.svg"} alt={isPlaying ? "Pause" : "Play"} /> {/* Direct path from public folder */}
+      <button className={`player-button ${isPlaying ? 'blinking' : ''}`} onClick={togglePlayPause}>
+        <img src={isPlaying ? '/pause.svg' : '/play.svg'} alt={isPlaying ? 'Pause' : 'Play'} />{' '}
+        {/* Direct path from public folder */}
       </button>
       <button className="start-over-button" onClick={startOver}>
         <img src="/replay.svg" alt="Start Over" /> {/* Direct path from public folder */}

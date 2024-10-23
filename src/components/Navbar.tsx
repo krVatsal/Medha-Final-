@@ -1,6 +1,6 @@
-import React from "react";
-import Institute from "./Institute";
-import Personal from "./Personal";
+import React from 'react';
+import Institute from './Institute';
+import Personal from './Personal';
 function Navbar() {
   return (
     <div>

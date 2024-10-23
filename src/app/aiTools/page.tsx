@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import AIToolCard from "@/components/AIToolCard";
+'use client';
+import React from 'react';
+import Image from 'next/image';
+import AIToolCard from '@/components/AIToolCard';
 
 const Page = () => {
   return (
@@ -10,26 +10,18 @@ const Page = () => {
         {/* Left section with title and description */}
         <div>
           <h1 className="text-black text-[40px] font-bold">AI Tools</h1>
-          <p className="text-[20px] text-[#696969]">
-            A small description of AI Tools
-          </p>
+          <p className="text-[20px] text-[#696969]">A small description of AI Tools</p>
         </div>
         {/* Right section with search bar and dropdown */}
         <div className="flex items-center gap-4">
           {/* Search bar */}
           <div className="relative flex items-center">
-            <Image
-              className="absolute left-3"
-              src="/Search.svg"
-              width={20}
-              height={18}
-              alt="Search Icon"
-            />
+            <Image className="absolute left-3" src="/Search.svg" width={20} height={18} alt="Search Icon" />
             <input
               className="h-[40px] w-[215px] rounded-full pl-10 placeholder-gray-900"
               type="text"
               placeholder="Search"
-              style={{ textAlign: "left" }}
+              style={{ textAlign: 'left' }}
             />
           </div>
           {/* Dropdown */}

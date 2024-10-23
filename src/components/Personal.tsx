@@ -1,9 +1,9 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import { useSelection } from "../context/SelectionContext";
-import { useUser } from "@/context/UserContext";
-import { classDataValues } from "@/context/class_data";
+'use client';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { useSelection } from '../context/SelectionContext';
+import { useUser } from '@/context/UserContext';
+import { classDataValues } from '@/context/class_data';
 interface ChapterObject {
   [chapterName: string]: string[];
 }
@@ -17,12 +17,12 @@ interface ClassData {
 }
 
 function Personal() {
-  const {clientName}= useUser()
+  const { clientName } = useUser();
   const { language, setLanguage, classNumber, setClassNumber, subject, setSubject, setDataContext } = useSelection();
-  
+
   const [classData, setClassData] = useState<any>({});
-  const [selectedClass, setSelectedClass] = useState<string>(classNumber || "");
-  const [selectedSubject, setSelectedSubject] = useState<string>(subject || "");
+  const [selectedClass, setSelectedClass] = useState<string>(classNumber || '');
+  const [selectedSubject, setSelectedSubject] = useState<string>(subject || '');
 
   // const [userName, setUserName] = useState<string>("Your Name"); // State for user's name
 
@@ -34,7 +34,7 @@ function Personal() {
   //         method: "GET",
   //         credentials: "include" // Include cookies with the request (important for auth)
   //       });
-        
+
   //       if (!response.ok) {
   //         throw new Error("Failed to fetch user data");
   //       }
@@ -53,15 +53,14 @@ function Personal() {
   useEffect(() => {
     const fetchClassData = async () => {
       try {
-        
         const data = classDataValues;
         setClassData(data);
-        setDataContext(data['6']['Science'])
+        setDataContext(data['6']['Science']);
       } catch (error) {
-        console.error("Error fetching class data:", error);
+        console.error('Error fetching class data:', error);
       }
     };
-    
+
     fetchClassData();
   }, []);
 
@@ -69,7 +68,7 @@ function Personal() {
   const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedClass = e.target.value;
     setSelectedClass(selectedClass);
-    setSelectedSubject(""); // Reset subject when class changes
+    setSelectedSubject(''); // Reset subject when class changes
     setClassNumber(selectedClass); // Update the context with the selected class
   };
 
@@ -78,7 +77,7 @@ function Personal() {
     const selectedSubject = e.target.value;
     setSelectedSubject(selectedSubject);
     setSubject(selectedSubject); // Update the context with the selected subject
-    setDataContext(classData[selectedClass][selectedSubject])
+    setDataContext(classData[selectedClass][selectedSubject]);
   };
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => setLanguage(e.target.value);
@@ -88,23 +87,17 @@ function Personal() {
       <div className="flex items-center justify-end gap-1 xs:gap-2 sm:gap-4">
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
           {/* Language Selector */}
-          <select
-            value={language}
-            onChange={handleLanguageChange}
-            className="rounded-full h-[40px] pl-4"
-          >
+          <select value={language} onChange={handleLanguageChange} className="rounded-full h-[40px] pl-4">
             <option value="English">English</option>
             <option value="Hindi">Hindi</option>
             {/* Add more language options as needed */}
           </select>
 
           {/* Class Selector */}
-          <select
-            value={selectedClass}
-            onChange={handleClassChange}
-            className="rounded-full h-[40px] pl-4"
-          >
-            <option value="" disabled>Select Class</option>
+          <select value={selectedClass} onChange={handleClassChange} className="rounded-full h-[40px] pl-4">
+            <option value="" disabled>
+              Select Class
+            </option>
             {Object.keys(classData).map((classOption) => (
               <option key={classOption} value={classOption}>
                 {classOption}
@@ -119,7 +112,9 @@ function Personal() {
             className="rounded-full h-[40px] pl-4"
             disabled={!selectedClass}
           >
-            <option value="" disabled>Select Subject</option>
+            <option value="" disabled>
+              Select Subject
+            </option>
             {Object.keys(classData[selectedClass] || {}).map((subjectOption) => (
               <option key={subjectOption} value={subjectOption}>
                 {subjectOption}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 interface Question {
   Question: string;
@@ -11,9 +11,7 @@ interface AssessmentProps {
 }
 
 const Assessment: React.FC<AssessmentProps> = ({ data }) => {
-  const [activeQuestionIndex, setActiveQuestionIndex] = useState<number | null>(
-    null
-  );
+  const [activeQuestionIndex, setActiveQuestionIndex] = useState<number | null>(null);
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
 
   const handleQuestionClick = (index: number) => {
@@ -44,9 +42,7 @@ const Assessment: React.FC<AssessmentProps> = ({ data }) => {
         <div
           key={index}
           className={`bg-white p-4 rounded-lg shadow-md mb-4 border-2 ${
-            activeQuestionIndex === index
-              ? "border-[#1F4467]"
-              : "border-transparent"
+            activeQuestionIndex === index ? 'border-[#1F4467]' : 'border-transparent'
           }`}
         >
           <button
@@ -73,11 +69,7 @@ const Assessment: React.FC<AssessmentProps> = ({ data }) => {
                 >
                   Show Answer
                 </button>
-                {showAnswer && (
-                  <p className="mt-4 text-green-600 font-bold col-span-2">
-                    Correct Answer: {q.Answer}
-                  </p>
-                )}
+                {showAnswer && <p className="mt-4 text-green-600 font-bold col-span-2">Correct Answer: {q.Answer}</p>}
               </div>
             </div>
           )}

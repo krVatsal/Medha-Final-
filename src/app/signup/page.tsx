@@ -1,9 +1,9 @@
-"use client";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import Image from "next/image";
-import axios from "axios"; // Import axios for API calls
-import { redirect, useRouter } from "next/navigation";
+'use client';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import Image from 'next/image';
+import axios from 'axios'; // Import axios for API calls
+import { redirect, useRouter } from 'next/navigation';
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,35 +15,32 @@ const SignUpPage = () => {
     watch,
     formState: { errors, isValid },
   } = useForm({
-    mode: "onBlur",
+    mode: 'onBlur',
   });
 
   const router = useRouter();
-  const password = watch("password"); // Watch the password field for validation
+  const password = watch('password'); // Watch the password field for validation
 
   const onSubmit = async (data: any) => {
     try {
       // API call for user registration
-      const response = await axios.post(
-        "http://localhost:5217/api/v1/client/register",
-        {
-          email: data.email,
-          password: data.password,
-          name: data.name,
-        }
-      );
+      const response = await axios.post('http://localhost:5217/api/v1/client/register', {
+        email: data.email,
+        password: data.password,
+        name: data.name,
+      });
 
       if (response.status === 200) {
         // Store tokens in local storage
-        localStorage.setItem("accessToken", response.data.accessToken);
-        localStorage.setItem("refreshToken", response.data.refreshToken);
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
 
         // Redirect to dashboard
-        router.push("/login");
+        router.push('/login');
       }
     } catch (error) {
-      console.error("Sign-up failed", error);
-      alert((error as any)?.response?.data?.message || "Sign-up failed");
+      console.error('Sign-up failed', error);
+      alert((error as any)?.response?.data?.message || 'Sign-up failed');
     }
   };
 
@@ -51,21 +48,11 @@ const SignUpPage = () => {
     <div className="min-h-screen flex bg-white">
       {/* Background Image */}
       <div className="relative flex-1">
-        <img
-          className="max-h-screen object-cover"
-          src="/signup_page.svg"
-          alt="Background"
-        />
+        <img className="max-h-screen object-cover" src="/signup_page.svg" alt="Background" />
         {/* Overlay the logo on the background */}
         <div className="absolute top-8 left-8">
           <div className="text-lg flex gap-3 font-normal items-center">
-            <Image
-              width={62}
-              height={62}
-              src="/Codepen.svg"
-              objectFit="contain"
-              alt="Medha Icon"
-            />
+            <Image width={62} height={62} src="/Codepen.svg" objectFit="contain" alt="Medha Icon" />
             <span className="text-[26px] text-white">Medha AI</span>
           </div>
         </div>
@@ -80,14 +67,9 @@ const SignUpPage = () => {
           </a>
         </div>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-full max-w-md text-left"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md text-left">
           <h2 className="text-left text-[44px] font-semibold mb-2">Sign Up</h2>
-          <p className="text-left text-[#696969] text-[15px] mb-8">
-            Teach using the Power of Generative AI
-          </p>
+          <p className="text-left text-[#696969] text-[15px] mb-8">Teach using the Power of Generative AI</p>
 
           {/* Name Input */}
           <div className="relative mb-4">
@@ -102,12 +84,12 @@ const SignUpPage = () => {
               id="name"
               type="text"
               placeholder="Name"
-              {...register("name", { required: "Name is required" })}
+              {...register('name', { required: 'Name is required' })}
               className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                errors.name ? "border-red-500" : ""
+                errors.name ? 'border-red-500' : ''
               }`}
             />
-            {errors.name && typeof errors.name.message === "string" && (
+            {errors.name && typeof errors.name.message === 'string' && (
               <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
             )}
           </div>
@@ -125,15 +107,15 @@ const SignUpPage = () => {
               id="email"
               type="email"
               placeholder="Email"
-              {...register("email", {
-                required: "Email is required",
+              {...register('email', {
+                required: 'Email is required',
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Enter a valid email address",
+                  message: 'Enter a valid email address',
                 },
               })}
               className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                errors.email ? "border-red-500" : ""
+                errors.email ? 'border-red-500' : ''
               }`}
             />
             {isValid && !errors.email && (
@@ -145,10 +127,8 @@ const SignUpPage = () => {
                 className="absolute right-2 top-1/2 transform -translate-y-1/2"
               />
             )}
-            {errors.email && typeof errors.email.message === "string" && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.email.message}
-              </p>
+            {errors.email && typeof errors.email.message === 'string' && (
+              <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
             )}
           </div>
 
@@ -163,17 +143,17 @@ const SignUpPage = () => {
             />
             <input
               id="password"
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               placeholder="Password"
-              {...register("password", {
-                required: "Password is required",
+              {...register('password', {
+                required: 'Password is required',
                 minLength: {
                   value: 6,
-                  message: "Password must be at least 6 characters long",
+                  message: 'Password must be at least 6 characters long',
                 },
               })}
               className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                errors.password ? "border-red-500" : ""
+                errors.password ? 'border-red-500' : ''
               }`}
             />
             <Image
@@ -193,10 +173,8 @@ const SignUpPage = () => {
                 className="absolute right-8 top-1/2 transform -translate-y-1/2"
               />
             )}
-            {errors.password && typeof errors.password.message === "string" && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.password.message}
-              </p>
+            {errors.password && typeof errors.password.message === 'string' && (
+              <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
             )}
           </div>
 
@@ -211,15 +189,14 @@ const SignUpPage = () => {
             />
             <input
               id="retypePassword"
-              type={showRetypePassword ? "text" : "password"}
+              type={showRetypePassword ? 'text' : 'password'}
               placeholder="Re-type Password"
-              {...register("retypePassword", {
-                required: "Please re-type your password",
-                validate: (value) =>
-                  value === password || "Passwords do not match",
+              {...register('retypePassword', {
+                required: 'Please re-type your password',
+                validate: (value) => value === password || 'Passwords do not match',
               })}
               className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                errors.retypePassword ? "border-red-500" : ""
+                errors.retypePassword ? 'border-red-500' : ''
               }`}
             />
             <Image
@@ -239,12 +216,9 @@ const SignUpPage = () => {
                 className="absolute right-8 top-1/2 transform -translate-y-1/2"
               />
             )}
-            {errors.retypePassword &&
-              typeof errors.retypePassword.message === "string" && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.retypePassword.message}
-                </p>
-              )}
+            {errors.retypePassword && typeof errors.retypePassword.message === 'string' && (
+              <p className="text-red-500 text-xs mt-1">{errors.retypePassword.message}</p>
+            )}
           </div>
 
           {/* Submit Button */}

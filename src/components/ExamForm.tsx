@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useSelection } from "../context/SelectionContext"; // Import the context
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSelection } from '../context/SelectionContext'; // Import the context
 
 interface ChapterObject {
   [chapterName: string]: string[];
@@ -21,12 +21,12 @@ export default function ExamForm() {
   const [selectedChapters, setSelectedChapters] = useState<string[]>([]);
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [formData, setFormData] = useState({
-    totalQuestions: "",
-    trueFalse: "",
-    mcq: "",
-    fillInTheBlanks: "",
-    short: "",
-    long: "",
+    totalQuestions: '',
+    trueFalse: '',
+    mcq: '',
+    fillInTheBlanks: '',
+    short: '',
+    long: '',
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -36,31 +36,26 @@ export default function ExamForm() {
 
   const fetchClassData = async () => {
     try {
-      const response = await fetch("https://game.simplem.in/api/class-data");
+      const response = await fetch('https://game.simplem.in/api/class-data');
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data: ClassData = await response.json();
       setClassData(data);
     } catch (error) {
-      console.error("Error fetching class data:", error);
+      console.error('Error fetching class data:', error);
     }
   };
 
   const handleMultipleChange = (
     e: React.ChangeEvent<HTMLSelectElement>,
-    setter: React.Dispatch<React.SetStateAction<string[]>>
+    setter: React.Dispatch<React.SetStateAction<string[]>>,
   ) => {
-    const selectedOptions = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    );
+    const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
     setter(selectedOptions);
   };
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -79,27 +74,24 @@ export default function ExamForm() {
     };
 
     try {
-      const response = await fetch(
-        "https://game.simplem.in/api/submit-exam-form",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const response = await fetch('https://game.simplem.in/api/submit-exam-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       const responseData = await response.json();
-      console.log("Form submitted successfully. Response:", responseData);
+      console.log('Form submitted successfully. Response:', responseData);
 
       // router.push("/response-exam");
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error('Error submitting form:', error);
     } finally {
       setIsLoading(false);
     }
@@ -129,9 +121,7 @@ export default function ExamForm() {
     selectedChapters.forEach((chapter) => {
       const subjects = classData[classNumber];
       const subjectData = subjects?.[subject];
-      const chapterObject = subjectData?.find(
-        (chapterObj) => Object.keys(chapterObj)[0] === chapter
-      );
+      const chapterObject = subjectData?.find((chapterObj) => Object.keys(chapterObj)[0] === chapter);
       if (chapterObject) {
         const topics = chapterObject[chapter];
         topics.forEach((topic: string) => topicsSet.add(topic));
@@ -152,7 +142,7 @@ export default function ExamForm() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <select
             className="h-[31px] w-full rounded-full pl-4 text-xs sm:text-sm"
-            value={selectedChapters[0] || ""} // Use first selected chapter or empty string
+            value={selectedChapters[0] || ''} // Use first selected chapter or empty string
             onChange={(e) => setSelectedChapters([e.target.value])} // Set selected chapter as an array with one value
           >
             <option value="" disabled>
@@ -237,7 +227,7 @@ export default function ExamForm() {
             className="h-[40px] sm:h-12 w-[107px] sm:w-24 bg-[#5D233C] text-white rounded-full text-xs sm:text-sm"
             disabled={isLoading}
           >
-            {isLoading ? "Submitting..." : "Submit"}
+            {isLoading ? 'Submitting...' : 'Submit'}
           </button>
         </div>
       </form>

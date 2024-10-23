@@ -1,5 +1,5 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
 const Page = () => {
   return (
@@ -11,18 +11,12 @@ const Page = () => {
         </div>
         <div className="flex items-center mb-20">
           <div className="relative flex items-center justify-center">
-            <Image
-              className="absolute left-44"
-              src="/Search.svg"
-              width={20}
-              height={18}
-              alt=""
-            />
+            <Image className="absolute left-44" src="/Search.svg" width={20} height={18} alt="" />
             <input
               className="h-[40px] w-[215px] rounded-full placeholder-gray-900 pl-4"
               type="text"
               placeholder="Search"
-              style={{ textAlign: "left" }}
+              style={{ textAlign: 'left' }}
             />
           </div>
 
@@ -53,9 +47,7 @@ const Page = () => {
             src="/Plus circle.svg"
             alt=""
           />
-          <button className="h-[65px] w-[240px] bg-white rounded-2xl font-bold pl-4">
-            Upload a new File
-          </button>
+          <button className="h-[65px] w-[240px] bg-white rounded-2xl font-bold pl-4">Upload a new File</button>
         </a>
       </div>
     </div>

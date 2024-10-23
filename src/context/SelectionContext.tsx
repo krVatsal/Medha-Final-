@@ -1,5 +1,5 @@
-"use client";
-import React, { createContext, useState, useContext } from "react";
+'use client';
+import React, { createContext, useState, useContext } from 'react';
 
 interface SelectionContextType {
   language: string;
@@ -15,14 +15,23 @@ interface SelectionContextType {
 const SelectionContext = createContext<SelectionContextType | undefined>(undefined);
 
 export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState("English");
-  const [classNumber, setClassNumber] = useState("6");
-  const [subject, setSubject] = useState("Science");
+  const [language, setLanguage] = useState('English');
+  const [classNumber, setClassNumber] = useState('6');
+  const [subject, setSubject] = useState('Science');
   const [dataContext, setDataContext] = useState<any>();
 
   return (
     <SelectionContext.Provider
-      value={{ language, setLanguage, classNumber, setClassNumber, subject, setSubject, dataContext, setDataContext }}
+      value={{
+        language,
+        setLanguage,
+        classNumber,
+        setClassNumber,
+        subject,
+        setSubject,
+        dataContext,
+        setDataContext,
+      }}
     >
       {children}
     </SelectionContext.Provider>
@@ -32,7 +41,7 @@ export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 export const useSelection = () => {
   const context = useContext(SelectionContext);
   if (!context) {
-    throw new Error("useSelection must be used within a SelectionProvider");
+    throw new Error('useSelection must be used within a SelectionProvider');
   }
   return context;
 };

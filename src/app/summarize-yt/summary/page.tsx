@@ -1,6 +1,6 @@
-import React from "react";
-import AIToolsSteps from "@/components/AIToolsSteps";
-import CreationArea from "@/components/CreationArea";
+import React from 'react';
+import AIToolsSteps from '@/components/AIToolsSteps';
+import CreationArea from '@/components/CreationArea';
 
 function Summary() {
   return (
@@ -19,10 +19,7 @@ function Summary() {
             <label htmlFor="summary" className="text-sm font-semibold">
               Summary:
             </label>
-            <textarea
-              id="summary"
-              className="w-full p-3 border border-gray-300 rounded-md h-32 resize-none"
-            ></textarea>
+            <textarea id="summary" className="w-full p-3 border border-gray-300 rounded-md h-32 resize-none"></textarea>
           </div>
 
           <div className="flex flex-col gap-2">

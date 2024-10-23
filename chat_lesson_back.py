@@ -2,6 +2,9 @@ import asyncio
 import socketio
 from aiohttp import web
 from ollama import AsyncClient
+import subprocess
+import requests
+import json
 
 sio = socketio.AsyncServer(cors_allowed_origins='https://medha.cograd.in')
 app = web.Application()
@@ -19,6 +22,18 @@ async def generate_ai_response(prompt, model):
         print(f"Error in generate_ai_response: {e}")
         yield f"Error: {str(e)}"
 
+
+def get_transcript(video_id):
+    headers = {
+        "Content-Type": "application/json"
+    }
+    url = "https://asia-south2-quickjam-host.cloudfunctions.net/function-1"
+    response = requests.post(url, headers=headers, json={"name": video_id}, timeout=70)
+    transcript = ""
+    for el in json.loads(response.text.replace("'", "\'")):
+        transcript = transcript + el['text']
+    return transcript
+        
 @sio.event
 async def connect(sid, environ):
     print(f"Client connected: {sid}")
@@ -53,6 +68,20 @@ async def request(sid, data):
         chapter = data.get('selectedTopic')
         language = data.get('language')
         prompt = f"Generate lesson plan for Class{classNumber} students about subject: {subject} chapter: {chapter}."
+
+    elif type == "youtube_summ":
+        print(data)
+        model = CHAT_MODEL
+        request_url = data.get('videoURL')
+        classNumber = data.get('classNumber')
+        subject = data.get('subject')
+        language = data.get('language')
+        video_id = request_url.split("=")[1]
+        transcript = get_transcript(video_id)
+        
+        prompt = f"{transcript}\n\n Generate a summary for the above youtube transcript and answer in properly defined pointers."
+        print(prompt)
+
     else:
         await sio.emit('error', {"message": "Invalid request type"}, room=sid)
         return

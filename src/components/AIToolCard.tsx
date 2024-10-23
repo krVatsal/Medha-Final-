@@ -1,11 +1,11 @@
-import React from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import React from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const info = {
   homework: {
-    title: "Create Homework",
-    description: "Create Homework",
+    title: 'Create Homework',
+    description: 'Create Homework',
   },
   // Add other types here as needed
 };
@@ -22,12 +22,7 @@ function AIToolCard({ type }: AIToolCardProps) {
     <div className="rounded-xl bg-white w-[30%] p-5">
       <div className="flex items-center gap-3">
         <div className="flex items-center justify-center">
-          <Image
-            src="/create_lesson_icon.svg"
-            alt="AI"
-            width={50}
-            height={50}
-          />
+          <Image src="/create_lesson_icon.svg" alt="AI" width={50} height={50} />
         </div>
         <div className="flex flex-col justify-center">
           <div className="font-bold text-xl">{cardInfo.title}</div>

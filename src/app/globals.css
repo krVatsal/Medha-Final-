@@ -2,7 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .action-button {
-	cursor: pointer;
+  cursor: pointer;
+}
+
+.banner-coming {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background-color: rgb(180, 55, 92);
+  color: white;
+  padding: 0.05rem 0.2rem;
+  font-family: Arial, sans-serif;
+  font-size: 0.85rem;
+  transform: rotate(-25deg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
