@@ -11,7 +11,7 @@ function MyAppsArea() {
           Explore the variety of useful apps
         </div>
       </div>
-      <div className="bg-white p-4 rounded-2xl pb-16 w-fit">
+      {/* <div className="bg-white p-4 rounded-2xl pb-12 w-fit"> */}
         <div className="grid grid-cols-4 gap-4 justify-center items-center">
           {/* Placeholder for Create Quiz */}
           <div
@@ -19,11 +19,11 @@ function MyAppsArea() {
             onClick={() => router.push("/topicwiseform")}
           >
             <Image
-              width={32}
-              height={32}
+              width={10}
+              height={10}
               alt=""
               src="/Create_quiz.svg"
-              className="w-16 h-16"
+              className="w-12 h-12"
             />
             <div className="text-xs font-semibold text-center">Create Quiz</div>
           </div>
@@ -35,7 +35,7 @@ function MyAppsArea() {
               height={32}
               alt=""
               src="/Summarize_pdf.svg"
-              className="w-16 h-16"
+              className="w-12 h-12"
               onClick={() => router.push("/summarize-pdf")}
             />
             <div className="text-xs font-semibold text-center">
@@ -48,7 +48,7 @@ function MyAppsArea() {
               height={32}
               alt=""
               src="/create_lesson_icon.svg"
-              className="w-16 h-16"
+              className="w-12 h-12"
               onClick={() => router.push("/homework/topic")}
             />
             <div className="text-xs font-semibold text-center">
@@ -63,7 +63,7 @@ function MyAppsArea() {
               height={32}
               alt=""
               src="/Create_ppt.svg"
-              className="w-16 h-16"
+              className="w-12 h-12"
               onClick={() => router.push("/pptcreation/topic")}
             />
             <div className="text-xs font-semibold text-center">Create PPT</div>
@@ -76,7 +76,7 @@ function MyAppsArea() {
               height={32}
               alt=""
               src="/Summarize_yt.svg"
-              className="w-16 h-16"
+              className="w-12 h-12"
               onClick={() => router.push("/summarize-yt/enterurl")}
             />
             <div className="text-xs font-semibold text-center">
@@ -91,7 +91,7 @@ function MyAppsArea() {
               height={32}
               alt=""
               src="/create_exam_form.svg"
-              className="w-16 h-16"
+              className="w-12 h-12"
             />
             <div className="text-xs font-semibold text-center">
               Create Exam Form
@@ -103,7 +103,7 @@ function MyAppsArea() {
               height={32}
               alt=""
               src="/create_lesson_icon.svg"
-              className="w-16 h-16"
+              className="w-12 h-12"
               onClick={() => router.push("/createlesson/topic")}
             />
             <div className="text-xs font-semibold text-center">
@@ -112,7 +112,7 @@ function MyAppsArea() {
           </div>
         </div>
       </div>
-    </div>
+    // </div>
   );
 }
 

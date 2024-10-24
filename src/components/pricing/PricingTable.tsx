@@ -1,6 +1,13 @@
 import React from "react";
 import { features, plans } from "./PricingData";
 
+const columnColors = [
+  "#FBFBFF", // Color for Plan A
+  "#37A6C4", // Color for Plan B
+  "#B7385A", // Color for Plan C
+  "#E96B36", // Color for Plan D
+];
+
 const PricingTable = () => {
   return (
     <div className="min-h-screen p-8 flex items-center justify-center">
@@ -11,11 +18,12 @@ const PricingTable = () => {
             <tr>
               {/* Empty header cell for the label column */}
               <th className="w-1/4 bg-[#EBEBED]"></th>
-              {/* Plan headers */}
+              {/* Plan headers with unique colors */}
               {plans.map((plan, index) => (
                 <th
                   key={index}
-                  className="bg-white text-center rounded-t-lg p-4"
+                  style={{ backgroundColor: columnColors[index] }} // Inline style to apply hex color
+                  className="text-center rounded-t-lg p-4"
                 >
                   <div className="font-bold text-xl">{plan.plan}</div>
                   <div className="text-2xl mt-2">{plan.price}</div>
@@ -35,16 +43,17 @@ const PricingTable = () => {
                 >
                   {feature.label}
                 </td>
-                {/* Plan-specific feature values */}
+                {/* Plan-specific feature values with unique column colors */}
                 {feature.values.map((value, i) => (
                   <td
                     key={i}
-                    className={`bg-white p-4 text-center border-l border-gray-300
+                    style={{ backgroundColor: columnColors[i] }} // Inline style for feature columns
+                    className={`p-4 text-center border-l border-gray-300
                       ${
                         index === features.length - 1
                           ? i === feature.values.length - 1
                             ? "rounded-b-lg"
-                            : "rounded-b-lg"
+                            : ""
                           : ""
                       }`}
                   >

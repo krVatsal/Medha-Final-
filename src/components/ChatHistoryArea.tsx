@@ -16,13 +16,13 @@ function ChatHistoryArea({ questions }: { questions: string[] }) {
     <div className="bg-white bg-opacity-60 p-6 rounded-3xl flex flex-col h-[410px] min-w-[345px]">
       <p className="font-bold text-lg mb-4">Chat History</p>
       <div className="bg-white pt-4 rounded-xl flex-grow flex flex-col overflow-hidden">
-        <div className="flex flex-col pt-2 pl-8">
+        <div className="flex flex-col pt-2 pl-6">
           <button className="bg-gray-200 bg-opacity-60 rounded-full h-8 w-32 mb-4">
             + New Chat
           </button>
           <p className="text-sm mb-4">Recent</p>
         </div>
-        <div className="pl-8 flex-grow overflow-y-auto">
+        <div className="pl-6 flex-grow overflow-y-auto">
           {questions.map((question, index) => (
             <button
               key={index}

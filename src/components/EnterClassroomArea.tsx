@@ -6,7 +6,7 @@ function EnterClassroomArea() {
       <div className="flex flex-col mb-4">
         <div className="text-lg font-bold">Personalise Medha</div>
       </div>
-      <div className="p-4 mt-8 bg-white rounded-xl h-[121px]">
+      <div className="p-4 mt-8 bg-white rounded-xl h-[121px] ">
         <div className="grid grid-cols-1 gap-4">
           <form className="flex flex-col space-y-2">
             <label htmlFor="classroom-id" className="font-bold text-sm">
@@ -36,7 +36,7 @@ function EnterClassroomArea() {
                 type="submit"
                 className="text-white w-[98px] p-2 bg-[#5D233C] rounded-full"
               >
-                Connect
+                Submit
               </button>
             </div>
           </form>

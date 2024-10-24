@@ -84,21 +84,21 @@ function Personal() {
       <div className="flex items-center justify-end gap-1 xs:gap-2 sm:gap-4">
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
           {/* Language Selector */}
-          <select
+          {/* <select
             value={language}
             onChange={handleLanguageChange}
-            className="rounded-full h-[40px] pl-4"
+            className="rounded-full h-[40px] pl-2 pr-2"
           >
             <option value="English">English</option>
             <option value="Hindi">Hindi</option>
             {/* Add more language options as needed */}
-          </select>
+          {/* </select> */} 
 
           {/* Class Selector */}
           <select
             value={selectedClass}
             onChange={handleClassChange}
-            className="rounded-full h-[40px] pl-4"
+            className="rounded-full h-[40px] pl-2 pr-2"
           >
             <option value="" disabled>Select Class</option>
             {Object.keys(classData).map((classOption) => (
@@ -112,7 +112,7 @@ function Personal() {
           <select
             value={selectedSubject}
             onChange={handleSubjectChange}
-            className="rounded-full h-[40px] pl-4"
+            className="rounded-full h-[40px] pl-2 pr-2"
             disabled={!selectedClass}
           >
             <option value="" disabled>Select Subject</option>
@@ -138,8 +138,8 @@ function Personal() {
             />
           </div>
           <div className="flex flex-col justify-center pl-1 xs:pl-2 min-w-0 max-w-[100px] xs:max-w-[120px] sm:max-w-none">
-            <div className="text-black text-xs xs:text-sm sm:text-base font-bold truncate">{clientName}</div>
-            <div className="text-[10px] xs:text-xs sm:text-sm text-gray-800 truncate">Admin/Teacher</div>
+            <div className="text-black text-xs xs:text-xs sm:text-base font-bold truncate">{clientName}</div>
+            <div className="text-[10px] xs:text-xs sm:text-xs text-gray-800 truncate">Admin/Teacher</div>
           </div>
         </div>
 

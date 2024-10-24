@@ -56,7 +56,7 @@ function MedhaTextArea({
         <ExamForm />
       ) : (
         <div className="bg-white pt-4 rounded-lg flex-grow flex flex-col overflow-hidden">
-          <div className="pl-4 sm:pl-8 pr-4 sm:pr-8 flex-grow overflow-y-auto">
+          <div className="pl-2 sm:pl-8 pr-2 sm:pr-8 flex-grow overflow-y-auto">
             {messages.map((message, index) => (
               <div key={index} className="mb-4">
                 <div className="flex items-start mb-2">
@@ -70,7 +70,7 @@ function MedhaTextArea({
                     className="h-4 w-4 rounded-full mr-4"
                   />
                   <p
-                    className={`text-xs sm:text-sm ${
+                    className={`text-sm sm:text-md ${
                       message.sender === "user" ? "font-semibold" : ""
                     }`}
                   >

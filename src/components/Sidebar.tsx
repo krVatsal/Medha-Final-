@@ -62,7 +62,7 @@ function Sidebar({ isMobileMenuOpen }: { isMobileMenuOpen: boolean }) {
         isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
       } md:translate-x-0`}
     >
-      <div className="flex-shrink-0 pt-6 md:pt-10">
+      <div className="flex-shrink-0 pt-6 md:pt-2">
         <h2 className="text-xs font-semibold text-gray-500 mb-2 px-4">
           OVERVIEW
         </h2>
@@ -79,7 +79,17 @@ function Sidebar({ isMobileMenuOpen }: { isMobileMenuOpen: boolean }) {
                   : "text-gray-900 hover:bg-gray-50"
               }`}
             >
-              <div className="w-5 h-5 mr-3 text-center">
+              <div
+                className={`w-5 h-5 mr-3 text-center ${
+                  pathname === item.href ? "text-[#B4375C]" : "text-gray-900"
+                }`}
+                style={{
+                  filter:
+                    pathname === item.href
+                      ? "invert(34%) sepia(72%) saturate(1675%) hue-rotate(324deg) brightness(91%) contrast(85%)"
+                      : "none",
+                }}
+              >
                 <Image width={20} height={20} src={item.icon} alt="" />
               </div>
               <span className="font-medium">{item.label}</span>

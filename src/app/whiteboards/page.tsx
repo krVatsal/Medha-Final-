@@ -27,14 +27,14 @@ const Page = () => {
               style={{ textAlign: "left" }}
             />
           </div>
-          <select className="h-[40px] w-[156px] rounded-full ml-4 pl-4">
+          <select className="h-[40px] w-[156px] rounded-full ml-4 pl-2 pr-2">
             <option value="" disabled selected>
               Last Modified
             </option>
             <option value="option1">Option 1</option>
             <option value="option2">Option 2</option>
           </select>
-          <select className="h-[40px] w-[106px] rounded-full ml-4 pl-4">
+          <select className="h-[40px] w-[106px] rounded-full ml-4 pl-2 pr-2">
             <option value="" disabled selected>
               All Files
             </option>

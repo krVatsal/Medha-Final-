@@ -5,6 +5,7 @@ const nextConfig = {
       {
         source: "/:path*",
         destination: "https://medha-cograd.azurewebsites.net/:path*",
+       
       },
       {
         source: "/voicebot/:path*",

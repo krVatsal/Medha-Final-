@@ -26,7 +26,7 @@ const Page = () => {
             />
           </div>
 
-          <select className="h-[40px] w-[156px] rounded-full ml-4 pl-4 placeholder-gray-900 cursor-pointer">
+          <select className="h-[40px] w-[156px] rounded-full ml-4 pl-2 pr-2 placeholder-gray-900 cursor-pointer">
             <option value="" disabled selected>
               Last Modified
             </option>
@@ -34,7 +34,7 @@ const Page = () => {
             <option value="option2">Option 2</option>
           </select>
 
-          <select className="h-[40px] w-[106px] rounded-full ml-4 pl-4 placeholder-gray-900 cursor-pointer">
+          <select className="h-[40px] w-[106px] rounded-full ml-4 pl-2 pr-2 placeholder-gray-900 cursor-pointer">
             <option value="" disabled selected>
               All Files
             </option>
