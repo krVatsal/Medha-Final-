@@ -1,7 +1,40 @@
+"use client"
 import React from "react";
 import Image from "next/image";
+import { useState , useEffect} from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+const PageSkeleton = () => {
+  return (
+    <div className="space-y-4">
+      <div className="flex justify-between items-start">
+        <div className="space-y-2">
+          <Skeleton className="h-10 w-48 rounded-md" />
+          <Skeleton className="h-5 w-40 rounded-md" />
+        </div>
+        <div className="flex items-center space-x-4">
+          <Skeleton className="h-10 w-[215px] rounded-full" />
+          <Skeleton className="h-10 w-[156px] rounded-full" />
+          <Skeleton className="h-10 w-[106px] rounded-full" />
+          <Skeleton className="h-10 w-[155px] rounded-full" />
+        </div>
+      </div>
+      <div className="relative pt-8">
+        <Skeleton className="h-[65px] w-[240px] rounded-2xl" />
+      </div>
+    </div>
+  );
+};
 
 const Page = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 500); // Simulated loading delay
+  }, []);
+
+  if (loading) {
+    return <PageSkeleton />;
+  }
   return (
     <div>
       <div className="flex justify-between">

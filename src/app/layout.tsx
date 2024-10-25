@@ -10,7 +10,8 @@ import "./globals.css";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 import { UserProvider } from "@/context/UserContext";
-
+import { Skeleton } from "@/components/ui/skeleton"
+// import Layout from "@/components/layout";
 export default function RootLayout({
   children,
 }: {
@@ -25,6 +26,7 @@ export default function RootLayout({
   }, [pathname]);
 
   return (
+    // <Layout>
     <html lang="en" className="h-full">
       <head>
         <link
@@ -33,6 +35,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-inter h-full">
+        
         <UserProvider>
           <SelectionProvider>
             {" "}
@@ -128,5 +131,6 @@ export default function RootLayout({
         </UserProvider>
       </body>
     </html>
+    // </Layout>
   );
 }

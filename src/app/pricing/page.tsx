@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import PricingTable from "@/components/pricing/PricingTable";
+import PricingTable from "@/components/pricing/page";
 
 function PricingPage() {
   return (

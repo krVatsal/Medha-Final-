@@ -80,7 +80,7 @@ function Personal() {
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => setLanguage(e.target.value);
 
   return (
-    <div className="p-2 sm:p-4">
+    <div className="p-2 sm:p-4 flex justify-center items-center">
       <div className="flex items-center justify-end gap-1 xs:gap-2 sm:gap-4">
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
           {/* Language Selector */}
@@ -124,10 +124,10 @@ function Personal() {
           </select>
         </div>
 
-        <div className="hidden sm:block w-[1px] h-[30px] bg-[#B3B4B9]"></div>
+        <div className="hidden sm:block w-[1px] h-[30px] bg-[#B3B4B9] mb-5"></div>
 
         {/* User Information */}
-        <div className="flex items-center min-w-0">
+        <div className="flex items-center min-w-0 pb-5">
           <div className="flex-shrink-0">
             <Image
               width={32}

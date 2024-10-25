@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useSelection } from "../context/SelectionContext";
 import Assessment from "./MCQ";
 import Subjective from "./Subjective";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ChapterObject {
   [chapterName: string]: string[];
@@ -27,7 +28,7 @@ export default function TopicWiseForm() {
   const [selectedType, setSelectedType] = useState<string>("");
   const [totalQuestion, setTotalQuestion] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false); // Added state
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [data, setData] = useState<any>();
 
   useEffect(() => {
@@ -35,15 +36,16 @@ export default function TopicWiseForm() {
   }, []);
 
   const fetchClassData = async (): Promise<void> => {
+    setIsLoading(true);
     try {
       const response = await fetch("https://game.simplem.in/api/class-data");
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
       const data: ClassData = await response.json();
       setClassData(data);
     } catch (error) {
       console.error("Error fetching class data:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -57,17 +59,9 @@ export default function TopicWiseForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setIsLoading(true);
-    setIsSubmitted(false); // Reset submission status before new submission
+    setIsSubmitted(false);
 
-    if (
-      !classNumber ||
-      !subject ||
-      !selectedChapter ||
-      !selectedTopic ||
-      !selectedLevel ||
-      !selectedType ||
-      !totalQuestion
-    ) {
+    if (!classNumber || !subject || !selectedChapter || !selectedTopic || !selectedLevel || !selectedType || !totalQuestion) {
       alert("Please fill in all fields.");
       setIsLoading(false);
       return;
@@ -84,21 +78,16 @@ export default function TopicWiseForm() {
     };
 
     try {
-      const response = await fetch(
-        "https://game.simplem.in/api/submit-topic-wise-form",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const response = await fetch("https://game.simplem.in/api/submit-topic-wise-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
       const responseData = await response.json();
       if (responseData.content && responseData.content.length > 0) {
         setData(responseData);
-        setIsSubmitted(true); // Mark form as submitted successfully
+        setIsSubmitted(true);
       } else {
         console.error("Unexpected response structure:", responseData);
       }
@@ -135,7 +124,6 @@ export default function TopicWiseForm() {
 
   const renderTopics = (): JSX.Element[] | null => {
     if (!classNumber || !subject || !selectedChapter) return null;
-
     const subjects = classData[classNumber];
     const subjectData = subjects?.[subject];
     const chapterObject = subjectData?.find(
@@ -166,28 +154,36 @@ export default function TopicWiseForm() {
           <p className="mb-4 font-bold">Create Topic Wise Assessment</p>
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 gap-4 mb-4">
-              <select
-                className="h-[31px] w-full rounded-full pl-4"
-                value={selectedChapter}
-                onChange={(e) => handleChange(e, setSelectedChapter)}
-                disabled={!subject}
-              >
-                <option value="" disabled>
-                  Select Chapter
-                </option>
-                {renderChapters()}
-              </select>
-              <select
-                className="h-[31px] w-full rounded-full pl-4"
-                value={selectedTopic}
-                onChange={(e) => handleChange(e, setSelectedTopic)}
-                disabled={!selectedChapter}
-              >
-                <option value="" disabled>
-                  Select Topic
-                </option>
-                {renderTopics()}
-              </select>
+              {isLoading ? (
+                <Skeleton className="h-[31px] w-full rounded-full" />
+              ) : (
+                <select
+                  className="h-[31px] w-full rounded-full pl-4"
+                  value={selectedChapter}
+                  onChange={(e) => handleChange(e, setSelectedChapter)}
+                  disabled={!subject}
+                >
+                  <option value="" disabled>
+                    Select Chapter
+                  </option>
+                  {renderChapters()}
+                </select>
+              )}
+              {isLoading ? (
+                <Skeleton className="h-[31px] w-full rounded-full" />
+              ) : (
+                <select
+                  className="h-[31px] w-full rounded-full pl-4"
+                  value={selectedTopic}
+                  onChange={(e) => handleChange(e, setSelectedTopic)}
+                  disabled={!selectedChapter}
+                >
+                  <option value="" disabled>
+                    Select Topic
+                  </option>
+                  {renderTopics()}
+                </select>
+              )}
               <select
                 className="h-[31px] w-full rounded-full pl-4"
                 value={selectedLevel}
@@ -232,7 +228,7 @@ export default function TopicWiseForm() {
                 !selectedTopic || !selectedType || !selectedLevel || isLoading
               }
             >
-              {isLoading ? "Loading..." : "Submit"}
+              {isLoading ? <Skeleton className="w-full h-full rounded-full" /> : "Submit"}
             </button>
           </form>
         </div>
