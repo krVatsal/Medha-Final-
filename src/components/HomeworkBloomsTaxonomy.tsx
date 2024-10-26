@@ -1,8 +1,16 @@
-import React from "react";
-import Image from "next/image";
+import React, { useState, useEffect } from "react";
 import SelectableOptions from "./SelectableOptions"; // Assuming this component already exists
+import { Skeleton } from "./ui/skeleton";
 
 const HomeworkBloomsTaxonomy: React.FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // Simulate loading delay (replace this with actual data fetching logic)
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Defining the options arrays for the headings
   const bloomsTaxonomyOptions = [
     "Remembering",
@@ -31,29 +39,49 @@ const HomeworkBloomsTaxonomy: React.FC = () => {
 
         <div className="flex flex-col gap-6 p-6 rounded-2xl w-full h-auto">
           {/* Bloom's Taxonomy Section */}
-          <SelectableOptions
-            heading="Bloom's Taxonomy"
-            options={bloomsTaxonomyOptions}
-          />
+          {isLoading ? (
+            <Skeleton className="h-10 w-full rounded-md" />
+          ) : (
+            <SelectableOptions
+              heading="Bloom's Taxonomy"
+              options={bloomsTaxonomyOptions}
+            />
+          )}
 
           {/* Difficulty Level Section */}
-          <SelectableOptions heading="Difficulty" options={difficultyOptions} />
+          {isLoading ? (
+            <Skeleton className="h-10 w-full rounded-md" />
+          ) : (
+            <SelectableOptions heading="Difficulty" options={difficultyOptions} />
+          )}
 
           {/* Type of Question Section */}
-          <SelectableOptions
-            heading="Type of Question"
-            options={questionTypeOptions}
-          />
+          {isLoading ? (
+            <Skeleton className="h-10 w-full rounded-md" />
+          ) : (
+            <SelectableOptions
+              heading="Type of Question"
+              options={questionTypeOptions}
+            />
+          )}
 
           {/* Grading Section */}
-          <SelectableOptions heading="Grading" options={gradingOptions} />
+          {isLoading ? (
+            <Skeleton className="h-10 w-full rounded-md" />
+          ) : (
+            <SelectableOptions heading="Grading" options={gradingOptions} />
+          )}
         </div>
 
         {/* Generate Questions Button */}
         <div className="flex justify-start">
-          <button className="text-white bg-[#5D233C] p-4 rounded-full px-6 hover:bg-[#7a2d51]">
-            Generate Questions
-          </button>
+          {isLoading ? (
+            <Skeleton className="h-12 w-40 rounded-full" />
+          ) : (
+            <button className="text-white bg-[#5D233C] p-4 rounded-full px-6 hover:bg-[#7a2d51]">
+              Generate Questions
+            </button>
+          )}
         </div>
       </div>
     </div>

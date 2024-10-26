@@ -1,7 +1,7 @@
 import React, { useState, FormEvent, Dispatch, SetStateAction } from "react";
 import TopicWiseForm from "./TopicwiseForm";
 import ExamForm from "./ExamForm";
-
+import { Skeleton } from "@/components/ui/skeleton"; 
 interface Message {
   message: string;
   sender: string;
@@ -44,10 +44,9 @@ function MedhaTextArea({
   };
 
   return (
-    <div className="bg-white bg-opacity-60 p-6 rounded-2xl flex flex-col h-[410px] min-w-[683px]">
+    <div className="bg-white bg-opacity-60 p-6 rounded-2xl flex flex-col h-[410px] md:min-w-[683px] w-full">
       <div className="flex flex-col sm:flex-row mb-4 space-y-4 sm:space-y-0 sm:space-x-4">
         <p className="font-bold text-lg">Medha AI</p>
-        <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"></div>
       </div>
 
       {selectedOption === "topic-wise" ? (
@@ -80,15 +79,10 @@ function MedhaTextArea({
               </div>
             ))}
             {loading && (
-              <div className="flex items-start mb-2">
-                <img
-                  src="./Medha.svg"
-                  alt="Placeholder"
-                  className="h-4 w-4 rounded-full mr-4"
-                />
-                <p className="text-xs sm:text-sm italic text-gray-500">
-                  Thinking...
-                </p>
+              <div className="flex flex-col gap-2 mb-2">
+                {[...Array(3)].map((_, i) => (
+                  <Skeleton key={i} className="h-4 w-3/4 rounded-md" />
+                ))}
               </div>
             )}
           </div>
@@ -112,14 +106,6 @@ function MedhaTextArea({
               </button>
             </div>
           </form>
-          <div className="mt-2 flex justify-center">
-            {/* <button
-              onClick={listening ? stopSpeaking : startListening}
-              className="bg-[#5D233C] text-white px-4 py-2 rounded-full text-sm"
-            >
-              {listening ? "Stop Listening" : "Start Listening"}
-            </button> */}
-          </div>
         </div>
       )}
     </div>

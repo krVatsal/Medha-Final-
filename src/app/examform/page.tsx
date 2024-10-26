@@ -1,7 +1,8 @@
+"use client"
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSelection } from "../context/SelectionContext"; // Import the context
-import { Skeleton } from "./ui/skeleton";// Assume this is a skeleton loader component
+import { useSelection } from "@/context/SelectionContext"; // Import the context
+import { Skeleton } from "@/components/ui/skeleton";// Assume this is a skeleton loader component
 
 interface ChapterObject {
   [chapterName: string]: string[];

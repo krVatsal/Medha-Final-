@@ -1,4 +1,3 @@
-
 "use client";
 import Image from "next/image";
 import EnterClassroomArea from "@/components/EnterClassroomArea";
@@ -15,32 +14,27 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 const LoadingSkeleton = () => {
   return (
-    <div className="w-full">
-          <div className="flex items-center space-x-4">
-      <Skeleton className="h-12 w-12 rounded-full" />
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[200px]" />
+    <div className="w-full p-4">
+      <div className="flex items-center space-x-4 mb-4">
+        <Skeleton className="h-12 w-12 rounded-full" />
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[200px]" />
+        </div>
       </div>
-    </div>
-      {/* Greeting Section Skeleton */}
-      <div className="flex flex-col w-full">
-        <div className="flex flex-row justify-between mb-12">
-          <div className="space-y-1">
-            <Skeleton className="h-12 w-64 rounded-lg" />
-            <Skeleton className="h-6 w-48 rounded-lg" />
-          </div>
-        </div>
 
-        {/* Main Content Section Skeleton */}
-        <div className="flex space-x-5">
-          <div className="w-3/5">
-            <Skeleton className="h-[400px] w-full rounded-xl" />
-          </div>
-          <div className="w-2/5">
-            <Skeleton className="h-[400px] w-full rounded-xl" />
-          </div>
+      {/* Greeting Section Skeleton */}
+      <div className="flex flex-col w-full mb-6">
+        <div className="space-y-1 mb-4">
+          <Skeleton className="h-12 w-64 rounded-lg" />
+          <Skeleton className="h-6 w-48 rounded-lg" />
         </div>
+      </div>
+
+      {/* Main Content Section Skeleton */}
+      <div className="space-y-5">
+        <Skeleton className="h-[400px] w-full rounded-xl" />
+        <Skeleton className="h-[400px] w-full rounded-xl" />
       </div>
     </div>
   );
@@ -62,7 +56,6 @@ export default function Home() {
     if (!token) {
       router.push("/login");
     } else {
-      // Simulate a slight delay to prevent flash of loading state
       setTimeout(() => {
         setLoading(false);
       }, 500);
@@ -74,27 +67,30 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className="p-4 md:p-8">
       {/* Greeting Section */}
-      <div className="flex flex-col w-full">
-        <div className="flex flex-row justify-between mb-12">
+      <div className="flex flex-col w-full mb-6">
+        <div className="flex flex-col md:flex-row justify-between mb-6">
           <div className="space-y-1">
-            <div className="text-[40px] font-bold">
-             
-              {loading? <Skeleton className="w-12 h-12" /> :  `Good Morning ${clientName?.split(" ")[0]}!`}
+            <div className="text-[24px] md:text-[40px] font-bold">
+              {loading ? (
+                <Skeleton className="w-12 h-12" />
+              ) : (
+                `Good Morning ${clientName?.split(" ")[0]}!`
+              )}
             </div>
-            <div className="text-[20px] text-gray-500">
+            <div className="text-[16px] md:text-[20px] text-gray-500">
               Let&apos;s make this day productive
             </div>
           </div>
         </div>
 
         {/* Main Content Section */}
-        <div className="flex space-x-5">
-          <div className="w-3/5">
+        <div className="flex flex-col-reverse md:flex-row md:space-x-5 space-y-5 gap-5 md:space-y-0">
+          <div className="w-full md:w-3/5">
             <MyAppsArea />
           </div>
-          <div className="w-2/5">
+          <div className="w-full md:w-2/5">
             {selectedOption === "topic-wise" ? (
               <TopicWiseForm />
             ) : selectedOption === "exam-form" ? (

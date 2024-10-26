@@ -8,6 +8,7 @@ import TopicWiseForm from "@/components/TopicwiseForm";
 import ExamForm from "@/components/ExamForm";
 import AudioPlayer from "@/components/AudioPlayer";
 import axios from "axios";
+import { Menu, X } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 if (typeof window !== "undefined") {
   require("core-js/stable");
@@ -78,6 +79,16 @@ const ChatbotSkeleton = () => {
 };
 
 function Chatbot() {
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+
   const searchParams = useSearchParams();
   const data = searchParams.get("data");
   const [questionsHistory, setQuestionsHistory] = useState([
@@ -126,6 +137,8 @@ function Chatbot() {
       lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleButtonClick = (buttonType: string): void => {
     setActiveButton(buttonType);
@@ -263,27 +276,97 @@ function Chatbot() {
 
 
 
-  useEffect(() => {
-    // Simulate loading delay
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) {
-    return <ChatbotSkeleton />;
-  }
-
-
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
-    
+    loading ? <ChatbotSkeleton /> : (
     <Suspense>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto relative">
+        {/* Mobile Menu Button - Only visible on mobile */}
+        <button 
+          className="lg:hidden fixed top-4 right-4 z-50 bg-white p-2 rounded-full shadow-lg"
+          onClick={toggleMobileMenu}
+        >
+          {isMobileMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
+        </button>
+
+        {/* Mobile Menu Overlay */}
+        <div className={`
+          lg:hidden fixed inset-0 bg-white z-40 transform transition-transform duration-300 ease-in-out
+          ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
+        `}>
+          <div className="p-4 pt-16">
+            {/* Mobile Navigation Buttons */}
+            <div className="flex flex-col gap-2 mb-6">
+              <button
+                className={`rounded-full py-2 px-4 text-center ${
+                  activeButton === "learn" ? "bg-[#5D233C] text-white" : "bg-gray-100"
+                }`}
+                onClick={() => {
+                  handleButtonClick("learn");
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                Learn
+              </button>
+              <button
+                className={`rounded-full py-2 px-4 text-center ${
+                  activeButton === "teach" ? "bg-[#5D233C] text-white" : "bg-gray-100"
+                }`}
+                onClick={() => {
+                  handleButtonClick("teach");
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                Teach
+              </button>
+              <button
+                className={`rounded-full py-2 px-4 text-center ${
+                  activeButton === "chat" ? "bg-[#5D233C] text-white" : "bg-gray-100"
+                }`}
+                onClick={() => {
+                  handleButtonClick("chat");
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                Chat
+              </button>
+              <button
+                className={`rounded-full py-2 px-4 text-center ${
+                  activeButton === "notebook" ? "bg-[#5D233C] text-white" : "bg-gray-100"
+                }`}
+                onClick={() => {
+                  handleButtonClick("notebook");
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                Notebook
+              </button>
+            </div>
+
+            {/* Chat History in Mobile Menu */}
+            <div className="mb-6">
+              {selectedOption === "topic-wise" ? (
+                <TopicWiseForm />
+              ) : selectedOption === "exam-form" ? (
+                <ExamForm />
+              ) : (
+                <ChatHistoryArea questions={questionsHistory} />
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:gap-x-[62px] mb-6 sm:mb-12">
-          <div className="space-y-1 mb-4 sm:mb-0">
+          <div className="space-y-1 mb-4 sm:mb-0 p-4 lg:p-0">
             <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-bold">
               AI Chatbot
             </h1>
@@ -291,7 +374,8 @@ function Chatbot() {
               Chat with AI Chatbot for needs
             </p>
           </div>
-          <div className="flex flex-col gap-3 items-end">
+          {/* Desktop Navigation - Hidden on mobile */}
+          <div className="hidden lg:flex flex-col gap-3 items-end">
             <div className="flex justify-start sm:justify-end gap-2">
               <button
                 className={`bg-white rounded-full w-[91px] h-[40px] ${
@@ -314,7 +398,7 @@ function Chatbot() {
                 Teach
               </button>
               <button
-                className={`rounded-full w-[91px] h-[40px] text-sm sm:text-base transition-colors duration-200 ${
+                className={`rounded-full w-[91px] h-[40px] ${
                   activeButton === "chat"
                     ? "bg-[#5D233C] text-white"
                     : "bg-white hover:bg-gray-100"
@@ -324,7 +408,7 @@ function Chatbot() {
                 Chat
               </button>
               <button
-                className={`rounded-full w-[138px] h-[40px] text-sm sm:text-base transition-colors duration-200 ${
+                className={`rounded-full w-[138px] h-[40px] ${
                   activeButton === "notebook"
                     ? "bg-[#5D233C] text-white"
                     : "bg-white hover:bg-gray-100"
@@ -338,7 +422,8 @@ function Chatbot() {
         </div>
 
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mt-6">
-          <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full min-h-[410px] mb-4 lg:mb-0">
+          {/* Chat History Area - Hidden on mobile */}
+          <div className="hidden lg:block lg:w-full sm:w-1/3 md:w-1/2 lg:h-full min-h-[410px] mb-4 lg:mb-0">
             {selectedOption === "topic-wise" ? (
               <TopicWiseForm />
             ) : selectedOption === "exam-form" ? (
@@ -347,7 +432,8 @@ function Chatbot() {
               <ChatHistoryArea questions={questionsHistory} />
             )}
           </div>
-          <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
+          {/* Chat Area - Full width on mobile */}
+          <div className="w-full lg:w-1/2 h-full p-4 lg:p-0">
             <MedhaTextArea
               messages={messages}
               onSubmit={(e: FormEvent<HTMLFormElement>) =>
@@ -366,7 +452,7 @@ function Chatbot() {
         </div>
       </div>
     </Suspense>
-  );
+  ));
 }
 
 export default Chatbot;

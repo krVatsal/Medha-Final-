@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useSelection } from "../context/SelectionContext";
 import Assessment from "./MCQ";
 import Subjective from "./Subjective";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "./ui/skeleton";
 
 interface ChapterObject {
   [chapterName: string]: string[];
@@ -155,34 +155,35 @@ export default function TopicWiseForm() {
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 gap-4 mb-4">
               {isLoading ? (
-                <Skeleton className="h-[31px] w-full rounded-full" />
+                <>
+                  <Skeleton className="h-[31px] w-full rounded-full" />
+                  <Skeleton className="h-[31px] w-full rounded-full" />
+                </>
               ) : (
-                <select
-                  className="h-[31px] w-full rounded-full pl-4"
-                  value={selectedChapter}
-                  onChange={(e) => handleChange(e, setSelectedChapter)}
-                  disabled={!subject}
-                >
-                  <option value="" disabled>
-                    Select Chapter
-                  </option>
-                  {renderChapters()}
-                </select>
-              )}
-              {isLoading ? (
-                <Skeleton className="h-[31px] w-full rounded-full" />
-              ) : (
-                <select
-                  className="h-[31px] w-full rounded-full pl-4"
-                  value={selectedTopic}
-                  onChange={(e) => handleChange(e, setSelectedTopic)}
-                  disabled={!selectedChapter}
-                >
-                  <option value="" disabled>
-                    Select Topic
-                  </option>
-                  {renderTopics()}
-                </select>
+                <>
+                  <select
+                    className="h-[31px] w-full rounded-full pl-4"
+                    value={selectedChapter}
+                    onChange={(e) => handleChange(e, setSelectedChapter)}
+                    disabled={!subject}
+                  >
+                    <option value="" disabled>
+                      Select Chapter
+                    </option>
+                    {renderChapters()}
+                  </select>
+                  <select
+                    className="h-[31px] w-full rounded-full pl-4"
+                    value={selectedTopic}
+                    onChange={(e) => handleChange(e, setSelectedTopic)}
+                    disabled={!selectedChapter}
+                  >
+                    <option value="" disabled>
+                      Select Topic
+                    </option>
+                    {renderTopics()}
+                  </select>
+                </>
               )}
               <select
                 className="h-[31px] w-full rounded-full pl-4"

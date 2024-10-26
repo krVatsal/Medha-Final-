@@ -63,7 +63,7 @@ export default function RootLayout({
                   </button>
 
                   <div className="flex justify-center items-center flex-grow">
-                    <div className="flex items-center space-x-1">
+                    <div className="flex items-center -space-x-2">
                       <Image
                         src="/Codepen.svg"
                         width={70}
@@ -120,7 +120,7 @@ export default function RootLayout({
                       <Navbar />
                     </div>
                   )}
-                  <div className="flex-1 overflow-auto pl-11 pr-11">
+                  <div className="flex-1 overflow-auto md:pl-11 md:pr-11">
                     {children}
                   </div>
                 </main>
