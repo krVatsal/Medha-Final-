@@ -2,10 +2,10 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
-    //   await mongoose.connect(`${process.env.MONGODB_URI}/${process.env.DB_NAME}`)
-    await mongoose.connect(
-      'mongodb+srv://test:test@cluster0.mic4h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
-    );
+      await mongoose.connect(`${process.env.MONGODB_URI}/${process.env.DB_NAME}`)
+    // await mongoose.connect(
+    //   'mongodb+srv://test:test@cluster0.mic4h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+    // );
     console.log('Server connected to Database successfully');
   } catch (error) {
     console.log('Error connecting the database');

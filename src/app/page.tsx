@@ -10,32 +10,61 @@ import { useRouter } from 'next/navigation';
 import SelectOption from '@/components/homepage/SelectOption';
 import TopicWiseForm from '@/components/TopicwiseForm';
 import ExamForm from '@/components/ExamForm';
+import { Skeleton } from "@/components/ui/skeleton"
+
+const LoadingSkeleton = () => {
+  return (
+    <div className="w-full p-4">
+      <div className="flex items-center space-x-4 mb-4">
+        <Skeleton className="h-12 w-12 rounded-full" />
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[200px]" />
+        </div>
+      </div>
+
+      {/* Greeting Section Skeleton */}
+      <div className="flex flex-col w-full mb-6">
+        <div className="space-y-1 mb-4">
+          <Skeleton className="h-12 w-64 rounded-lg" />
+          <Skeleton className="h-6 w-48 rounded-lg" />
+        </div>
+      </div>
+
+      {/* Main Content Section Skeleton */}
+      <div className="space-y-5">
+        <Skeleton className="h-[400px] w-full rounded-xl" />
+        <Skeleton className="h-[400px] w-full rounded-xl" />
+      </div>
+    </div>
+  );
+};
 
 export default function Home() {
   const { clientName } = useUser();
   const router = useRouter();
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(true); // Add loading state
   const [selectedOption, setSelectedOption] = useState<string>('assignment');
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(e.target.value);
   };
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("accessToken");
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
 
-  //   if (!token) {
-  //     // Redirect to login if token is missing
-  //     router.push("/login");
-  //   } else {
-  //     // Allow page to load after the token check is done
-  //     setLoading(false);
-  //   }
-  // }, [router]);
+    if (!token) {
+      router.push("/login");
+    } else {
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
+    }
+  }, [router]);
 
+  // Move this check to the top
   if (loading) {
-    return null; // or a loading spinner if you'd like
+    return <LoadingSkeleton />;
   }
-
   return (
     <div>
       {/* Greeting Section */}
@@ -43,7 +72,11 @@ export default function Home() {
       <div className="flex flex-col w-full">
         <div className="flex flex-row justify-between mb-12">
           <div className="space-y-1">
-            <div className="text-[40px] font-bold">Good Morning {clientName?.split(' ')[0]}!</div>
+            <div className="text-[40px] font-bold">              {loading ? (
+                <Skeleton className="w-12 h-12" />
+              ) : (
+                `Good Morning ${clientName?.split(" ")[0]}!`
+              )}</div>
             <div className="text-[20px] text-gray-500">Let&apos;s make this day productive</div>
           </div>
           {/* <SelectOption

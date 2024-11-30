@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+
 function MyAppsArea() {
   const router = useRouter();
   return (
@@ -57,7 +58,9 @@ function MyAppsArea() {
           </div>
 
           {/* Placeholder for Create Flash Cards */}
-          <div className="flex flex-col items-center justify-center space-y-1 col-span-1 action-button">
+          <div
+          onClick={() => router.push('/examForm')}
+           className="flex flex-col items-center justify-center space-y-1 col-span-1 action-button">
             <Image width={32} height={32} alt="" src="/create_exam_form.svg" className="w-16 h-16" />
             <div className="text-xs font-semibold text-center">Create Exam Form</div>
           </div>

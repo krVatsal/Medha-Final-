@@ -3,70 +3,73 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/:path*',
-        destination: 'https://medha-cograd.azurewebsites.net/:path*',
+        source: "/:path*",
+        destination: "https://medha-cograd.azurewebsites.net/:path*",
       },
       {
-        source: '/voicebot/:path*',
-        destination: 'https://voicebot-server.onrender.com/:path*',
+        source: "/voicebot/:path*",
+        destination: "https://voicebot-server.onrender.com/:path*",
       },
       {
-        source: '/api/:path*',
-        destination: 'https://game.simplem.in/:path*',
+        source: "/api/:path*",
+        destination: "https://game.simplem.in/:path*",
       },
       {
-        source: '/api/submit-exam-form/',
-        destination: 'https://game.simplem.in/:path*',
+        source: "/api/submit-exam-form/",
+        destination: "https://game.simplem.in/:path*",
       },
       {
-        source: '/api/v1/:path*',
-        destination: 'http://localhost:5217/:path*',
+        source: "/api/v1/:path*",
+        destination: "http://localhost:5217/:path*",
+      },
+      {
+        source: "/:path*",
+        destination: "https://medha.cograd.in/socket.io/:path*",
       },
     ];
   },
 
-  // Remove 'target' as it's deprecated in newer Next.js versions
   async headers() {
     return [
       {
-        source: '/(.*)', // Matches all routes
+        source: "/socket.io/:path*", // Specific path for socket.io
         headers: [
           {
-            key: 'Access-Control-Allow-Credentials',
-            value: 'true',
+            key: "Access-Control-Allow-Credentials",
+            value: "true",
           },
           {
-            key: 'Access-Control-Allow-Origin',
-            // Use your domain or specific origins instead of '*'
-            value: '*', // Consider replacing '*' with a specific domain in production
+            key: "Access-Control-Allow-Origin",
+            value: "http://localhost:3000", // Specify your exact origin
           },
           {
-            key: 'Access-Control-Allow-Methods',
-            value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+            key: "Access-Control-Allow-Methods",
+            value: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
           },
           {
-            key: 'Access-Control-Allow-Headers',
+            key: "Access-Control-Allow-Headers",
             value:
-              'X-CSRF-Token,X-Requested-With,Accept,Accept-Version,Content-Length,Content-MD5,Content-Type,Date,X-Api-Version',
+              "X-CSRF-Token,X-Requested-With,Accept,Accept-Version,Content-Length,Content-MD5,Content-Type,Date,X-Api-Version",
           },
         ],
       },
     ];
   },
-  esmExternals: 'loose',
+
   experimental: {
     missingSuspenseWithCSRBailout: false,
-    serverActions: {},
-    serverComponentsExternalPackages: ['mongoose'],
+    serverActions: {
+      allowedOrigins: ['http://localhost:3000'],
+    },
+    serverComponentsExternalPackages: ["mongoose"],
   },
 
   api: {
-    responseLimit: false,
     bodyParser: {
-      sizeLimit: '4mb',
+      sizeLimit: "4mb",
     },
   },
-  transpilePackages: ['three'],
+  transpilePackages: ["three"],
 };
 
 export default nextConfig;

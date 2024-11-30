@@ -69,7 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     >
                       <div className="flex items-center px-4 py-5 space-x-1">
                         <div className="w-16 h-[58px] relative flex-shrink-0">
-                          <Image src="/Codepen.svg" layout="fill" objectFit="contain" alt="Medha Icon" />
+                          <Image src="/Codepen.svg" fill objectFit="contain" alt="Medha Icon" />
                         </div>
                         <span className="text-xl font-semibold text-gray-800 truncate">Medha</span>
                       </div>

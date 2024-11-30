@@ -32,7 +32,7 @@ const SelectableOptions: React.FC<SelectableOptionsProps> = ({
         <div className="flex flex-row gap-4 mb-4 items-center">
           {iconSrc && (
             <div className="relative w-5 h-5">
-              <Image src={iconSrc} alt={`${heading} icon`} layout="fill" objectFit="contain" />
+              <Image src={iconSrc} alt={`${heading} icon`} fill objectFit="contain" />
             </div>
           )}
           <div>{heading}</div>

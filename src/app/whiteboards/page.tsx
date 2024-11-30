@@ -1,7 +1,41 @@
+"use client"
 import React from 'react';
 import Image from 'next/image';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useState, useEffect } from 'react';
 
+const PageSkeleton = () => {
+
+  return (
+    <div className="space-y-4 p-4 lg:p-0">
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
+        <div className="space-y-2">
+          <Skeleton className="h-8 lg:h-10 w-36 lg:w-48 rounded-md" />
+          <Skeleton className="h-4 lg:h-5 w-32 lg:w-40 rounded-md" />
+        </div>
+        <div className="flex flex-col lg:flex-row gap-2 lg:items-center lg:space-x-4">
+          <Skeleton className="h-10 w-full lg:w-[215px] rounded-full" />
+          <Skeleton className="h-10 w-full lg:w-[156px] rounded-full" />
+          <Skeleton className="h-10 w-full lg:w-[106px] rounded-full" />
+          <Skeleton className="h-10 w-full lg:w-[155px] rounded-full" />
+        </div>
+      </div>
+      <div className="relative pt-4 lg:pt-8">
+        <Skeleton className="h-[50px] lg:h-[65px] w-full lg:w-[240px] rounded-2xl" />
+      </div>
+    </div>
+  );
+};
 const Page = () => {
+  const[loading, setLoading]= useState(true)
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 500);
+  }, []);
+
+  if (loading) {
+    return <PageSkeleton />;
+  }
+
   return (
     <div>
       <div className="flex justify-between items-start">

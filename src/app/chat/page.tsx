@@ -1,47 +1,131 @@
-'use client';
+"use client";
 
-import React, { Suspense, useState, useEffect, useRef, FormEvent, useCallback } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import ChatHistoryArea from '@/components/ChatHistoryArea';
-import MedhaTextArea from '@/components/MedhaTextArea';
-import TopicWiseForm from '@/components/TopicwiseForm';
-import ExamForm from '@/components/ExamForm';
-import AudioPlayer from '@/components/AudioPlayer';
-import axios from 'axios';
-import { io, Socket } from 'socket.io-client';
-import { useSelection } from '@/context/SelectionContext';
-
+import React, {
+  Suspense,
+  useState,
+  useEffect,
+  useRef,
+  FormEvent,
+  useCallback,
+} from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+import ChatHistoryArea from "@/components/ChatHistoryArea";
+import MedhaTextArea from "@/components/MedhaTextArea";
+import TopicWiseForm from "@/components/TopicwiseForm";
+import ExamForm from "@/components/ExamForm";
+import AudioPlayer from "@/components/AudioPlayer";
+import axios from "axios";
+import { io, Socket } from "socket.io-client";
+import { useSelection } from "@/context/SelectionContext";
+import { Skeleton } from "@/components/ui/skeleton";
 // Remove duplicate polyfills
-if (typeof window !== 'undefined') {
-  require('core-js/stable');
-  require('regenerator-runtime/runtime');
+if (typeof window !== "undefined") {
+  require("core-js/stable");
+  require("regenerator-runtime/runtime");
 }
+import { usePathname } from "next/navigation";
 
+const ChatbotSkeleton = () => {
+  return (
+    <div className="max-w-7xl mx-auto">
+      {/* Header Section Skeleton */}
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:gap-x-[62px] mb-6 sm:mb-12">
+        <div className="space-y-1 mb-4 sm:mb-0">
+          <Skeleton className="h-8 sm:h-10 lg:h-12 w-48 sm:w-64" />
+          <Skeleton className="h-6 sm:h-7 lg:h-8 w-64 sm:w-80" />
+        </div>
+        <div className="flex flex-col gap-3 items-end">
+          <div className="flex justify-start sm:justify-end gap-2">
+            {[...Array(4)].map((_, i) => (
+              <Skeleton 
+                key={i} 
+                className={`rounded-full h-[40px] ${
+                  i === 3 ? "w-[138px]" : "w-[91px]"
+                }`} 
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Section Skeleton */}
+      <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mt-6">
+        {/* Left Panel Skeleton */}
+        <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full min-h-[410px] mb-4 lg:mb-0">
+          <div className="bg-white rounded-2xl p-4 h-full">
+            <Skeleton className="h-8 w-48 mb-4" />
+            <div className="space-y-3">
+              {[...Array(6)].map((_, i) => (
+                <Skeleton key={i} className="h-12 w-full rounded-lg" />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Panel Skeleton */}
+        <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
+          <div className="bg-white rounded-2xl p-4 h-full">
+            {/* Chat Messages Skeleton */}
+            <div className="space-y-4 mb-4">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className={`flex ${i % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
+                  <Skeleton className={`h-16 ${i % 2 === 0 ? 'w-3/4' : 'w-2/3'} rounded-2xl`} />
+                </div>
+              ))}
+            </div>
+
+            {/* Input Area Skeleton */}
+            <div className="mt-4 flex items-end gap-2">
+              <Skeleton className="h-12 flex-grow rounded-full" />
+              <Skeleton className="h-12 w-12 rounded-full" />
+              <Skeleton className="h-12 w-12 rounded-full" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 function Chatbot() {
+  const pathname= usePathname()
+  useEffect(() => {
+    setLoading(true)
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [pathname]);
+
   const searchParams = useSearchParams();
-  const data = searchParams.get('data');
-  const [questionsHistory, setQuestionsHistory] = useState(['What is Medha?', 'Summarize NCEF?']);
+  const data = searchParams.get("data");
+  const [questionsHistory, setQuestionsHistory] = useState([
+    "What is Medha?",
+    "Summarize NCEF?",
+  ]);
   const [messages, setMessages] = useState([
     {
       message: "Hello, I'm Medha! Ask me anything!",
-      sender: 'ai',
+      sender: "ai",
       isCode: false,
     },
   ]);
-  const [activeButton, setActiveButton] = useState('chat');
+  const [activeButton, setActiveButton] = useState("chat");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
-  const [newText, setNewText] = useState('');
+  const [selectedOption, setSelectedOption] = useState("");
+  const [newText, setNewText] = useState("");
   const [aiSpeaking, setAiSpeaking] = useState(false);
   const [src, setSrc] = useState<string | null>(null);
   const [typing, setTyping] = useState(false);
 
-  const [chatBackend, setChatBackend] = useState('medha');
+  const [chatBackend, setChatBackend] = useState("medha");
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [inputText, setInputText] = useState('');
-  const [selectedType, setSelectedType] = useState<any>('chat');
+  const [inputText, setInputText] = useState("");
+  const [selectedType, setSelectedType] = useState<any>("chat");
   const [isConnected, setIsConnected] = useState(false);
   const [isDone, setIsDone] = useState(false);
 
@@ -50,7 +134,12 @@ function Chatbot() {
   const router = useRouter();
   const lastMessageRef = useRef<HTMLDivElement>(null);
 
-  const { transcript, browserSupportsSpeechRecognition, resetTranscript, listening } = useSpeechRecognition();
+  const {
+    transcript,
+    browserSupportsSpeechRecognition,
+    resetTranscript,
+    listening,
+  } = useSpeechRecognition();
 
   const updateMessages = useCallback((content: string) => {
     setMessages((prevMessages) => {
@@ -58,46 +147,54 @@ function Chatbot() {
       if (lastMessage.message.endsWith(content)) {
         return prevMessages;
       }
-      return [...prevMessages.slice(0, -1), { ...lastMessage, message: lastMessage.message + content }];
+      return [
+        ...prevMessages.slice(0, -1),
+        { ...lastMessage, message: lastMessage.message + content },
+      ];
     });
   }, []);
 
   useEffect(() => {
-    const newSocket = io('https://medha.cograd.in', {
-      path: '/socket.io',
+    const newSocket = io("https://medha.cograd.in", {
+      path: "/socket.io",
     });
 
-    newSocket.on('connect', () => {
-      console.log('Socket.IO Connected');
+    newSocket.on("connect", () => {
+      console.log("Socket.IO Connected");
       setIsConnected(true);
       setError(null);
     });
 
-    newSocket.on('disconnect', () => {
-      console.log('Socket.IO Disconnected');
+    newSocket.on("disconnect", () => {
+      console.log("Socket.IO Disconnected");
       setIsConnected(false);
     });
 
-    newSocket.on('error', (data: { message: string }) => {
-      console.error('Socket.IO Error:', data);
+    newSocket.on("error", (data: { message: string }) => {
+      console.error("Socket.IO Error:", data);
       setError(data.message);
     });
 
-    newSocket.on('response', async (data: any) => {
-      if (data.content === '[DONE]') {
+    newSocket.on("response", async (data: any) => {
+      if (data.content === "[DONE]") {
         setIsDone(true);
         setMessages((prevMessages) => {
           let prevMessagesCopy = [...prevMessages];
-          const isCode = prevMessagesCopy[prevMessagesCopy.length - 1].message.includes('```');
+          const isCode =
+            prevMessagesCopy[prevMessagesCopy.length - 1].message.includes(
+              "```"
+            );
           prevMessagesCopy[prevMessagesCopy.length - 1].isCode = isCode;
-          speakTextWithFemaleVoice(prevMessagesCopy[prevMessagesCopy.length - 1].message);
+          speakTextWithFemaleVoice(
+            prevMessagesCopy[prevMessagesCopy.length - 1].message
+          );
           return prevMessagesCopy;
         });
-      } else if (data.content === '[START]') {
+      } else if (data.content === "[START]") {
         const aiMessage = {
-          message: '',
-          sender: 'ai',
-          direction: 'incoming',
+          message: "",
+          sender: "ai",
+          direction: "incoming",
           isCode: false,
         };
         setMessages((prevMessages) => [...prevMessages, aiMessage]);
@@ -126,7 +223,7 @@ function Chatbot() {
 
   useEffect(() => {
     if (lastMessageRef.current) {
-      lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+      lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
@@ -142,18 +239,18 @@ function Chatbot() {
         return newTextin;
       });
     if (!message) return;
-    setNewText('');
+    setNewText("");
     resetTranscript();
 
     const newMessage = {
       message,
-      direction: 'outgoing',
-      sender: 'user',
+      direction: "outgoing",
+      sender: "user",
       language,
       classNumber,
       subject,
     };
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
+    setMessages((prevMessages: any) => [...prevMessages, newMessage]);
     setQuestionsHistory((prevHistory) => [...prevHistory, message]);
     setTyping(true);
 
@@ -175,19 +272,19 @@ function Chatbot() {
         console.log(response);
 
         let text: string;
-        if (typeof response.data === 'string') {
+        if (typeof response.data === "string") {
           text = response.data;
-        } else if (typeof response.data.text === 'string') {
+        } else if (typeof response.data.text === "string") {
           text = response.data.text;
         } else {
-          throw new Error('Unexpected response format');
+          throw new Error("Unexpected response format");
         }
 
-        const isCode = text.includes('```');
+        const isCode = text.includes("```");
         const aiMessage = {
           message: text,
-          sender: 'ai',
-          direction: 'incoming',
+          sender: "ai",
+          direction: "incoming",
           isCode,
         };
 
@@ -198,14 +295,14 @@ function Chatbot() {
 
         await speakTextWithFemaleVoice(text);
 
-        if (text.toLowerCase().includes('mcq')) {
-          setActiveButton('assignment');
-          setSelectedOption('topic-wise');
+        if (text.toLowerCase().includes("mcq")) {
+          setActiveButton("assignment");
+          setSelectedOption("topic-wise");
         } else {
-          setActiveButton('chat');
+          setActiveButton("chat");
         }
       } catch (error) {
-        console.error('Error getting response:', error);
+        console.error("Error getting response:", error);
         if (retries < maxRetries) {
           retries++;
           console.log(`Retrying... Attempt ${retries} of ${maxRetries}`);
@@ -215,46 +312,56 @@ function Chatbot() {
           setMessages((prevMessages) => [
             ...prevMessages,
             {
-              message: 'Sorry, there was an error processing your request. Please try again later.',
-              sender: 'ai',
-              direction: 'incoming',
+              message:
+                "Sorry, there was an error processing your request. Please try again later.",
+              sender: "ai",
+              direction: "incoming",
               isCode: false,
             },
           ]);
-          setError(`Error: ${error instanceof Error ? error.message : String(error)}`);
+          setError(
+            `Error: ${error instanceof Error ? error.message : String(error)}`
+          );
           setLoading(false);
           setTyping(false);
         }
       }
     };
 
-    if (chatBackend === 'sumedha') {
+    if (chatBackend === "sumedha") {
       await makeRequest();
-    } else if (chatBackend === 'medha') {
+    } else if (chatBackend === "medha") {
       if (socket) {
         setLoading(true);
-        socket.emit('request', { ...newMessage, type: 'chat' });
+        socket.emit("request", { ...newMessage, type: "chat" });
       } else {
-        console.error('Socket is not connected');
-        setError('Socket is not connected');
+        console.error("Socket is not connected");
+        setError("Socket is not connected");
       }
     }
   };
 
   const speakTextWithFemaleVoice = async (text: string) => {
     try {
-      const response = await axios.post('https://voicebot-server.onrender.com/generate-speech', {
-        text,
-      });
+      const response = await axios.post(
+        "https://voicebot-server.onrender.com/generate-speech",
+        {
+          text,
+        }
+      );
       if (response.data && response.data.audioUrl) {
         setSrc(response.data.audioUrl);
         setAiSpeaking(true);
       } else {
-        throw new Error('Audio URL not found in response');
+        throw new Error("Audio URL not found in response");
       }
     } catch (error) {
-      console.error('Error generating speech:', error);
-      setError(`Error generating speech: ${error instanceof Error ? error.message : String(error)}`);
+      console.error("Error generating speech:", error);
+      setError(
+        `Error generating speech: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   };
 
@@ -263,7 +370,8 @@ function Chatbot() {
     setAiSpeaking(false);
   };
 
-  const startListening = () => SpeechRecognition.startListening({ continuous: false, language: 'en-IN' });
+  const startListening = () =>
+    SpeechRecognition.startListening({ continuous: false, language: "en-IN" });
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(e.target.value);
@@ -282,28 +390,37 @@ function Chatbot() {
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    loading ? <ChatbotSkeleton /> : (
+    <Suspense >
       <div className=" max-w-7xl mx-auto container">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:gap-x-[62px] mb-6 sm:mb-12 sticky">
           <div className="space-y-1 mb-4 sm:mb-0">
-            <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-bold">AI Chatbot</h1>
-            <p className="text-base sm:text-lg lg:text-[20px] text-gray-500">Chat with Medha to get ahead!</p>
+            <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-bold">
+              AI Chatbot
+            </h1>
+            <p className="text-base sm:text-lg lg:text-[20px] text-gray-500">
+              Chat with Medha to get ahead!
+            </p>
           </div>
           <div className="flex flex-col gap-3 items-end">
             <div className="flex justify-start sm:justify-end gap-2">
               <button
                 className={`rounded-full w-[91px] h-[40px] text-sm sm:text-base transition-colors duration-200 ${
-                  chatBackend === 'medha' ? 'bg-[#5D233C] text-white' : 'bg-white hover:bg-gray-100'
+                  chatBackend === "medha"
+                    ? "bg-[#5D233C] text-white"
+                    : "bg-white hover:bg-gray-100"
                 }`}
-                onClick={() => setChatBackend('medha')}
+                onClick={() => setChatBackend("medha")}
               >
                 Medha
               </button>
               <button
                 className={`rounded-full w-[138px] h-[40px] text-sm sm:text-base transition-colors duration-200 ${
-                  chatBackend === 'sumedha' ? 'bg-[#5D233C] text-white' : 'bg-white hover:bg-gray-100'
+                  chatBackend === "sumedha"
+                    ? "bg-[#5D233C] text-white"
+                    : "bg-white hover:bg-gray-100"
                 }`}
-                onClick={() => setChatBackend('sumedha')}
+                onClick={() => setChatBackend("sumedha")}
               >
                 Sumedha
               </button>
@@ -313,9 +430,9 @@ function Chatbot() {
 
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mt-6 ">
           <div className="lg:w-1/3 sm:w-1/3 md:w-1/2 lg:h-full min-h-[410px] mb-4 lg:mb-0">
-            {selectedOption === 'topic-wise' ? (
+            {selectedOption === "topic-wise" ? (
               <TopicWiseForm />
-            ) : selectedOption === 'exam-form' ? (
+            ) : selectedOption === "exam-form" ? (
               <ExamForm />
             ) : (
               <ChatHistoryArea questions={questionsHistory} />
@@ -324,7 +441,9 @@ function Chatbot() {
           <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
             <MedhaTextArea
               messages={messages}
-              onSubmit={(e: FormEvent<HTMLFormElement>) => handleSend(e, newText)}
+              onSubmit={(e: FormEvent<HTMLFormElement>) =>
+                handleSend(e, newText)
+              }
               loading={loading}
               newText={newText}
               setNewText={setNewText}
@@ -340,7 +459,7 @@ function Chatbot() {
         </div>
       </div>
     </Suspense>
-  );
+   ) );
 }
 
 export default Chatbot;

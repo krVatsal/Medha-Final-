@@ -229,14 +229,17 @@ const SignUpPage = () => {
             >
               Sign up
             </button>
-            {/* <span className="text-[#A1A1A1]">or</span>
+            <span className="text-[#A1A1A1]">or</span>
+            <a href="/google/callback">
             <Image
+            
               src="/Screenshot_2024-08-22_at_3.00.58_AM-removebg-preview 4.png"
               width={32}
               height={32}
               alt="Alternate Sign In"
               className="cursor-pointer"
-            /> */}
+            />
+            </a>
           </div>
         </form>
       </div>
