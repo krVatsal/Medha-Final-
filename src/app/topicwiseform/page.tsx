@@ -139,9 +139,9 @@ export default function TopicWiseForm() {
   };
 
   return (
-    <div className="flex w-full min-h-screen p-6 gap-6">
+    <div className="flex flex-col sm:flex w-full min-h-screen p-6 gap-6">
       {/* Left side - Configure Assessment */}
-      <div className="w-1/3 bg-[#F3F4F8] p-6 rounded-xl">
+      <div className="w-full md:w-1/3 bg-[#F3F4F8] p-6 rounded-xl">
         <p className="mb-4 font-bold">Create Topic Wise Assessment</p>
         <div className="bg-white bg-opacity-60 p-6 min-h-[410px] rounded-2xl flex flex-col pt-4">
           <form onSubmit={handleSubmit}>
@@ -222,7 +222,7 @@ export default function TopicWiseForm() {
       </div>
 
       {/* Right side - Assessment Content */}
-      <div className="w-2/3 bg-[#F3F4F8] p-6 rounded-xl">
+      <div className="w-full md:w-2/3 bg-[#F3F4F8] p-6 rounded-xl">
         <div className="bg-white bg-opacity-60 p-6 rounded-2xl min-h-[410px]">
           {isSubmitted &&
             data.length > 0 && // Ensure data is an array before mapping

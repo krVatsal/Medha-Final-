@@ -72,12 +72,12 @@ export default function Home() {
       <div className="flex flex-col w-full">
         <div className="flex flex-row justify-between mb-12">
           <div className="space-y-1">
-            <div className="text-[40px] font-bold">              {loading ? (
+            <div className="text-[30px] sm:text-[40px] font-bold">              {loading ? (
                 <Skeleton className="w-12 h-12" />
               ) : (
                 `Good Morning ${clientName?.split(" ")[0]}!`
               )}</div>
-            <div className="text-[20px] text-gray-500">Let&apos;s make this day productive</div>
+            <div className="text-[15px] sm:text-[20px] text-gray-500">Let&apos;s make this day productive</div>
           </div>
           {/* <SelectOption
             activeButton={selectedOption}
@@ -88,7 +88,7 @@ export default function Home() {
 
         {/* Main Content Section */}
         <div className="flex space-x-5">
-          <div className="w-3/5">
+          <div className="md:w-3/5">
             <MyAppsArea />
           </div>
           {/* <div className="w-2/5">

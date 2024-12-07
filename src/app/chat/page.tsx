@@ -27,7 +27,7 @@ if (typeof window !== "undefined") {
   require("regenerator-runtime/runtime");
 }
 import { usePathname } from "next/navigation";
-
+import { Menu, X } from "lucide-react";
 const ChatbotSkeleton = () => {
   return (
     <div className="max-w-7xl mx-auto">
@@ -54,7 +54,7 @@ const ChatbotSkeleton = () => {
       {/* Main Content Section Skeleton */}
       <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mt-6">
         {/* Left Panel Skeleton */}
-        <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full min-h-[410px] mb-4 lg:mb-0">
+        <div className="lg:w-full sm:w-[90vw ]md:w-1/2 lg:h-full min-h-[410px] mb-4 lg:mb-0">
           <div className="bg-white rounded-2xl p-4 h-full">
             <Skeleton className="h-8 w-48 mb-4" />
             <div className="space-y-3">
@@ -66,7 +66,7 @@ const ChatbotSkeleton = () => {
         </div>
 
         {/* Right Panel Skeleton */}
-        <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
+        <div className="lg:w-full w-[90vw]  lg:h-full">
           <div className="bg-white rounded-2xl p-4 h-full">
             {/* Chat Messages Skeleton */}
             <div className="space-y-4 mb-4">
@@ -90,6 +90,7 @@ const ChatbotSkeleton = () => {
   );
 };
 function Chatbot() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname= usePathname()
   useEffect(() => {
     setLoading(true)
@@ -391,18 +392,30 @@ function Chatbot() {
 
   return (
     loading ? <ChatbotSkeleton /> : (
-    <Suspense >
-      <div className=" max-w-7xl mx-auto container">
+    <Suspense>
+      <div className="max-w-7xl mx-auto container relative">
+        {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:gap-x-[62px] mb-6 sm:mb-12 sticky">
-          <div className="space-y-1 mb-4 sm:mb-0">
-            <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-bold">
-              AI Chatbot
-            </h1>
-            <p className="text-base sm:text-lg lg:text-[20px] text-gray-500">
-              Chat with Medha to get ahead!
-            </p>
+          <div className="space-y-1 mb-4 sm:mb-0 flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-bold">
+                AI Chatbot
+              </h1>
+              <p className="text-base sm:text-lg lg:text-[20px] text-gray-500">
+                Chat with Medha to get ahead!
+              </p>
+            </div>
+            {/* Hamburger Menu for Mobile */}
+            <div className="lg:hidden">
+              <button 
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                className="p-2 focus:outline-none"
+              >
+                {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
-          <div className="flex flex-col gap-3 items-end">
+          <div className=" flex flex-col gap-3 items-end">
             <div className="flex justify-start sm:justify-end gap-2">
               <button
                 className={`rounded-full w-[91px] h-[40px] text-sm sm:text-base transition-colors duration-200 ${
@@ -428,8 +441,24 @@ function Chatbot() {
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mt-6 ">
-          <div className="lg:w-1/3 sm:w-1/3 md:w-1/2 lg:h-full min-h-[410px] mb-4 lg:mb-0">
+        {/* Main Content Area */}
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mt-6 relative">
+          {/* Sidebar for Chat History */}
+          <div className={`
+            lg:w-1/3 sm:w-1/3 md:w-1/2 lg:h-full min-h-[410px] mb-4 lg:mb-0
+            fixed lg:static top-0 left-0 z-50 w-64 bg-white shadow-lg sm:bg-none
+            transform transition-transform duration-300 ease-in-out
+            ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+            lg:translate-x-0 h-full overflow-y-auto
+          `}>
+            <div className="lg:hidden flex justify-end p-4">
+              <button 
+                onClick={() => setIsSidebarOpen(false)}
+                className="p-2 focus:outline-none"
+              >
+                <X size={24} />
+              </button>
+            </div>
             {selectedOption === "topic-wise" ? (
               <TopicWiseForm />
             ) : selectedOption === "exam-form" ? (
@@ -438,7 +467,9 @@ function Chatbot() {
               <ChatHistoryArea questions={questionsHistory} />
             )}
           </div>
-          <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
+
+          {/* Chat Area */}
+          <div className="lg:w-full w-[90vw] min-h-[600px]">
             <MedhaTextArea
               messages={messages}
               onSubmit={(e: FormEvent<HTMLFormElement>) =>
@@ -457,6 +488,14 @@ function Chatbot() {
             {src && <AudioPlayer audioUrl={src} />}
           </div>
         </div>
+
+        {/* Overlay for mobile sidebar */}
+        {isSidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black opacity-50 z-40 lg:hidden"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
       </div>
     </Suspense>
    ) );
