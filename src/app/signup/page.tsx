@@ -24,19 +24,19 @@ const SignUpPage = () => {
   const onSubmit = async (data: any) => {
     try {
       // API call for user registration
-      const response = await axios.post('http://localhost:5217/api/v1/client/register', {
+      const response = await axios.post('http://localhost:5217/auth/signup', {
         email: data.email,
         password: data.password,
         firstName: data.name,
       });
-
+console.log('1')
       if (response.status === 200) {
         // Store tokens in local storage
         localStorage.setItem('accessToken', response.data.accessToken);
         localStorage.setItem('refreshToken', response.data.refreshToken);
-
+console.log('2')
         // Redirect to dashboard
-        router.push('/login');
+        router.push('/');
       }
     } catch (error) {
       console.error('Sign-up failed', error);

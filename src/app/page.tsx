@@ -59,7 +59,8 @@ export default function Home() {
         setLoading(false);
       }, 500);
     }
-  }, [router]);
+  }, []);
+  
 
   // Move this check to the top
   if (loading) {

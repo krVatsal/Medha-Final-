@@ -57,8 +57,8 @@ function ProfileDropdown() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:5217/api/v1/client/logout', {
-        method: 'POST',
+      const response = await fetch('http://localhost:5217/auth/logout', {
+        method: 'GET',
         credentials: 'include',
       });
       if (response.ok) {
