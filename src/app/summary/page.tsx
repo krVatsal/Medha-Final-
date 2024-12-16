@@ -13,7 +13,7 @@ function Summary() {
         <AIToolsSteps page="Summary" type="yt" />
       </div>
 
-      <div className="bg-white bg-opacity-60 p-8 rounded-3xl h-[100%] flex flex-col gap-6">
+      <div className="bg-white bg-opacity-60 p-[15px] rounded-3xl h-[100%] flex flex-col gap-6">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <label htmlFor="summary" className="text-sm font-semibold">

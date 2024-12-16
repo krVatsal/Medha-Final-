@@ -19,44 +19,6 @@ const LoginPage = () => {
   const router = useRouter(); // Initialize the router for redirect
   const searchParams = useSearchParams(); // To handle Google auth callback parameters
 
-  // Handle Google Authentication Callback
-  const handleGoogleAuthCallback = async () => {
-    // Check if we're on the callback page and have a token
-    const token = searchParams.get('token');
-    
-    // if (token) {
-      try {
-        // Verify the token with your backend
-        const response = await axios.get('http://localhost:5217/auth/google/callback', {
-          params: { token },
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-
-        if (response.status === 200) {
-          // Extract client name from the response
-          console.log('1')
-          const { clientName, access_token, refresh_token } = response.data;
-
-          // Set client name in context
-          setClientName(clientName);
-
-          // Store tokens in local storage
-          localStorage.setItem('accessToken', access_token);
-          localStorage.setItem('refreshToken', refresh_token);
-          console.log('2')
-          // Redirect to home/dashboard
-          router.push('/');
-        }
-      } catch (error) {
-        console.error('Google Authentication failed', error);
-        alert('Google Authentication failed');
-      }
-    // }
-  };
-
-
   const onSubmit = async (data: any) => {
     try {
       // Call your login API
@@ -187,16 +149,15 @@ const LoginPage = () => {
                 Sign in
               </button>
               <span className="text-[#A1A1A1]">or</span>
-              {/* <a href="http://localhost:5217/auth/google"> */}
+              <a href="http://localhost:5217/auth/google">
                 <Image
-                onClick={handleGoogleAuthCallback}
                   src="/Screenshot_2024-08-22_at_3.00.58_AM-removebg-preview 4.png"
                   width={32}
                   height={32}
                   alt="Alternate Sign In"
                   className="cursor-pointer"
                 />
-              {/* </a> */}
+              </a>
             </div>
 
             {/* Sign Up Link */}

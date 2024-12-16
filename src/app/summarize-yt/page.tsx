@@ -89,15 +89,39 @@ function Summarizeyt() {
   };
 
   return youtubeSummaryMd.length === 0 && !loading ? (
-    <div className="p-4 sm:p-6 md:p-8 lg:p-10">
+
+    <div className="p-1 md:pt-0">
       {/* Greeting Section */}
-      <div className="space-y-1 mb-6 sm:mb-8 md:mb-10 lg:mb-12 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+      <div className="space-y-1  flex flex-col sm:flex-row justify-between items-start sm:items-center">
         <div className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-bold mb-4 sm:mb-0">
           Summarize Youtube Video
         </div>
+        
         <AIToolsSteps page="link" type="yt" />
       </div>
       <div>
+      <div className=" pb-4">
+        <button
+          onClick={() => window.history.back()}
+          className="bg-white text-gray-800 text-small h-[29px] w-[76px] rounded-full shadow hover:bg-gray-200 transition flex items-center justify-center gap-1"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-4 h-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.5 19.5L3 12l7.5-7.5M21 12H3"
+            />
+          </svg>
+          Back
+        </button>
+      </div>
         <CreationArea
           page="yt"
           requestLessonPlan={undefined}

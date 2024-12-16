@@ -25,7 +25,7 @@ const HomeworkOutline: React.FC = () => {
 
   return (
     <div>
-      <div className="bg-white bg-opacity-60 p-8 rounded-3xl h-[100%] flex flex-col gap-6">
+      <div className="bg-white bg-opacity-60 p-[15px] rounded-3xl h-[100%] flex flex-col gap-6">
         <div className="flex flex-col mb-4">
           <div className="text-lg font-bold">Outlines</div>
         </div>

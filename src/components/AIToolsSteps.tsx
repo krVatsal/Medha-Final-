@@ -18,7 +18,7 @@ const StepItem: React.FC<{ step: Step; isActive: boolean }> = ({ step, isActive 
   <div className="flex flex-col items-center">
     <div
       className={`w-12 h-12 rounded-full flex items-center justify-center text-sm ${
-        isActive ? 'bg-blue-800 text-white' : 'bg-white text-blue-800'
+        isActive ? 'bg-[#1F4467] text-white' : 'bg-white text-blue-800'
       }`}
     >
       {step.id}

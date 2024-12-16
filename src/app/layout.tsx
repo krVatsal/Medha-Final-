@@ -81,8 +81,8 @@ function ProfileDropdown() {
       <Institute />
         <div className="flex items-center">
           <Image
-            width={32}
-            height={32}
+            width={44}
+            height={44}
             src="/Screenshot_2024-08-17_at_8.13.58_AM-removebg-preview 3.png"
             alt="User Avatar"
             className="w-6 h-6 xs:w-8 xs:h-8 sm:w-8 sm:h-8"
@@ -153,8 +153,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SelectionProvider>
             <div className="flex flex-col h-full">
               {showNavbar && (
-                <header className="md:hidden bg-gray-200 px-4 py-4 flex justify-between items-center z-20 relative">
-                  <div className='bg-white flex p-2 w-full rounded-md'>
+                <header className="md:hidden bg-gray-200 md:px-4 md:py-4 px-2 py-2 flex justify-between items-center z-20 relative">
+                  <div className='bg-white flex p-4  w-full rounded-md '>
                   <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     className="text-gray-500 focus:outline-none focus:text-gray-800"
@@ -167,7 +167,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <div className="flex justify-center items-center flex-grow">
                     <div className="flex items-center space-x-2">
                       <Image src="/Codepen.svg" width={70} height={70} alt="Medha Icon" className="object-contain" />
-                      <span className="text-2xl font-semibold text-gray-800">Medha</span>
+                      <span className="text-2xl font-[500] text-gray-800">Medha</span>
                     </div>
                   </div>
                 
@@ -201,11 +201,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
                       } md:translate-x-0 md:w-1/4 lg:w-1/6 md:flex-shrink-0 overflow-y-auto flex flex-col`}
                     >
-                      <div className="flex items-center px-4 py-5 space-x-1">
-                        <div className="w-16 h-[58px] relative flex-shrink-0">
+                      <div className="flex items-center px-4 py-5">
+                      <div className="w-16 h-[58px] relative flex-shrink-0 -mr-[7px]">
                           <Image src="/Codepen.svg" fill objectFit="contain" alt="Medha Icon" />
                         </div>
-                        <span className="text-xl font-semibold text-gray-800 truncate">Medha</span>
+                        <span className="text-xl font-[500] text-gray-800">Medha</span>
                       </div>
                       <div className="flex-grow overflow-y-auto">
                         <Sidebar isMobileMenuOpen={isMobileMenuOpen} />

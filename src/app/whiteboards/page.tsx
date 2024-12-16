@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
-
+import { ChevronDown } from 'lucide-react';
 const PageSkeleton = () => {
   return (
     <div className="space-y-4 p-4 lg:p-0">
@@ -36,15 +36,15 @@ const Page = () => {
   }
 
   return (
-    <div className="p-4 lg:px-11">
-      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
-        <div className="space-y-1">
+    <div className="p-4 pl-1">
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 align-middle">
+        <div className=" space-y-1">
           <h1 className="text-black text-[28px] lg:text-[40px] font-bold">Whiteboards</h1>
           <div className="text-[#696969] text-[16px] lg:text-[20px]">
             Create a whiteboard for you
           </div>
         </div>
-        <div className="flex items-center gap-2 lg:gap-4">
+        <div className="flex items-center gap-2 lg:gap-4 pt-3">
           <div className="relative flex items-center justify-center">
             <Image
               className="absolute right-3"
@@ -59,20 +59,30 @@ const Page = () => {
               placeholder="Search"
             />
           </div>
-          <select className="h-[32px] w-[120px] lg:h-[40px] lg:w-[156px] rounded-full pl-4">
+          <div className="relative ">
+          <select className="appearance-none h-[32px] w-[120px] lg:h-[40px] lg:w-[156px] rounded-full pl-4">
             <option value="" disabled selected>
               Last Modified
             </option>
             <option value="option1">Option 1</option>
             <option value="option2">Option 2</option>
           </select>
-          <select className="h-[32px] w-[90px] lg:h-[40px] lg:w-[106px] rounded-full pl-4">
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex pr-2 items-center text-gray-700">
+          <ChevronDown size={20} />
+        </div>
+      </div>
+      <div className="relative ">
+          <select className="appearance-none h-[32px] w-[90px] lg:h-[40px] lg:w-[106px] rounded-full pl-4">
             <option value="" disabled selected>
               All Files
             </option>
             <option value="option1">Option 1</option>
             <option value="option2">Option 2</option>
           </select>
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex pr-2 items-center text-gray-700">
+          <ChevronDown size={20} />
+        </div>
+      </div>
           <div className="relative">
             <Image
               className="absolute left-3 top-1/2 transform -translate-y-1/2"

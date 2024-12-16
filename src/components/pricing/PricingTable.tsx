@@ -96,8 +96,8 @@ const PricingTable = () => {
                     className="text-center rounded-t-lg p-2 sm:p-4"
                   >
                     <div className="font-bold text-md  sm:text-xl">{plan.plan}</div>
-                    <div className="text-lg sm:text-2xl mt-1 sm:mt-2">{plan.price}</div>
-                    <div className="text-gray-500 text-xs sm:text-sm">{plan.period}</div>
+                    <div className="text-lg sm:text-2xl mt-1 sm:mt-2">{plan.price} <sup className="text-black text-xs sm:text-sm ">{plan.period}</sup></div>
+                    
                   </th>
                 ))}
               </tr>

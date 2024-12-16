@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useSelection } from '../context/SelectionContext';
 import { useUser } from '@/context/UserContext';
 import { classDataValues } from '@/context/class_data';
-
+import { ChevronDown } from 'lucide-react';
 function Institute() {
   return (
     <div className="flex flex-row items-center mb-4">
@@ -12,8 +12,8 @@ function Institute() {
         <Image width={40} height={40} src="/myinstitution.svg" alt="Institution Logo" />
       </div>
       <div className="flex flex-col">
-        <div className="text-black text-base font-bold">My Institute</div>
-        <div className="flex flex-row text-xs text-black gap-1">
+        <div className="text-black text-base font-[520]">My Institute</div>
+        <div className="flex flex-row text-xs text-[#696969] gap-1">
           <div>My Class</div>
           <div>|</div>
           <div>Home</div>
@@ -73,12 +73,29 @@ function Personal() {
         <div>
         <Institute />
         </div>
-        <div className='flex gap-4'>
-        <select value={language} onChange={handleLanguageChange} className="rounded-full h-[40px] pl-4">
+        <div className='flex gap-5'>
+          <div className='flex gap-4'>
+        <div className="relative w-24">
+        <select 
+          value={language} 
+          onChange={handleLanguageChange} 
+          className="appearance-none rounded-full h-[40px] pl-4 w-[107px] border"
+        >
           <option value="English">English</option>
           <option value="Hindi">Hindi</option>
         </select>
-        <select value={selectedClass} onChange={handleClassChange} className="rounded-full h-[40px] pl-4">
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center text-gray-700">
+          <ChevronDown size={20} />
+        </div>
+      </div>
+
+      {/* Class Dropdown */}
+      <div className="relative w-24 pl-2">
+        <select 
+          value={selectedClass} 
+          onChange={handleClassChange} 
+          className="appearance-none rounded-full h-[40px] pl-4  w-full border"
+        >
           <option value="" disabled>
             Select Class
           </option>
@@ -88,10 +105,17 @@ function Personal() {
             </option>
           ))}
         </select>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+          <ChevronDown size={20} />
+        </div>
+      </div>
+
+      {/* Subject Dropdown */}
+      <div className="relative w-24">
         <select
           value={selectedSubject}
           onChange={handleSubjectChange}
-          className="rounded-full h-[40px] pl-4"
+          className="appearance-none rounded-full h-[40px] pl-4 w-[107px] border"
           disabled={!selectedClass}
         >
           <option value="" disabled>
@@ -103,10 +127,16 @@ function Personal() {
             </option>
           ))}
         </select>
-        <div className="flex items-center">
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center text-gray-700">
+          <ChevronDown size={20} />
+        </div>
+      </div>
+      </div>
+      <div className='ml-1 w-[1px] bg-gray-400 h-[40px]'></div>
+        <div className="flex items-center appearance-none">
           <Image
-            width={32}
-            height={32}
+            width={44}
+            height={44}
             src="/Screenshot_2024-08-17_at_8.13.58_AM-removebg-preview 3.png"
             alt="User Avatar"
             className="w-6 h-6 xs:w-8 xs:h-8 sm:w-8 sm:h-8"

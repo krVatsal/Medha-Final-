@@ -445,8 +445,8 @@ function Chatbot() {
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mt-6 relative">
           {/* Sidebar for Chat History */}
           <div className={`
-            lg:w-1/3 sm:w-1/3 md:w-1/2 lg:h-full min-h-[410px] mb-4 lg:mb-0
-            fixed lg:static top-0 left-0 z-50 w-64 bg-white shadow-lg sm:bg-none
+            lg:w-1/3 sm:w-1/3 md:w-1/2 lg:h-full min-h-[390px] mb-4 lg:mb-0
+            fixed lg:static top-0 left-0 z-50 w-64 ${isSidebarOpen ? 'bg-white' : 'bg-none'}  sm:bg-none
             transform transition-transform duration-300 ease-in-out
             ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
             lg:translate-x-0 h-full overflow-y-auto

@@ -139,15 +139,42 @@ export default function TopicWiseForm() {
   };
 
   return (
-    <div className="flex flex-col sm:flex w-full min-h-screen p-6 gap-6">
+    <div>
+<div>
+  <div className="pl-6">
+    <button
+      onClick={() => window.history.back()}
+      className="bg-white text-gray-800 text-small h-[29px] w-[76px] rounded-full shadow hover:bg-gray-200 transition flex items-center justify-center gap-1"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="w-4 h-4"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M10.5 19.5L3 12l7.5-7.5M21 12H3"
+        />
+      </svg>
+      Back
+    </button>
+  </div>
+</div>
+
+    <div className="flex flex-col sm:flex-row w-full min-h-screen p-6 gap-6">
       {/* Left side - Configure Assessment */}
-      <div className="w-full md:w-1/3 bg-[#F3F4F8] p-6 rounded-xl">
+
+      <div className="w-full md:w-1/3 bg-[#F3F4F8] p-[15px] rounded-xl">
         <p className="mb-4 font-bold">Create Topic Wise Assessment</p>
         <div className="bg-white bg-opacity-60 p-6 min-h-[410px] rounded-2xl flex flex-col pt-4">
           <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 gap-4 mb-4">
+            <div className="grid grid-cols-1 gap-6 mb-4">
               <select
-                className="h-[31px] w-full rounded-full pl-4"
+                className="border-[1px] border-gray-300 h-[31px] w-full rounded-full pl-4"
                 value={selectedChapter}
                 onChange={(e) => handleChange(e, setSelectedChapter)}
                 disabled={isSubmitted} // Disable if submitted
@@ -158,7 +185,7 @@ export default function TopicWiseForm() {
                 {renderChapters()}
               </select>
               <select
-                className="h-[31px] w-full rounded-full pl-4"
+                className="border-[1px] border-gray-300 h-[31px] w-full rounded-full pl-4"
                 value={selectedTopic}
                 onChange={(e) => handleChange(e, setSelectedTopic)}
                 disabled={isSubmitted} // Disable if submitted
@@ -169,7 +196,7 @@ export default function TopicWiseForm() {
                 {renderTopics()}
               </select>
               <select
-                className="h-[31px] w-full rounded-full pl-4"
+                className="border-[1px] border-gray-300 h-[31px] w-full rounded-full pl-4"
                 value={selectedLevel}
                 onChange={(e) => handleChange(e, setSelectedLevel)}
                 disabled={isSubmitted} // Disable if submitted
@@ -182,7 +209,7 @@ export default function TopicWiseForm() {
                 <option value="Hard">Hard</option>
               </select>
               <select
-                className="h-[31px] w-full rounded-full pl-4"
+                className=" border-[1px] border-gray-300 h-[31px] w-full rounded-full pl-4"
                 value={selectedType}
                 onChange={(e) => handleChange(e, setSelectedType)}
                 disabled={isSubmitted} // Disable if submitted
@@ -195,7 +222,7 @@ export default function TopicWiseForm() {
                 <option value="Reading">Reading</option>
               </select>
               <select
-                className="h-[31px] w-full rounded-full pl-4"
+                className="border-[1px] border-gray-300 h-[31px] w-full rounded-full pl-4"
                 value={totalQuestion}
                 onChange={(e) => handleChange(e, setTotalQuestion)}
                 disabled={isSubmitted} // Disable if submitted
@@ -222,7 +249,7 @@ export default function TopicWiseForm() {
       </div>
 
       {/* Right side - Assessment Content */}
-      <div className="w-full md:w-2/3 bg-[#F3F4F8] p-6 rounded-xl">
+      <div className="w-full md:w-2/3 bg-[#F3F4F8] p-[15px] rounded-xl">
         <div className="bg-white bg-opacity-60 p-6 rounded-2xl min-h-[410px]">
           {isSubmitted &&
             data.length > 0 && // Ensure data is an array before mapping
@@ -235,6 +262,7 @@ export default function TopicWiseForm() {
             ))}
         </div>
       </div>
+    </div>
     </div>
   );
 }
