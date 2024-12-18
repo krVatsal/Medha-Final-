@@ -29,7 +29,7 @@ const SelectableOptions: React.FC<SelectableOptionsProps> = ({
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="bg-white p-6 rounded-2xl w-full h-auto">
-        <div className="flex flex-row gap-4 mb-4 items-center">
+        <div className="flex sm:flex-row gap-4 mb-4 items-center">
           {iconSrc && (
             <div className="relative w-5 h-5">
               <Image src={iconSrc} alt={`${heading} icon`} fill objectFit="contain" />
@@ -37,11 +37,11 @@ const SelectableOptions: React.FC<SelectableOptionsProps> = ({
           )}
           <div>{heading}</div>
         </div>
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex flex-col sm:flex-row gap-2 flex-wrap">
           {options.map((option) => (
             <button
               key={option}
-              className={`px-4 py-2 rounded-xl ${
+              className={`px-4 py-2 rounded-xl text-left ${
                 selectedOption === option ? 'bg-[#1F4467] text-white' : 'bg-gray-100 border border-[#1F4467]'
               }`}
               onClick={() => handleOptionSelect(option)}
