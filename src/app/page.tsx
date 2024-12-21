@@ -71,7 +71,7 @@ export default function Home() {
       {/* Greeting Section */}
       {/* Greeting Section */}
       <div className="flex flex-col w-full">
-        <div className="flex flex-row justify-between mb-12">
+        <div className="flex flex-row justify-between mb-12 sm:mb-8">
           <div className="space-y-1">
             <div className="text-[30px] sm:text-[40px] font-bold pl-1">              {loading ? (
                 <Skeleton className="w-12 h-12" />

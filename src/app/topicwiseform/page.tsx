@@ -141,7 +141,7 @@ export default function TopicWiseForm() {
   return (
     <div>
 <div>
-  <div className="pl-6">
+  <div className="pl-2">
     <button
       onClick={() => window.history.back()}
       className="bg-white text-gray-800 text-small h-[29px] w-[76px] rounded-full shadow hover:bg-gray-200 transition flex items-center justify-center gap-1"
@@ -165,7 +165,7 @@ export default function TopicWiseForm() {
   </div>
 </div>
 
-    <div className="flex flex-col sm:flex-row w-full min-h-screen p-6 gap-6">
+    <div className="flex flex-col sm:flex-row w-full min-h-screen pt-6 gap-6">
       {/* Left side - Configure Assessment */}
 
       <div className="w-full md:w-1/3 bg-[#F3F4F8] p-[15px] rounded-xl">

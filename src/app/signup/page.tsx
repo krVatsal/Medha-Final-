@@ -78,7 +78,7 @@ console.log('2')
               width={24}
               height={24}
               alt="User Icon"
-              className="absolute left-2 top-[15px] transform -translate-y-1/2"
+              className="absolute left-2 top-[18px] transform -translate-y-1/2"
             />
             <input
               id="name"
@@ -95,13 +95,13 @@ console.log('2')
           </div>
 
           {/* Email Input */}
-          <div className="relative mb-4">
+          <div className="relative mb-4 flex flex-row items-center justify-center">
             <Image
               src="./Mail.svg"
               width={24}
               height={24}
               alt="Email Icon"
-              className="absolute left-2 top-[15px] transform -translate-y-1/2"
+              className="absolute left-2 top-[18px] transform -translate-y-1/2"
             />
             <input
               id="email"
@@ -139,7 +139,7 @@ console.log('2')
               width={24}
               height={24}
               alt="Lock Icon"
-              className="absolute left-2 top-[15px] transform -translate-y-1/2"
+              className="absolute left-2 top-[18px] transform -translate-y-1/2"
             />
             <input
               id="password"
@@ -185,7 +185,7 @@ console.log('2')
               width={24}
               height={24}
               alt="Lock Icon"
-              className="absolute left-2 top-[15px] transform -translate-y-1/2"
+              className="absolute left-2 top-[18px] transform -translate-y-1/2"
             />
             <input
               id="retypePassword"

@@ -5,13 +5,18 @@ import { useRouter } from 'next/navigation';
 function MyAppsArea() {
   const router = useRouter();
   return (
-<div className="bg-[#E9EBEE] p-4 sm:p-6 md:p-8 rounded-3xl h-full w-full max-w-md sm:max-w-4xl">
+    <div>
+    <div className="flex flex-col mb-4">
+    <div className=" sm:hidden text-base sm:text-lg font-[550]">My Apps</div>
+    <div className=" sm:hidden text-xs text-gray-500">Explore the variety of useful apps</div>
+  </div>
+<div className="bg-[#E9EBEE] shadow-lg p-4 sm:p-6 md:p-8 rounded-3xl h-full w-full max-w-md sm:max-w-4xl">
       <div className="flex flex-col mb-4">
-        <div className="text-base sm:text-lg font-[550]">My Apps</div>
-        <div className="text-xs text-gray-500">Explore the variety of useful apps</div>
+        <div className="hidden sm:inline text-base sm:text-lg font-[550]">My Apps</div>
+        <div className="hidden sm:inline text-xs text-gray-500">Explore the variety of useful apps</div>
       </div>
       <div className=" p-3 sm:p-4 rounded-2xl w-full">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 justify-center items-center">
+        <div className="grid grid-cols-3  md:grid-cols-4 gap-3 sm:gap-4 justify-center items-center">
           {/* Create Quiz */}
           <div
             className="flex flex-col items-center space-y-2 action-button cursor-pointer"
@@ -121,6 +126,7 @@ function MyAppsArea() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

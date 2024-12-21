@@ -19,7 +19,7 @@ function CreationArea({ page }: { page: string }) {
     <div>
       <div className="min-h-[50vh] bg-white bg-opacity-60 p-[15px] rounded-3xl h-[100%] flex flex-col gap-6">
         <div className="flex flex-col mb-4">
-          <div className="text-lg font-bold">
+          <div className="text-lg font-[550]">
             {isLoading ? (
               <Skeleton className="h-6 w-32" />
             ) : page === "yt" ? (

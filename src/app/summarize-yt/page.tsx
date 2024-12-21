@@ -93,11 +93,12 @@ function Summarizeyt() {
     <div className="p-1 md:pt-0">
       {/* Greeting Section */}
       <div className="sm:space-y-1 items-center  flex flex-row justify-between  sm:items-center">
-        <div className="text-lg sm:text-3xl md:text-4xl lg:text-[40px] font-bold mb-4 sm:mb-0">
+        <div className=" text-lg sm:text-3xl md:text-4xl lg:text-[40px] font-[550] mb-4 sm:mb-0">
           Summarize Youtube Video
         </div>
-        
+        <div className='l-4 sm:l-0'>
         <AIToolsSteps page="link" type="yt" />
+      </div>
       </div>
       
       <div>

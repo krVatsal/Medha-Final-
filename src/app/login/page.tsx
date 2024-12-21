@@ -67,13 +67,13 @@ const LoginPage = () => {
             <p className="text-left text-[#696969] text-[15px] mb-8">Teach using the Power of Generative AI</p>
 
             {/* Email Input */}
-            <div className="relative mb-4">
+            <div className="relative mb-4 flex flex-row items-center justify-center">
               <Image
                 src="/Mail.svg"
                 width={24}
                 height={24}
                 alt="Email Icon"
-                className="absolute left-2 top-[15px] transform -translate-y-1/2"
+                className="absolute left-2 top-[18px] transform -translate-y-1/2"
               />
               <input
                 id="email"
@@ -111,7 +111,7 @@ const LoginPage = () => {
                 width={24}
                 height={24}
                 alt="Lock Icon"
-                className="absolute left-2 top-[15px] transform -translate-y-1/2"
+                className="absolute left-2 top-[18px] transform -translate-y-1/2"
               />
               <input
                 id="password"

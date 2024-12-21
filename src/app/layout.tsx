@@ -165,9 +165,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </button>
                 
                   <div className="flex justify-center items-center flex-grow">
-                    <div className="flex items-center space-x-2">
-                      <Image src="/Codepen.svg" width={70} height={70} alt="Medha Icon" className="object-contain" />
-                      <span className="text-2xl font-[500] text-gray-800">Medha</span>
+                    <div className="flex items-center">
+                      <Image src="/Codepen.svg" width={80} height={80} alt="Medha Icon" className="w-16 h-[58px] relative flex-shrink-0 -mr-[7px] object-contain" />
+                      <span className="-pr-2 z-10 text-2xl font-[500] text-gray-800">Medha</span>
                     </div>
                   </div>
                 
@@ -177,7 +177,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       alt="Dropdown Icon"
                       width={32}
                       height={32}
-                      className="object-contain cursor-pointer"
+                      className=" object-contain cursor-pointer"
                       onClick={() => setIsMobileMenuOpenProfile(!isMobileMenuOpenProfile)}
                     />
                     {isMobileMenuOpenProfile && <ProfileDropdown />}
