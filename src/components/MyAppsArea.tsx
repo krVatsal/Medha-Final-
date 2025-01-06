@@ -10,7 +10,7 @@ function MyAppsArea() {
     <div className=" sm:hidden text-base sm:text-lg font-[550]">My Apps</div>
     <div className=" sm:hidden text-xs text-gray-500">Explore the variety of useful apps</div>
   </div>
-<div className="bg-[#E9EBEE] shadow-lg p-4 sm:p-6 md:p-8 rounded-3xl h-full w-full max-w-md sm:max-w-4xl">
+<div className="bg-[#E9EBEE] shadow-md p-4 sm:p-6 md:p-8 rounded-3xl h-full w-full max-w-md sm:max-w-4xl">
       <div className="flex flex-col mb-4">
         <div className="hidden sm:inline text-base sm:text-lg font-[550]">My Apps</div>
         <div className="hidden sm:inline text-xs text-gray-500">Explore the variety of useful apps</div>

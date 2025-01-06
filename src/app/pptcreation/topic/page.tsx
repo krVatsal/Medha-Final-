@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import CreationArea from '@/components/CreationArea';
-import AIToolsSteps from '@/components/AIToolsSteps';
+import CreationArea from "@/components/CreationArea";
+import AIToolsSteps from "@/components/AIToolsSteps";
 function PPTCreation() {
   return (
-    <div className=" max-w-7xl mx-auto container">
+    <div className="p-10 ">
       {/* Greeting Section */}
-      <div className="space-y-1 mb-12 flex justify-between sticky">
+      <div className="space-y-1 mb-12 flex justify-between">
         <div className="text-[40px] font-bold">PPT Creation</div>
         <AIToolsSteps page="topic" type="ppt" />
       </div>

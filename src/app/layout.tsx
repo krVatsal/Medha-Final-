@@ -153,7 +153,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SelectionProvider>
             <div className="flex flex-col h-full">
               {showNavbar && (
-                <header className="md:hidden  bg-gray-200 md:px-4 md:py-4 px-2 py-2 flex justify-between items-center z-20 relative">
+                <header className="md:hidden  bg-[#D6D7DF] md:px-4 md:py-4 px-2 py-2 flex justify-between items-center z-20 relative">
                   <div className='bg-white flex p-4  w-full rounded-md '>
                   <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -214,9 +214,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </>
                 )}
 
-                <main className="flex-1 flex flex-col overflow-hidden bg-gray-200 min-h-0">
+                <main className="flex-1 flex flex-col overflow-hidden bg-[#D6D7DF] min-h-0">
                   {showNavbar && (
-                    <div className="px-8 py-2 bg-gray-200 border-gray-200">
+                    <div className="px-8 py-6 bg-[#D6D7DF] border-[#D6D7DF]">
                       <Navbar />
                     </div>
                   )}

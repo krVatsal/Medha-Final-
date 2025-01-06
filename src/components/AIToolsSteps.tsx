@@ -27,7 +27,7 @@ const StepItem: React.FC<{ step: Step; isActive: boolean }> = ({ step, isActive 
   </div>
 );
 
-const Connector: React.FC = () => <div className="z-10 w-12 h-0.5 bg-gray-300 ml-3 sm:mx-4 mb-4" />;
+const Connector: React.FC = () => <div className="z-10 w-14 h-0.5 bg-gray-400 ml-3  sm:mx-4 mb-4" />;
 
 const AIToolsSteps: React.FC<AIToolsStepsProps> = ({
   page,
@@ -61,7 +61,7 @@ const AIToolsSteps: React.FC<AIToolsStepsProps> = ({
   };
 
   return (
-    <div className="flex items-center p-4 bg-gray-200 rounded-lg">
+    <div className="flex items-center p-4 bg-[#D6D7DF] rounded-lg">
       <span className="hidden sm:inline mr-4 font-bold text-lg">Steps:</span>
       <div className="flex items-center">{renderSteps()}</div>
     </div>
