@@ -21,7 +21,7 @@ const LoginPage = () => {
   const onSubmit = async (data: any) => {
     try {
       // Call your login API
-      const response = await axios.post('http://localhost:5217/api/v1/client/login', {
+      const response = await axios.post('/api/v1/client/login', {
         email: data.email,
         password: data.password,
       });
@@ -87,9 +87,8 @@ const LoginPage = () => {
                     message: 'Enter a valid email address',
                   },
                 })}
-                className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                  errors.email ? 'border-red-500' : ''
-                }`}
+                className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${errors.email ? 'border-red-500' : ''
+                  }`}
               />
               {isValid && !errors.email && (
                 <Image
@@ -125,9 +124,8 @@ const LoginPage = () => {
                     message: 'Password must be at least 6 characters long',
                   },
                 })}
-                className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                  errors.password ? 'border-red-500' : ''
-                }`}
+                className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${errors.password ? 'border-red-500' : ''
+                  }`}
               />
               {isValid && !errors.password && (
                 <Image
@@ -154,7 +152,7 @@ const LoginPage = () => {
                 onClick={async () => {
                   try {
                     await axios.post(
-                      '/api/user/login',
+                      '/api/v1/client/user/login',
                       {},
                       {
                         withCredentials: true,

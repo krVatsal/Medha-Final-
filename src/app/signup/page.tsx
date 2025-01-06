@@ -24,7 +24,7 @@ const SignUpPage = () => {
   const onSubmit = async (data: any) => {
     try {
       // API call for user registration
-      const response = await axios.post('http://localhost:5217/api/v1/client/register', {
+      const response = await axios.post('/api/v1/client/register', {
         email: data.email,
         password: data.password,
         name: data.name,
@@ -85,9 +85,8 @@ const SignUpPage = () => {
               type="text"
               placeholder="Name"
               {...register('name', { required: 'Name is required' })}
-              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                errors.name ? 'border-red-500' : ''
-              }`}
+              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${errors.name ? 'border-red-500' : ''
+                }`}
             />
             {errors.name && typeof errors.name.message === 'string' && (
               <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
@@ -114,9 +113,8 @@ const SignUpPage = () => {
                   message: 'Enter a valid email address',
                 },
               })}
-              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                errors.email ? 'border-red-500' : ''
-              }`}
+              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${errors.email ? 'border-red-500' : ''
+                }`}
             />
             {isValid && !errors.email && (
               <Image
@@ -152,9 +150,8 @@ const SignUpPage = () => {
                   message: 'Password must be at least 6 characters long',
                 },
               })}
-              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                errors.password ? 'border-red-500' : ''
-              }`}
+              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${errors.password ? 'border-red-500' : ''
+                }`}
             />
             <Image
               src="./Eye off.svg"
@@ -195,9 +192,8 @@ const SignUpPage = () => {
                 required: 'Please re-type your password',
                 validate: (value) => value === password || 'Passwords do not match',
               })}
-              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                errors.retypePassword ? 'border-red-500' : ''
-              }`}
+              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${errors.retypePassword ? 'border-red-500' : ''
+                }`}
             />
             <Image
               src="./Eye off.svg"
@@ -231,14 +227,14 @@ const SignUpPage = () => {
             </button>
             <span className="text-[#A1A1A1]">or</span>
             <a href="/google/callback">
-            <Image
-            
-              src="/Screenshot_2024-08-22_at_3.00.58_AM-removebg-preview 4.png"
-              width={32}
-              height={32}
-              alt="Alternate Sign In"
-              className="cursor-pointer"
-            />
+              <Image
+
+                src="/Screenshot_2024-08-22_at_3.00.58_AM-removebg-preview 4.png"
+                width={32}
+                height={32}
+                alt="Alternate Sign In"
+                className="cursor-pointer"
+              />
             </a>
           </div>
         </form>

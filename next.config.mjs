@@ -24,7 +24,7 @@ const nextConfig = {
       },
       {
         source: "/:path*",
-        destination: "https://medha.cograd.in/socket.io/:path*",
+        destination: "https://teacg.cograd.in/socket.io/:path*",
       },
     ];
   },

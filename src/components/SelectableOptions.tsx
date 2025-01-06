@@ -16,7 +16,7 @@ const SelectableOptions: React.FC<SelectableOptionsProps> = ({
   iconSrc = '/outcome.svg',
   initialSelected,
   onSelectionChange,
-}) => {
+}: SelectableOptionsProps) => {
   const [selectedOption, setSelectedOption] = useState(initialSelected || options[0]);
 
   const handleOptionSelect = (option: string) => {
@@ -41,9 +41,8 @@ const SelectableOptions: React.FC<SelectableOptionsProps> = ({
           {options.map((option) => (
             <button
               key={option}
-              className={`px-4 py-2 rounded-xl ${
-                selectedOption === option ? 'bg-[#1F4467] text-white' : 'bg-gray-100 border border-[#1F4467]'
-              }`}
+              className={`px-4 py-2 rounded-xl ${selectedOption === option ? 'bg-[#1F4467] text-white' : 'bg-gray-100 border border-[#1F4467]'
+                }`}
               onClick={() => handleOptionSelect(option)}
             >
               {option}

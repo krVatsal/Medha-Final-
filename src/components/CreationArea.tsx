@@ -4,16 +4,33 @@ import Image from "next/image";
 import SelectableOptions from "./SelectableOptions";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "./ui/skeleton";
+import { useSelection } from '@/context/SelectionContext';
 
-function CreationArea({ page }: { page: string }) {
+function CreationArea({ page, setSelectedText,
+  requestLessonPlan,
+  setSelectedTheme,
+  buttonLoading,
+  requestYoutubeSummary, }: any) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { dataContext, subject, classNumber } = useSelection();
+  const [topics, setTopics] = useState([]);
 
   // Simulate loading state
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (dataContext && dataContext.length > 0) {
+      const topics: any = [];
+      for (let el of Object.keys(dataContext)) {
+        topics.push(Object.keys(dataContext[el])[0]);
+      }
+      setTopics(topics);
+    }
+  }, [dataContext]);
 
   return (
     <div>
@@ -59,12 +76,15 @@ function CreationArea({ page }: { page: string }) {
                   <input
                     type="text"
                     id="youtube-url"
+                    onChange={(e) => setSelectedText(e.target.value)}
                     className="w-full p-2 border border-gray-300 rounded-md h-12"
                     placeholder="Enter YouTube video URL"
                   />
                   <button
                     className="bg-transparent px-4 py-2"
-                    onClick={() => router.push("./summary")}
+                    onClick={() => {
+                      requestYoutubeSummary && requestYoutubeSummary();
+                    }}
                   >
                     Analyze
                   </button>
@@ -78,7 +98,7 @@ function CreationArea({ page }: { page: string }) {
         {isLoading ? (
           <Skeleton className="h-24 w-full rounded-2xl" />
         ) : (
-          page !== "lesson" && page !== "yt" && (
+          page !== "lesson" && page !== "yt" && page !== "ppt" && (
             <div className="bg-white p-6 rounded-2xl w-full h-auto">
               <div className="flex flex-col gap-4 w-full">
                 <div className="flex items-center gap-2">
@@ -105,25 +125,12 @@ function CreationArea({ page }: { page: string }) {
         ) : (
           page !== "yt" && (
             <div className="bg-white p-6 rounded-2xl w-full h-auto">
-              <div className="flex flex-col gap-4 w-full">
-                <div className="flex items-center gap-4">
-                  <Image
-                    src="/navigatetograde.svg"
-                    alt="Navigate to Grade"
-                    width={20}
-                    height={20}
-                  />
-                  <label htmlFor="topic" className="text-sm">
-                    Navigate to Grade
-                  </label>
-                </div>
-                <div className="flex items-center gap-2 w-full">
-                  <textarea
-                    className="w-full p-2 border border-gray-300 rounded-md h-12"
-                    placeholder="Enter your text here"
-                  ></textarea>
-                  <button className="bg-transparent px-4 py-2">Navigate</button>
-                </div>
+              <div className="flex flex-col gap-6">
+                <SelectableOptions
+                  heading="Select Topic"
+                  options={topics}
+                  onSelectionChange={(topicSelection) => setSelectedText(topicSelection)}
+                />
               </div>
             </div>
           )
@@ -133,7 +140,7 @@ function CreationArea({ page }: { page: string }) {
         {isLoading ? (
           <Skeleton className="h-24 w-full rounded-2xl" />
         ) : (
-          page !== "lesson" && page != "yt" && (
+          page !== "lesson" && page != "yt" && page != "ppt" && (
             <div className="bg-white p-6 rounded-2xl w-full h-auto">
               <div className="flex flex-col gap-4 w-full">
                 <div className="flex items-center gap-2">
@@ -154,7 +161,7 @@ function CreationArea({ page }: { page: string }) {
         )}
 
         {/* Desired Outcome Options */}
-        {isLoading ? (
+        {/* {isLoading ? (
           <Skeleton className="h-20 w-full rounded-2xl" />
         ) : (
           page === "lesson" && (
@@ -165,26 +172,17 @@ function CreationArea({ page }: { page: string }) {
               />
             </div>
           )
-        )}
+        )} */}
 
         {/* PPT Options */}
         {isLoading ? (
-          <Skeleton className="h-32 w-full rounded-2xl" />
+          <Skeleton className="h-32 w-full rounded-2xl mb-8" />
         ) : (
-          page === "ppt" && (
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-row gap-6">
-                <SelectableOptions
-                  heading="Desired Outcome"
-                  options={["Knowledge", "Skill", "Attitude", "Affective"]}
-                />
-                <SelectableOptions
-                  heading="Format"
-                  options={["Format 1", "Format 2", "Format 3"]}
-                />
-              </div>
+          (page === "ppt" || page === "lesson") && (
+            <div className="flex flex-col gap-6 mb-8">
               <SelectableOptions
                 heading="Cross Cutting Theme"
+                onSelectionChange={(updated: string) => setSelectedTheme(updated)}
                 options={[
                   "Rootedness in India",
                   "Education for values",
@@ -199,21 +197,23 @@ function CreationArea({ page }: { page: string }) {
       </div>
 
       {/* Action Button */}
-      {isLoading ? (
+      {isLoading || buttonLoading ? (
         <Skeleton className="h-12 w-40 rounded-full mt-6" />
-      ) : page !== "Homework" && page !== "yt" ? (
+      ) : page !== "Homework" && page !== "yt" && page !== 'lesson' ? (
         <button
-          className="text-white bg-[#5D233C] p-4 mt-6 rounded-full px-6"
-          onClick={() => router.push("./outline")}
+          className="text-white bg-[#5D233C] p-4 mt-6 rounded-full px-6 mb-4"
+          onClick={() => requestLessonPlan && requestLessonPlan()}
         >
           Generate Outline
         </button>
-      ) : (
+      ) : page === 'lesson' && (
         <button
-          className="text-white bg-[#5D233C] p-4 mt-6 rounded-full px-6"
-          onClick={() => router.push("./blooms")}
+          className="text-white bg-[#5D233C] p-4 mt-6 rounded-full px-6 mb-4"
+          onClick={() => {
+            requestLessonPlan && requestLessonPlan();
+          }}
         >
-          Generate Bloom's taxonomy
+          Generate Lesson Plan
         </button>
       )}
     </div>

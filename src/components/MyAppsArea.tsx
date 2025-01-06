@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { allFooter } from 'md-editor-rt';
 
 function MyAppsArea() {
   const router = useRouter();
@@ -22,14 +23,15 @@ function MyAppsArea() {
           </div>
 
           {/* Placeholder for Summarise PDF */}
-          <div className="flex flex-col items-center space-y-1 action-button">
+          <div className="flex flex-col items-center space-y-1 action-button" style={{ position: 'relative' }}>
+            <div className="banner-coming">Coming Soon</div>
             <Image
               width={32}
               height={32}
               alt=""
               src="/Summarize_pdf.svg"
               className="w-16 h-16"
-              onClick={() => router.push('/summarize-pdf')}
+              onClick={() => alert('Coming Soon')}
             />
             <div className="text-xs font-semibold text-center">Summarize PDF</div>
           </div>
@@ -43,7 +45,8 @@ function MyAppsArea() {
               alt=""
               src="/Create_ppt.svg"
               className="w-16 h-16"
-              onClick={() => alert('Coming Soon')}
+              //onClick={() => alert('Coming Soon')}
+              onClick={() => router.push('/pptcreation/topic')}
             />
             <div className="text-xs font-semibold text-center">Create PPT</div>
           </div>
@@ -59,8 +62,8 @@ function MyAppsArea() {
 
           {/* Placeholder for Create Flash Cards */}
           <div
-          onClick={() => router.push('/examForm')}
-           className="flex flex-col items-center justify-center space-y-1 col-span-1 action-button">
+            onClick={() => router.push('/examForm')}
+            className="flex flex-col items-center justify-center space-y-1 col-span-1 action-button">
             <Image width={32} height={32} alt="" src="/create_exam_form.svg" className="w-16 h-16" />
             <div className="text-xs font-semibold text-center">Create Exam Form</div>
           </div>

@@ -40,11 +40,10 @@ const ChatbotSkeleton = () => {
         <div className="flex flex-col gap-3 items-end">
           <div className="flex justify-start sm:justify-end gap-2">
             {[...Array(4)].map((_, i) => (
-              <Skeleton 
-                key={i} 
-                className={`rounded-full h-[40px] ${
-                  i === 3 ? "w-[138px]" : "w-[91px]"
-                }`} 
+              <Skeleton
+                key={i}
+                className={`rounded-full h-[40px] ${i === 3 ? "w-[138px]" : "w-[91px]"
+                  }`}
               />
             ))}
           </div>
@@ -89,8 +88,10 @@ const ChatbotSkeleton = () => {
     </div>
   );
 };
+
+
 function Chatbot() {
-  const pathname= usePathname()
+  const pathname = usePathname()
   useEffect(() => {
     setLoading(true)
     const timer = setTimeout(() => {
@@ -121,6 +122,8 @@ function Chatbot() {
   const [aiSpeaking, setAiSpeaking] = useState(false);
   const [src, setSrc] = useState<string | null>(null);
   const [typing, setTyping] = useState(false);
+  const [modelsToInsert, setModelsToInsert] = useState<any[]>([]);
+
 
   const [chatBackend, setChatBackend] = useState("medha");
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -155,7 +158,7 @@ function Chatbot() {
   }, []);
 
   useEffect(() => {
-    const newSocket = io("https://medha.cograd.in", {
+    const newSocket = io("https://teach.cograd.in", {
       path: "/socket.io",
     });
 
@@ -358,8 +361,7 @@ function Chatbot() {
     } catch (error) {
       console.error("Error generating speech:", error);
       setError(
-        `Error generating speech: ${
-          error instanceof Error ? error.message : String(error)
+        `Error generating speech: ${error instanceof Error ? error.message : String(error)
         }`
       );
     }
@@ -391,75 +393,75 @@ function Chatbot() {
 
   return (
     loading ? <ChatbotSkeleton /> : (
-    <Suspense >
-      <div className=" max-w-7xl mx-auto container">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:gap-x-[62px] mb-6 sm:mb-12 sticky">
-          <div className="space-y-1 mb-4 sm:mb-0">
-            <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-bold">
-              AI Chatbot
-            </h1>
-            <p className="text-base sm:text-lg lg:text-[20px] text-gray-500">
-              Chat with Medha to get ahead!
-            </p>
+      <Suspense >
+        <div className=" max-w-7xl mx-auto container">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:gap-x-[62px] mb-6 sm:mb-12 sticky">
+            <div className="space-y-1 mb-4 sm:mb-0">
+              <h1 className="text-2xl sm:text-4xl lg:text-[40px] font-bold">
+                AI Chatbot
+              </h1>
+              <p className="text-base sm:text-lg lg:text-[20px] text-gray-500">
+                Chat with Medha to get ahead!
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 items-end">
+              <div className="flex justify-start sm:justify-end gap-2">
+                <button
+                  className={`rounded-full w-[91px] h-[40px] text-sm sm:text-base transition-colors duration-200 ${chatBackend === "medha"
+                    ? "bg-[#5D233C] text-white"
+                    : "bg-white hover:bg-gray-100"
+                    }`}
+                  onClick={() => setChatBackend("medha")}
+                >
+                  Medha
+                </button>
+                <button
+                  className={`rounded-full w-[138px] h-[40px] text-sm sm:text-base transition-colors duration-200 ${chatBackend === "sumedha"
+                    ? "bg-[#5D233C] text-white"
+                    : "bg-white hover:bg-gray-100"
+                    }`}
+                  onClick={() => setChatBackend("sumedha")}
+                >
+                  Sumedha
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col gap-3 items-end">
-            <div className="flex justify-start sm:justify-end gap-2">
-              <button
-                className={`rounded-full w-[91px] h-[40px] text-sm sm:text-base transition-colors duration-200 ${
-                  chatBackend === "medha"
-                    ? "bg-[#5D233C] text-white"
-                    : "bg-white hover:bg-gray-100"
-                }`}
-                onClick={() => setChatBackend("medha")}
-              >
-                Medha
-              </button>
-              <button
-                className={`rounded-full w-[138px] h-[40px] text-sm sm:text-base transition-colors duration-200 ${
-                  chatBackend === "sumedha"
-                    ? "bg-[#5D233C] text-white"
-                    : "bg-white hover:bg-gray-100"
-                }`}
-                onClick={() => setChatBackend("sumedha")}
-              >
-                Sumedha
-              </button>
+
+          <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mt-6 ">
+            <div className="lg:w-1/3 sm:w-1/3 md:w-1/2 lg:h-full min-h-[410px] mb-4 lg:mb-0">
+              {selectedOption === "topic-wise" ? (
+                <TopicWiseForm />
+              ) : selectedOption === "exam-form" ? (
+                <ExamForm />
+              ) : (
+                <ChatHistoryArea questions={questionsHistory} />
+              )}
+            </div>
+            <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
+              <MedhaTextArea
+                messages={messages}
+                onSubmit={(e: FormEvent<HTMLFormElement>) =>
+                  handleSend(e, newText)
+                }
+                loading={loading}
+                newText={newText}
+                setNewText={setNewText}
+                startListening={startListening}
+                stopSpeaking={stopSpeaking}
+                setIsDone={setIsDone}
+                listening={listening}
+                isDone={isDone}
+                modelsToInsert={modelsToInsert}
+                setModelsToInsert={setModelsToInsert}
+              />
+              {error && <div className="text-red-500 mt-2">{error}</div>}
+              {src && <AudioPlayer audioUrl={src} />}
             </div>
           </div>
         </div>
-
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-5 mt-6 ">
-          <div className="lg:w-1/3 sm:w-1/3 md:w-1/2 lg:h-full min-h-[410px] mb-4 lg:mb-0">
-            {selectedOption === "topic-wise" ? (
-              <TopicWiseForm />
-            ) : selectedOption === "exam-form" ? (
-              <ExamForm />
-            ) : (
-              <ChatHistoryArea questions={questionsHistory} />
-            )}
-          </div>
-          <div className="lg:w-full sm:w-1/3 md:w-1/2 lg:h-full">
-            <MedhaTextArea
-              messages={messages}
-              onSubmit={(e: FormEvent<HTMLFormElement>) =>
-                handleSend(e, newText)
-              }
-              loading={loading}
-              newText={newText}
-              setNewText={setNewText}
-              startListening={startListening}
-              stopSpeaking={stopSpeaking}
-              setIsDone={setIsDone}
-              listening={listening}
-              isDone={isDone}
-            />
-            {error && <div className="text-red-500 mt-2">{error}</div>}
-            {src && <AudioPlayer audioUrl={src} />}
-          </div>
-        </div>
-      </div>
-    </Suspense>
-   ) );
+      </Suspense>
+    ));
 }
 
 export default Chatbot;

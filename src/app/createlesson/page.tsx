@@ -16,6 +16,7 @@ function LessonCreation() {
   const [loading, setLoading] = useState(false);
   const { subject, classNumber, language } = useSelection();
   const [selectedTopic, setSelectedTopic] = useState('');
+  const [selectedTheme, setSelectedTheme] = useState('');
 
   const previewRef = useRef(null);
 
@@ -56,7 +57,7 @@ function LessonCreation() {
   }, []);
 
   useEffect(() => {
-    const newSocket = io('https://medha.cograd.in', {
+    const newSocket = io('https://teach.cograd.in', {
       path: '/socket.io',
     });
 
@@ -105,6 +106,7 @@ function LessonCreation() {
         classNumber,
         language,
         type: 'lesson_plan',
+        theme: selectedTheme
       });
     } else {
       console.error('Socket is not connected');
@@ -121,6 +123,8 @@ function LessonCreation() {
       <div>
         <CreationArea
           page="lesson"
+          buttonLoading={loading}
+          setSelectedTheme={setSelectedTheme}
           setSelectedText={setSelectedTopic}
           requestLessonPlan={requestLessonPlan}
           requestYoutubeSummary={undefined}
@@ -146,7 +150,7 @@ function LessonCreation() {
         />
       </div>
       <button
-        className="text-white bg-[#5D233C] p-4 mt-6 rounded-full px-6"
+        className="text-white bg-[#5D233C] p-4 mt-6 rounded-full px-6 mb-6"
         onClick={() => exportToPdf()}
         disabled={loading}
       >

@@ -11,7 +11,7 @@ dotenv.config({
 
 const app = express();
 app.use(cookieParser());
-const allowedOrigins = [process.env.CORS_ORIGIN, "http://localhost:3000"];
+const allowedOrigins = [process.env.CORS_ORIGIN, "http://localhost:3000", "https://teach.cograd.in"];
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -26,8 +26,8 @@ app.use(
     credentials: true, // Allow credentials to be passed along
   })
 );
-origin: process.env.CORS_ORIGIN || "http://localhost:3000",
-  app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
