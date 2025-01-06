@@ -1,9 +1,9 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 import axios from 'axios'; // For API calls
-import { useRouter } from 'next/navigation'; // For navigation after successful login
+import { useRouter, useSearchParams } from 'next/navigation'; // For navigation after successful login
 import { useUser } from '@/context/UserContext';
 
 const LoginPage = () => {
@@ -17,11 +17,12 @@ const LoginPage = () => {
   });
 
   const router = useRouter(); // Initialize the router for redirect
+  const searchParams = useSearchParams(); // To handle Google auth callback parameters
 
   const onSubmit = async (data: any) => {
     try {
       // Call your login API
-      const response = await axios.post('/api/v1/client/login', {
+      const response = await axios.post('http://localhost:5217/auth/login', {
         email: data.email,
         password: data.password,
       });
@@ -30,8 +31,7 @@ const LoginPage = () => {
       if (response.status === 200) {
         const responseData = response.data;
 
-        setClientName(responseData.data.clientName);
-
+        setClientName(responseData.clientName);
         localStorage.setItem('accessToken', responseData.accessToken);
         localStorage.setItem('refreshToken', responseData.refreshToken);
 
@@ -46,35 +46,34 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex relative">
-      {/* Left Section with SVG */}
-      <div className="flex-1 relative">
-        <img className="h-full object-cover" src="/signup_page.svg" alt="Sign Up Illustration" />
+    <div className="min-h-screen bg-white flex flex-col lg:flex-row relative">
+      {/* Left Section with SVG (Background Image) */}
+      <div className="lg:flex-1 relative">
+        <img className="h-full object-cover w-full" src="/signup_page.svg" alt="Sign Up Illustration" />
         {/* Medha Logo over the SVG */}
         <div className="absolute top-8 left-8">
-          <div className="text-lg flex gap- font-normal items-center">
+          <div className="text-lg flex gap-2 font-normal items-center">
             <Image width={62} height={62} src="/Codepen.svg" objectFit="contain" alt="Medha Icon" />
-            {/* <Image width={32} height={32} alt="Medha Logo" src="/Codepen.svg" /> */}
             <span className="text-[26px] text-white">Medha AI</span>
           </div>
         </div>
       </div>
 
       {/* Right Section for the Login Form */}
-      <div className="flex flex-col justify-center items-end pr-20 flex-1">
+      <div className="flex flex-col justify-center items-center lg:items-end lg:pr-20 flex-1 px-4 py-8">
         <div className="max-w-md w-full">
           <form onSubmit={handleSubmit(onSubmit)} className="w-full text-center relative">
-            <h2 className="text-left text-[44px] font-semibold mb-2">Log in</h2>
+            <h2 className="text-left text-[34px] lg:text-[44px] font-semibold mb-2">Log in</h2>
             <p className="text-left text-[#696969] text-[15px] mb-8">Teach using the Power of Generative AI</p>
 
             {/* Email Input */}
-            <div className="relative mb-4">
+            <div className="relative mb-4 flex flex-row items-center justify-center">
               <Image
                 src="/Mail.svg"
                 width={24}
                 height={24}
                 alt="Email Icon"
-                className="absolute left-2 top-[15px] transform -translate-y-1/2"
+                className="absolute left-2 top-[18px] transform -translate-y-1/2"
               />
               <input
                 id="email"
@@ -111,7 +110,7 @@ const LoginPage = () => {
                 width={24}
                 height={24}
                 alt="Lock Icon"
-                className="absolute left-2 top-[15px] transform -translate-y-1/2"
+                className="absolute left-2 top-[18px] transform -translate-y-1/2"
               />
               <input
                 id="password"
@@ -148,39 +147,51 @@ const LoginPage = () => {
                 Sign in
               </button>
               <span className="text-[#A1A1A1]">or</span>
-              <Image
-                onClick={async () => {
-                  try {
-                    await axios.post(
-                      '/api/v1/client/user/login',
-                      {},
-                      {
-                        withCredentials: true,
-                        responseType: 'document',
-                      },
-                    );
-                  } catch (error) {
-                    console.error('Error:', error);
-                  }
-                }}
-                src="/Screenshot_2024-08-22_at_3.00.58_AM-removebg-preview 4.png"
-                width={32}
-                height={32}
-                alt="Alternate Sign In"
-              />
-            </div>
+<<<<<<< HEAD
+  <Image
+    onClick={async () => {
+      try {
+        await axios.post(
+          '/api/v1/client/user/login',
+          {},
+          {
+            withCredentials: true,
+            responseType: 'document',
+          },
+        );
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }}
+    src="/Screenshot_2024-08-22_at_3.00.58_AM-removebg-preview 4.png"
+    width={32}
+    height={32}
+    alt="Alternate Sign In"
+  />
+=======
+              <a href="http://localhost:5217/auth/google">
+                <Image
+                  src="/Screenshot_2024-08-22_at_3.00.58_AM-removebg-preview 4.png"
+                  width={32}
+                  height={32}
+                  alt="Alternate Sign In"
+                  className="cursor-pointer"
+                />
+              </a>
+>>>>>>> 61dd4d6ab5a86e0a5f0faa58d065ba2539d984af
+            </div >
 
-            {/* Sign Up Link */}
-            <div className="text-left flex gap-2 text-sm">
+  {/* Sign Up Link */ }
+  < div className = "text-left flex gap-2 text-sm" >
               <span className="text-left text-[#696969]">New member?</span>
               <a href="/signup" className="font-bold text-[#354AB0]">
                 Sign up
               </a>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+            </div >
+          </form >
+        </div >
+      </div >
+    </div >
   );
 };
 

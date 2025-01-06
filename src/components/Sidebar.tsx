@@ -19,8 +19,8 @@ function Sidebar({ isMobileMenuOpen }: { isMobileMenuOpen: boolean }) {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:5217/api/v1/client/logout', {
-        method: 'POST',
+      const response = await fetch('http://localhost:5217/auth/logout', {
+        method: 'GET',
         credentials: 'include',
       });
       if (response.ok) {
@@ -60,7 +60,7 @@ function Sidebar({ isMobileMenuOpen }: { isMobileMenuOpen: boolean }) {
       } md:translate-x-0`}
     >
       <div className="flex-shrink-0 pt-6 md:pt-10">
-        <h2 className="text-xs font-semibold text-gray-500 mb-2 px-4">OVERVIEW</h2>
+        <h2 className="text-xs font-semibold text-gray-500 mb-2 px-[28px]">OVERVIEW</h2>
       </div>
       <div className="flex-1 overflow-y-auto">
         <nav className="space-y-1 px-2 md:px-4">
@@ -81,7 +81,7 @@ function Sidebar({ isMobileMenuOpen }: { isMobileMenuOpen: boolean }) {
         </nav>
       </div>
       <div className="flex-shrink-0 p-4">
-        <h2 className="text-xs font-semibold text-gray-500 mb-3">SETTINGS</h2>
+        <h2 className="text-xs font-semibold text-gray-500 mb-2 px-[14px]">SETTINGS</h2>
         {settingsItems.map((item) =>
           item.isLink ? (
             <Link

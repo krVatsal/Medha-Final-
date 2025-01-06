@@ -17,8 +17,8 @@ interface Step {
 const StepItem: React.FC<{ step: Step; isActive: boolean }> = ({ step, isActive }) => (
   <div className="flex flex-col items-center">
     <div
-      className={`w-12 h-12 rounded-full flex items-center justify-center text-sm ${
-        isActive ? 'bg-blue-800 text-white' : 'bg-white text-blue-800'
+      className={`w-6 h-6 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-sm ${
+        isActive ? 'bg-[#1F4467] text-white' : 'bg-white text-[#1F4467]'
       }`}
     >
       {step.id}
@@ -27,7 +27,7 @@ const StepItem: React.FC<{ step: Step; isActive: boolean }> = ({ step, isActive 
   </div>
 );
 
-const Connector: React.FC = () => <div className="w-8 h-0.5 bg-gray-300 mx-2 mb-4" />;
+const Connector: React.FC = () => <div className="z-10 w-12 h-0.5 bg-gray-300 ml-3 sm:mx-4 mb-4" />;
 
 const AIToolsSteps: React.FC<AIToolsStepsProps> = ({
   page,
@@ -62,7 +62,7 @@ const AIToolsSteps: React.FC<AIToolsStepsProps> = ({
 
   return (
     <div className="flex items-center p-4 bg-gray-200 rounded-lg">
-      <span className="mr-4 font-bold text-lg">Steps:</span>
+      <span className="hidden sm:inline mr-4 font-bold text-lg">Steps:</span>
       <div className="flex items-center">{renderSteps()}</div>
     </div>
   );

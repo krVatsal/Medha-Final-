@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 import axios from 'axios'; // Import axios for API calls
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,19 +24,19 @@ const SignUpPage = () => {
   const onSubmit = async (data: any) => {
     try {
       // API call for user registration
-      const response = await axios.post('/api/v1/client/register', {
+      const response = await axios.post('http://localhost:5217/auth/signup', {
         email: data.email,
         password: data.password,
-        name: data.name,
+        firstName: data.name,
       });
-
+      console.log('1')
       if (response.status === 200) {
         // Store tokens in local storage
         localStorage.setItem('accessToken', response.data.accessToken);
         localStorage.setItem('refreshToken', response.data.refreshToken);
-
+        console.log('2')
         // Redirect to dashboard
-        router.push('/login');
+        router.push('/');
       }
     } catch (error) {
       console.error('Sign-up failed', error);
@@ -47,7 +47,7 @@ const SignUpPage = () => {
   return (
     <div className="min-h-screen flex bg-white">
       {/* Background Image */}
-      <div className="relative flex-1">
+      <div className="relative flex-1 hidden md:block">
         <img className="max-h-screen object-cover" src="/signup_page.svg" alt="Background" />
         {/* Overlay the logo on the background */}
         <div className="absolute top-8 left-8">
@@ -59,7 +59,7 @@ const SignUpPage = () => {
       </div>
 
       {/* Sign Up Form aligned to the left and expanding towards right */}
-      <div className="flex flex-col justify-center items-start pl-20 pr-8 flex-1">
+      <div className="flex flex-col justify-center items-start pl-4 pr-8 md:pl-20 md:pr-8 flex-1">
         <div className="w-full text-left flex gap-2 text-sm mb-4">
           <span className="text-[#696969]">Already a member?</span>
           <a href="/login" className="font-bold text-[#354AB0]">
@@ -68,7 +68,7 @@ const SignUpPage = () => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md text-left">
-          <h2 className="text-left text-[44px] font-semibold mb-2">Sign Up</h2>
+          <h2 className="text-left text-[36px] md:text-[44px] font-semibold mb-2">Sign Up</h2>
           <p className="text-left text-[#696969] text-[15px] mb-8">Teach using the Power of Generative AI</p>
 
           {/* Name Input */}
@@ -78,7 +78,7 @@ const SignUpPage = () => {
               width={24}
               height={24}
               alt="User Icon"
-              className="absolute left-2 top-[15px] transform -translate-y-1/2"
+              className="absolute left-2 top-[18px] transform -translate-y-1/2"
             />
             <input
               id="name"
@@ -94,13 +94,13 @@ const SignUpPage = () => {
           </div>
 
           {/* Email Input */}
-          <div className="relative mb-4">
+          <div className="relative mb-4 flex flex-row items-center justify-center">
             <Image
               src="./Mail.svg"
               width={24}
               height={24}
               alt="Email Icon"
-              className="absolute left-2 top-[15px] transform -translate-y-1/2"
+              className="absolute left-2 top-[18px] transform -translate-y-1/2"
             />
             <input
               id="email"
@@ -137,7 +137,7 @@ const SignUpPage = () => {
               width={24}
               height={24}
               alt="Lock Icon"
-              className="absolute left-2 top-[15px] transform -translate-y-1/2"
+              className="absolute left-2 top-[18px] transform -translate-y-1/2"
             />
             <input
               id="password"
@@ -182,7 +182,7 @@ const SignUpPage = () => {
               width={24}
               height={24}
               alt="Lock Icon"
-              className="absolute left-2 top-[15px] transform -translate-y-1/2"
+              className="absolute left-2 top-[18px] transform -translate-y-1/2"
             />
             <input
               id="retypePassword"
@@ -226,20 +226,25 @@ const SignUpPage = () => {
               Sign up
             </button>
             <span className="text-[#A1A1A1]">or</span>
-            <a href="/google/callback">
-              <Image
+<<<<<<< HEAD
+  <a href="/google/callback">
+    <Image
 
-                src="/Screenshot_2024-08-22_at_3.00.58_AM-removebg-preview 4.png"
-                width={32}
-                height={32}
-                alt="Alternate Sign In"
-                className="cursor-pointer"
-              />
-            </a>
-          </div>
-        </form>
-      </div>
-    </div>
+=======
+            <a href="http://localhost:5217/auth/google">
+              <Image
+>>>>>>> 61dd4d6ab5a86e0a5f0faa58d065ba2539d984af
+      src="/Screenshot_2024-08-22_at_3.00.58_AM-removebg-preview 4.png"
+      width={32}
+      height={32}
+      alt="Alternate Sign In"
+      className="cursor-pointer"
+    />
+  </a>
+          </div >
+        </form >
+      </div >
+    </div >
   );
 };
 

@@ -23,6 +23,10 @@ const nextConfig = {
         destination: "http://localhost:5217/:path*",
       },
       {
+        source: "/google/callback/:path*",
+        destination: "http://localhost:5217/auth/:path*",
+      },
+      {
         source: "/:path*",
         destination: "https://teacg.cograd.in/socket.io/:path*",
       },

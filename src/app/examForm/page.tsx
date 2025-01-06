@@ -168,7 +168,33 @@ export default function ExamForm() {
     return <ExamFormSkeleton />;
   }
   return (
+    <div>
+    <div>
+      <div className="pl-2 mb-4">
+        <button
+          onClick={() => window.history.back()}
+          className="bg-white text-gray-800 text-small h-[29px] w-[76px] rounded-full shadow hover:bg-gray-200 transition flex items-center justify-center gap-1"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-4 h-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.5 19.5L3 12l7.5-7.5M21 12H3"
+            />
+          </svg>
+          Back
+        </button>
+      </div>
+    </div>
     <div className="bg-white bg-opacity-60 p-6 rounded-2xl min-h-[410px] flex flex-col pt-4 flex-grow overflow-scroll ">
+      
       <p className="mb-4 font-bold">Create Exam Form</p>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -263,6 +289,7 @@ export default function ExamForm() {
           </button>
         </div>
       </form>
+    </div>
     </div>
   );
 }
