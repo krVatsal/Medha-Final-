@@ -29,12 +29,12 @@ const SignUpPage = () => {
         password: data.password,
         firstName: data.name,
       });
-console.log('1')
+      console.log('1')
       if (response.status === 200) {
         // Store tokens in local storage
         localStorage.setItem('accessToken', response.data.accessToken);
         localStorage.setItem('refreshToken', response.data.refreshToken);
-console.log('2')
+        console.log('2')
         // Redirect to dashboard
         router.push('/');
       }
@@ -85,9 +85,8 @@ console.log('2')
               type="text"
               placeholder="Name"
               {...register('name', { required: 'Name is required' })}
-              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                errors.name ? 'border-red-500' : ''
-              }`}
+              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${errors.name ? 'border-red-500' : ''
+                }`}
             />
             {errors.name && typeof errors.name.message === 'string' && (
               <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
@@ -114,9 +113,8 @@ console.log('2')
                   message: 'Enter a valid email address',
                 },
               })}
-              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                errors.email ? 'border-red-500' : ''
-              }`}
+              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${errors.email ? 'border-red-500' : ''
+                }`}
             />
             {isValid && !errors.email && (
               <Image
@@ -152,9 +150,8 @@ console.log('2')
                   message: 'Password must be at least 6 characters long',
                 },
               })}
-              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                errors.password ? 'border-red-500' : ''
-              }`}
+              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${errors.password ? 'border-red-500' : ''
+                }`}
             />
             <Image
               src="./Eye off.svg"
@@ -195,9 +192,8 @@ console.log('2')
                 required: 'Please re-type your password',
                 validate: (value) => value === password || 'Passwords do not match',
               })}
-              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                errors.retypePassword ? 'border-red-500' : ''
-              }`}
+              className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${errors.retypePassword ? 'border-red-500' : ''
+                }`}
             />
             <Image
               src="./Eye off.svg"
@@ -232,17 +228,17 @@ console.log('2')
             <span className="text-[#A1A1A1]">or</span>
             <a href="http://localhost:5217/auth/google">
               <Image
-                src="/Screenshot_2024-08-22_at_3.00.58_AM-removebg-preview 4.png"
-                width={32}
-                height={32}
-                alt="Alternate Sign In"
-                className="cursor-pointer"
-              />
-            </a>
-          </div>
-        </form>
-      </div>
-    </div>
+      src="/Screenshot_2024-08-22_at_3.00.58_AM-removebg-preview 4.png"
+      width={32}
+      height={32}
+      alt="Alternate Sign In"
+      className="cursor-pointer"
+    />
+  </a>
+          </div >
+        </form >
+      </div >
+    </div >
   );
 };
 

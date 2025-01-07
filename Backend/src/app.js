@@ -14,11 +14,21 @@ import userAuthRoute from "./routes/auth.route.js";
 dotenv.config();
 const app = express();
 app.use(cookieParser());
-app.use(cors({
-    // origin: process.env.CORS_ORIGIN,
-    origin: "http://localhost:3000",
-    credentials: true,
-}));
+const allowedOrigins = [process.env.CORS_ORIGIN, "http://localhost:3000", "https://teach.cograd.in"];
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // If the origin is in the allowedOrigins array or there is no origin (i.e., non-browser request), allow the request
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true, // Allow credentials to be passed along
+  })
+);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

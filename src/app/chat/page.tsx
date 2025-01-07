@@ -40,11 +40,10 @@ const ChatbotSkeleton = () => {
         <div className="flex flex-col gap-3 items-end">
           <div className="flex justify-start sm:justify-end gap-2">
             {[...Array(4)].map((_, i) => (
-              <Skeleton 
-                key={i} 
-                className={`rounded-full h-[40px] ${
-                  i === 3 ? "w-[138px]" : "w-[91px]"
-                }`} 
+              <Skeleton
+                key={i}
+                className={`rounded-full h-[40px] ${i === 3 ? "w-[138px]" : "w-[91px]"
+                  }`}
               />
             ))}
           </div>
@@ -89,6 +88,8 @@ const ChatbotSkeleton = () => {
     </div>
   );
 };
+
+
 function Chatbot() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname= usePathname()
@@ -122,6 +123,8 @@ function Chatbot() {
   const [aiSpeaking, setAiSpeaking] = useState(false);
   const [src, setSrc] = useState<string | null>(null);
   const [typing, setTyping] = useState(false);
+  const [modelsToInsert, setModelsToInsert] = useState<any[]>([]);
+
 
   const [chatBackend, setChatBackend] = useState("medha");
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -156,7 +159,7 @@ function Chatbot() {
   }, []);
 
   useEffect(() => {
-    const newSocket = io("https://medha.cograd.in", {
+    const newSocket = io("https://teach.cograd.in", {
       path: "/socket.io",
     });
 
@@ -359,8 +362,7 @@ function Chatbot() {
     } catch (error) {
       console.error("Error generating speech:", error);
       setError(
-        `Error generating speech: ${
-          error instanceof Error ? error.message : String(error)
+        `Error generating speech: ${error instanceof Error ? error.message : String(error)
         }`
       );
     }

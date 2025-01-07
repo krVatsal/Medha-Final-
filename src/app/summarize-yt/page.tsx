@@ -31,7 +31,7 @@ function Summarizeyt() {
   }, []);
 
   useEffect(() => {
-    const newSocket = io('https://medha.cograd.in', {
+    const newSocket = io('https://teach.cograd.in', {
       path: '/socket.io',
     });
 

@@ -20,6 +20,50 @@ export const classDataValues = {
       { 'Model Test Paper-I': [] },
       { 'Model Test Paper-II': [] },
     ],
+    Maths: [
+      {
+        "Knowing Our Numbers": []
+      },
+      {
+        "Whole Numbers": []
+      },
+      {
+        "Playing with Numbers": []
+      },
+      {
+        "Basic Geometrical Ideas": []
+      },
+      {
+        "Understanding Elementary Shapes": []
+      },
+      {
+        "Integers": []
+      },
+      {
+        "Fractions": []
+      },
+      {
+        "Decimals": []
+      },
+      {
+        "Data Handling": []
+      },
+      {
+        "Mensuration": []
+      },
+      {
+        "Algebra": []
+      },
+      {
+        "Ratio and Proportion": []
+      },
+      {
+        "Symmetry": []
+      },
+      {
+        "Practical Geometry": []
+      }
+    ]
   },
   '7': {
     Grammar: [
@@ -76,6 +120,26 @@ export const classDataValues = {
       { 'Model Test Paper-I': [] },
       { 'Model Test Paper-II': [] },
     ],
+    Maths: [
+      {
+        "Fractions and Decimals": []
+      },
+      {
+        "Simple Equations": []
+      },
+      {
+        "The Triangle and its Properties": []
+      },
+      {
+        "Congruence of Triangles": []
+      },
+      {
+        "Perimeter and Area": []
+      },
+      {
+        "Algebraic Expressions": []
+      }
+    ]
   },
   '8': {
     Grammar: [
@@ -159,6 +223,44 @@ export const classDataValues = {
       { 'Model Test Paper-1': [] },
       { 'Model Test Paper-2': [] },
     ],
+    "Maths": [
+      {
+        "Rational Numbers": []
+      },
+      {
+        "Linear Equations in One Variable": []
+      },
+      {
+        "Understanding Quadrilaterals": []
+      },
+      {
+        "Squares and Square Roots": []
+      },
+      {
+        "Cubes and Cube Roots": []
+      },
+      {
+        "Comparing Quantities": []
+      },
+      {
+        "Algebraic Expressions and Identities": []
+      },
+      {
+        "Visualising Solid Shapes": []
+      },
+      {
+        "Exponents and Powers": []
+      },
+      {
+        "Direct and Inverse Proportions": []
+      },
+      {
+        "Factorisation": []
+      },
+      {
+        "Introduction to Graphs": []
+      }
+    ]
   },
   '9': {
     'Political Science': [
@@ -251,6 +353,15 @@ export const classDataValues = {
       { Nationalism: [] },
       { Secularism: [] },
     ],
+    'Computer Science': [
+      { "Computer System Overview": [] },
+      { "Data Representation": [] },
+      { "Boolean Logic": [] },
+      { "Number System": [] },
+      { "Digital Documentation": [] },
+      { "Computational Thinking and Programming - 1": [] },
+      { "Introduction to the Emerging Trends": [] }
+    ]
   },
   '12': {
     Biology: [
@@ -300,5 +411,20 @@ export const classDataValues = {
         'Semiconductor Electronics: Materials, Devices and Simple Circuits': [],
       },
     ],
+    'Computer Science': [
+      { "Computational Thinking and Programming - 2": [] },
+      { "Computer Networks": [] },
+      { "Database Management": [] },
+      { "Python Revision Tour": [] },
+      { "Python Libraries": [] },
+      { "Data File Handling": [] },
+      { "Relational Databases": [] },
+      { "Simple Queries in SQL": [] },
+      { "Table Creation and Data Manipulation Commands": [] },
+      { "Interface Python with MySQL": [] },
+      { "Data Structures": [] },
+      { "Cyber Safety": [] },
+      { "Online Access and Computer Security": [] }
+    ]
   },
 };

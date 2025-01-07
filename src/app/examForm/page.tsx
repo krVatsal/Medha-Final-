@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSelection } from '@/context/SelectionContext'; // Import the context
 import { Skeleton } from '@/components/ui/skeleton';
+import { totalmem } from 'os';
 interface ChapterObject {
   [chapterName: string]: string[];
 }
@@ -16,27 +17,27 @@ interface ClassData {
 }
 
 const ExamFormSkeleton = () => {
-    return (
-      <div className="bg-white bg-opacity-60 p-6 rounded-2xl min-h-[410px] flex flex-col pt-4">
-        <div className="mb-4">
-          <Skeleton className="h-6 w-1/3" />
-        </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-          {[...Array(7)].map((_, index) => (
-            <Skeleton 
-              key={index} 
-              className="h-[31px] w-full rounded-full" 
-            />
-          ))}
-        </div>
-        
-        <div className="flex space-x-4 justify-center sm:justify-start">
-          <Skeleton className="h-[40px] sm:h-12 w-[107px] sm:w-24 rounded-full" />
-        </div>
+  return (
+    <div className="bg-white bg-opacity-60 p-6 rounded-2xl min-h-[410px] flex flex-col pt-4">
+      <div className="mb-4">
+        <Skeleton className="h-6 w-1/3" />
       </div>
-    );
-  };
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        {[...Array(7)].map((_, index) => (
+          <Skeleton
+            key={index}
+            className="h-[31px] w-full rounded-full"
+          />
+        ))}
+      </div>
+
+      <div className="flex space-x-4 justify-center sm:justify-start">
+        <Skeleton className="h-[40px] sm:h-12 w-[107px] sm:w-24 rounded-full" />
+      </div>
+    </div>
+  );
+};
 
 export default function ExamForm() {
   const router = useRouter();
@@ -96,6 +97,9 @@ export default function ExamForm() {
       language: language, // Use the language selected in Personal
       chapters: selectedChapters,
       topics: selectedTopics,
+      total_questions: formData.totalQuestions,
+      fill_in_the_blanks: formData.fillInTheBlanks,
+      true_false: formData.trueFalse,
       ...formData, // Include the form data (totalQuestions, mcq, etc.)
     };
 

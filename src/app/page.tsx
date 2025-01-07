@@ -55,12 +55,12 @@ export default function Home() {
     // if (!token) {
     //   router.push("/login");
     // } else {
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
     // }
   }, []);
-  
+
 
   // Move this check to the top
   if (loading) {
@@ -74,10 +74,10 @@ export default function Home() {
         <div className="flex flex-row justify-between mb-12 sm:mb-8">
           <div className="space-y-1">
             <div className="text-[30px] sm:text-[40px] font-bold pl-1">              {loading ? (
-                <Skeleton className="w-12 h-12" />
-              ) : (
-                `Good Morning ${clientName?.split(" ")[0]}!`
-              )}</div>
+              <Skeleton className="w-12 h-12" />
+            ) : (
+              `Good Morning ${clientName?.split(" ")[0]}!`
+            )}</div>
             <div className="text-[15px] sm:text-[20px] text-gray-500 pl-1">Let&apos;s make this day productive</div>
           </div>
           {/* <SelectOption
@@ -106,3 +106,23 @@ export default function Home() {
     </div>
   );
 }
+
+
+const Greeting = ({ clientName }: { clientName: string }) => {
+  // Get the current hour
+  const currentHour = new Date().getHours();
+
+  // Determine the appropriate greeting based on the current hour
+  let greeting;
+  if (currentHour < 12) {
+    greeting = ' Morning';
+  } else if (currentHour < 18) {
+    greeting = ' Afternoon';
+  } else {
+    greeting = ' Evening';
+  }
+
+  return (
+    `Good ${greeting} ${clientName?.split(" ")[0]}!`
+  );
+};

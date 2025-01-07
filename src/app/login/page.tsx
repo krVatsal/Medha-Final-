@@ -86,9 +86,8 @@ const LoginPage = () => {
                     message: 'Enter a valid email address',
                   },
                 })}
-                className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                  errors.email ? 'border-red-500' : ''
-                }`}
+                className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${errors.email ? 'border-red-500' : ''
+                  }`}
               />
               {isValid && !errors.email && (
                 <Image
@@ -124,9 +123,8 @@ const LoginPage = () => {
                     message: 'Password must be at least 6 characters long',
                   },
                 })}
-                className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${
-                  errors.password ? 'border-red-500' : ''
-                }`}
+                className={`border-b-2 border-black w-full pl-10 py-2 pr-8 text-gray-700 focus:outline-none ${errors.password ? 'border-red-500' : ''
+                  }`}
               />
               {isValid && !errors.password && (
                 <Image
@@ -158,19 +156,19 @@ const LoginPage = () => {
                   className="cursor-pointer"
                 />
               </a>
-            </div>
+            </div >
 
-            {/* Sign Up Link */}
-            <div className="text-left flex gap-2 text-sm">
+  {/* Sign Up Link */ }
+  < div className = "text-left flex gap-2 text-sm" >
               <span className="text-left text-[#696969]">New member?</span>
               <a href="/signup" className="font-bold text-[#354AB0]">
                 Sign up
               </a>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+            </div >
+          </form >
+        </div >
+      </div >
+    </div >
   );
 };
 

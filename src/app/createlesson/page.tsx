@@ -1,21 +1,22 @@
-'use client';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import CreationArea from '@/components/CreationArea';
-import AIToolsSteps from '@/components/AIToolsSteps';
-import { Socket, io } from 'socket.io-client';
-import { useSelection } from '@/context/SelectionContext';
-import { MdEditor } from 'md-editor-rt';
-import 'md-editor-rt/lib/style.css';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+"use client";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import CreationArea from "@/components/CreationArea";
+import AIToolsSteps from "@/components/AIToolsSteps";
+import { Socket, io } from "socket.io-client";
+import { useSelection } from "@/context/SelectionContext";
+import { MdEditor } from "md-editor-rt";
+import "md-editor-rt/lib/style.css";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 function LessonCreation() {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
-  const [lessonPlanMd, setLessonPlanMd] = useState('');
+  const [lessonPlanMd, setLessonPlanMd] = useState("");
   const [loading, setLoading] = useState(false);
   const { subject, classNumber, language } = useSelection();
-  const [selectedTopic, setSelectedTopic] = useState('');
+  const [selectedTopic, setSelectedTopic] = useState("");
+  const [selectedTheme, setSelectedTheme] = useState("");
 
   const previewRef = useRef(null);
 
@@ -23,26 +24,28 @@ function LessonCreation() {
     setLoading(true);
     if (!previewRef.current) return;
 
-    const previewElement = previewRef.current?.querySelector('.md-editor-preview-wrapper');
+    const previewElement = previewRef.current?.querySelector(
+      ".md-editor-preview-wrapper"
+    );
     console.log(previewElement);
     if (!previewElement) return;
 
     try {
       const canvas = await html2canvas(previewElement);
-      const imgData = canvas.toDataURL('image/png');
+      const imgData = canvas.toDataURL("image/png");
 
       const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'px',
+        orientation: "portrait",
+        unit: "px",
         format: [canvas.width, canvas.height],
       });
 
-      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-      pdf.save('lesson-plan.pdf');
+      pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+      pdf.save("lesson-plan.pdf");
       setLoading(false);
     } catch (error) {
-      console.error('Error exporting to PDF:', error);
-      alert('Failed to export PDF. Please try again.');
+      console.error("Error exporting to PDF:", error);
+      alert("Failed to export PDF. Please try again.");
     }
   };
 
@@ -56,30 +59,30 @@ function LessonCreation() {
   }, []);
 
   useEffect(() => {
-    const newSocket = io('https://medha.cograd.in', {
-      path: '/socket.io',
+    const newSocket = io("https://teach.cograd.in", {
+      path: "/socket.io",
     });
 
-    newSocket.on('connect', () => {
-      console.log('Socket.IO Connected');
+    newSocket.on("connect", () => {
+      console.log("Socket.IO Connected");
       setIsConnected(true);
     });
 
-    newSocket.on('disconnect', () => {
-      console.log('Socket.IO Disconnected');
+    newSocket.on("disconnect", () => {
+      console.log("Socket.IO Disconnected");
       setIsConnected(false);
     });
 
-    newSocket.on('error', (data: { message: string }) => {
-      console.error('Socket.IO Error:', data);
+    newSocket.on("error", (data: { message: string }) => {
+      console.error("Socket.IO Error:", data);
     });
 
-    newSocket.on('response', async (data: any) => {
-      if (data.content === '[START]') {
+    newSocket.on("response", async (data: any) => {
+      if (data.content === "[START]") {
         const aiMessage = {
-          message: '',
-          sender: 'ai',
-          direction: 'incoming',
+          message: "",
+          sender: "ai",
+          direction: "incoming",
           isCode: false,
         };
         setLoading(false);
@@ -91,7 +94,7 @@ function LessonCreation() {
     setSocket(newSocket);
 
     return () => {
-      setLessonPlanMd('');
+      setLessonPlanMd("");
       newSocket.disconnect();
     };
   }, []);
@@ -99,53 +102,57 @@ function LessonCreation() {
   const requestLessonPlan = () => {
     if (socket) {
       setLoading(true);
-      socket.emit('request', {
+      socket.emit("request", {
         subject,
         selectedTopic,
         classNumber,
         language,
-        type: 'lesson_plan',
+        type: "lesson_plan",
+        theme: selectedTheme,
       });
     } else {
-      console.error('Socket is not connected');
+      console.error("Socket is not connected");
     }
   };
 
   return lessonPlanMd.length === 0 ? (
     <div className="p-2 sm:p-4 ">
-      
       {/* Greeting Section */}
       <div className="space-y-1 sm:mb-4 items-center flex flex-row justify-between sm:items-center sticky">
-        <div className="text-lg sm:text-3xl md:text-4xl lg:text-[40px] font-[550] mb-4 sm:mb-0">Create Lesson</div>
+        <div className="text-lg sm:text-3xl md:text-4xl lg:text-[40px] font-[550] mb-4 sm:mb-0">
+          Create Lesson
+        </div>
         <AIToolsSteps page="topic" type="lesson" />
       </div>
 
-  <div className="pl-2 mb-6">
-    <button
-      onClick={() => window.history.back()}
-      className="bg-white text-gray-800 text-small h-[29px] w-[76px] rounded-full shadow hover:bg-gray-200 transition flex items-center justify-center gap-1"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-4 h-4"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M10.5 19.5L3 12l7.5-7.5M21 12H3"
-        />
-      </svg>
-      Back
-    </button>
-  </div>
+      <div className="pl-2 mb-6">
+        <button
+          onClick={() => window.history.back()}
+          className="bg-white text-gray-800 text-small h-[29px] w-[76px] rounded-full shadow hover:bg-gray-200 transition flex items-center justify-center gap-1"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-4 h-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.5 19.5L3 12l7.5-7.5M21 12H3"
+            />
+          </svg>
+          Back
+        </button>
+      </div>
 
       <div>
         <CreationArea
           page="lesson"
+          buttonLoading={loading}
+          setSelectedTheme={setSelectedTheme}
           setSelectedText={setSelectedTopic}
           requestLessonPlan={requestLessonPlan}
           requestYoutubeSummary={undefined}
@@ -166,16 +173,16 @@ function LessonCreation() {
           preview={true}
           onChange={setLessonPlanMd}
           previewTheme="github"
-          style={{ height: '100%' }}
+          style={{ height: "100%" }}
           language="en-US"
         />
       </div>
       <button
-        className="text-white bg-[#5D233C] p-4 mt-6 rounded-full px-6"
+        className="text-white bg-[#5D233C] p-4 mt-6 rounded-full px-6 mb-6"
         onClick={() => exportToPdf()}
         disabled={loading}
       >
-        {loading ? 'Generating PDF' : 'Download Lesson Plan'}
+        {loading ? "Generating PDF" : "Download Lesson Plan"}
       </button>
     </>
   );

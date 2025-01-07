@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { allFooter } from 'md-editor-rt';
 
 function MyAppsArea() {
   const router = useRouter();
@@ -34,79 +35,79 @@ function MyAppsArea() {
             <div className="text-xs font-medium text-center">Create Quiz</div>
           </div>
 
-          {/* Summarize PDF */}
-          <div 
-            className="flex flex-col items-center space-y-2 action-button relative"
-            onClick={() => alert('Coming Soon')}
-          >
-            <div className="absolute top-0 right-0 bg-red-500 text-white text-[10px] px-2 rounded-full z-10">
-              Coming Soon
+            {/* Summarize PDF */}
+            <div
+              className="flex flex-col items-center space-y-2 action-button relative"
+              onClick={() => alert('Coming Soon')}
+            >
+              <div className="absolute top-0 right-0 bg-red-500 text-white text-[10px] px-2 rounded-full z-10">
+                Coming Soon
+              </div>
+              <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center bg-white justify-center rounded-xl">
+                <Image
+                  width={34}
+                  height={34}
+                  alt="Summarize PDF"
+                  src="/Summarize_pdf.svg"
+                  className="max-w-full max-h-full"
+                />
+              </div>
+              <div className="text-xs font-medium text-center">Summarize PDF</div>
             </div>
-            <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center bg-white justify-center rounded-xl">
-              <Image 
-                width={34} 
-                height={34} 
-                alt="Summarize PDF" 
-                src="/Summarize_pdf.svg" 
-                className="max-w-full max-h-full"
-              />
-            </div>
-            <div className="text-xs font-medium text-center">Summarize PDF</div>
-          </div>
 
-          {/* Create PPT */}
-          <div 
-            className="flex flex-col items-center space-y-2 action-button relative"
-            onClick={() => alert('Coming Soon')}
-          >
-            <div className="absolute top-0 right-0 bg-red-500 text-white text-[10px] px-2 rounded-full z-10">
-              Coming Soon
+            {/* Create PPT */}
+            <div
+              className="flex flex-col items-center space-y-2 action-button relative"
+              onClick={() => alert('Coming Soon')}
+            >
+              <div className="absolute top-0 right-0 bg-red-500 text-white text-[10px] px-2 rounded-full z-10">
+                Coming Soon
+              </div>
+              <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center bg-white justify-center rounded-xl">
+                <Image
+                  width={34}
+                  height={34}
+                  alt="Create PPT"
+                  src="/Create_ppt.svg"
+                  className="max-w-full max-h-full"
+                />
+              </div>
+              <div className="text-xs font-medium text-center">Create PPT</div>
             </div>
-            <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center bg-white justify-center rounded-xl">
-              <Image 
-                width={34} 
-                height={34} 
-                alt="Create PPT" 
-                src="/Create_ppt.svg" 
-                className="max-w-full max-h-full"
-              />
-            </div>
-            <div className="text-xs font-medium text-center">Create PPT</div>
-          </div>
 
-          {/* Summarize YouTube */}
-          <div
-            onClick={() => router.push('/summarize-yt')}
-            className="flex flex-col items-center space-y-2 action-button cursor-pointer"
-          >
-            <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center bg-white justify-center rounded-xl">
-              <Image 
-                width={34} 
-                height={34} 
-                alt="Summarize YouTube" 
-                src="/Summarize_yt.svg" 
-                className="max-w-full max-h-full"
-              />
+            {/* Summarize YouTube */}
+            <div
+              onClick={() => router.push('/summarize-yt')}
+              className="flex flex-col items-center space-y-2 action-button cursor-pointer"
+            >
+              <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center bg-white justify-center rounded-xl">
+                <Image
+                  width={34}
+                  height={34}
+                  alt="Summarize YouTube"
+                  src="/Summarize_yt.svg"
+                  className="max-w-full max-h-full"
+                />
+              </div>
+              <div className="text-xs font-medium text-center">Summarize YouTube Video</div>
             </div>
-            <div className="text-xs font-medium text-center">Summarize YouTube Video</div>
-          </div>
 
-          {/* Create Exam Form */}
-          <div
-            onClick={() => router.push('/examForm')}
-            className="flex flex-col items-center space-y-2 action-button cursor-pointer"
-          >
-            <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center bg-white justify-center rounded-xl">
-              <Image 
-                width={34} 
-                height={34} 
-                alt="Create Exam Form" 
-                src="/create_exam_form.svg" 
-                className="max-w-full max-h-full"
-              />
+            {/* Create Exam Form */}
+            <div
+              onClick={() => router.push('/examForm')}
+              className="flex flex-col items-center space-y-2 action-button cursor-pointer"
+            >
+              <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center bg-white justify-center rounded-xl">
+                <Image
+                  width={34}
+                  height={34}
+                  alt="Create Exam Form"
+                  src="/create_exam_form.svg"
+                  className="max-w-full max-h-full"
+                />
+              </div>
+              <div className="text-xs font-medium text-center">Create Exam Form</div>
             </div>
-            <div className="text-xs font-medium text-center">Create Exam Form</div>
-          </div>
 
           {/* Lesson Planner */}
           <div

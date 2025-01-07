@@ -3,12 +3,13 @@ import socketio
 from aiohttp import web
 from ollama import AsyncClient
 
-sio = socketio.AsyncServer(cors_allowed_origins='https://medha.cograd.in')
+sio = socketio.AsyncServer(cors_allowed_origins=['https://teach.cograd.in', 'http://localhost:3000'])
 app = web.Application()
 sio.attach(app)
 
 CHAT_MODEL = "allrounder"
-LESSON_PLAN_MODEL = "llama-lesson"
+LESSON_PLAN_MODEL = "lesson_planner"
+PRESENTATION_MODE = "ppt_generator"
 
 async def generate_ai_response(prompt, model):
     message = {'role': 'user', 'content': prompt}

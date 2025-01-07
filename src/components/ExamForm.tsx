@@ -63,13 +63,14 @@ export default function ExamForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-
+    console.log(formData)
     const payload = {
       class: classNumber, // Use the class selected in Personal
       subject: subject, // Use the subject selected in Personal
       language: language, // Use the language selected in Personal
       chapters: selectedChapters,
       topics: selectedTopics,
+      total_questions: formData.totalQuestions,
       ...formData, // Include the form data (totalQuestions, mcq, etc.)
     };
 
