@@ -201,7 +201,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
                       } md:translate-x-0 md:w-1/4 lg:w-1/6 md:flex-shrink-0 overflow-y-auto flex flex-col`}
                     >
-                      <div className="flex items-center px-4 py-5">
+                      <div className="flex items-center px-4 py-[12px]">
                       <div className="w-16 h-[58px] relative flex-shrink-0 -mr-[7px]">
                           <Image src="/Codepen.svg" fill objectFit="contain" alt="Medha Icon" />
                         </div>
